@@ -24,13 +24,42 @@ mobile. O texto “Tire suas dúvidas” aparece como tooltip em hover ou foco; 
 nome acessível permanece disponível por `aria-label`.
 
 A lógica de abertura e mensagens está em `public/assets/js/site.js`. O endpoint
-é definido pela constante `CHAT_WEBHOOK_URL`. Enquanto ela permanecer com o
-valor `COLOQUE_AQUI_O_WEBHOOK`, o launcher visual pode ser validado, mas o envio
-de mensagens não deve ser considerado funcional nem publicado em produção.
+é injetado no HTML durante o build pela variável `CHAT_WEBHOOK_URL`. A URL será
+visível no navegador e não pode conter tokens ou credenciais. Sem a variável, o
+launcher visual pode ser validado, mas o envio não é considerado funcional.
+
+Cada ambiente deve usar seu próprio endpoint:
+
+```bash
+SITE_URL=https://staging.koddahub.com.br \
+CHAT_WEBHOOK_URL=https://endpoint-de-teste.example/webhook \
+python3 scripts/build.py
+```
+
+O webhook deve aceitar apenas `POST`, validar e limitar payloads, configurar
+CORS para a origem esperada, aplicar rate limiting e devolver JSON com uma
+string em `output` ou `message`. Esses controles pertencem ao servidor/n8n, não
+ao JavaScript público.
 
 ## Publicação
 
-Produção usa `/home/kodda/public_html`. Não há ambiente de staging, homologação
-ou HML configurado atualmente. Produção não deve ser usada como staging; um
-deploy produtivo requer build validado, staging aprovado ou autorização
-excepcional explícita e plano de rollback.
+O fluxo oficial separa os ambientes:
+
+```text
+SOURCE /home/kodda/projects/site-koddahub
+  -> BUILD /home/kodda/projects/site-koddahub/dist
+  -> STAGING /home/kodda/staging/site-koddahub
+  -> VALIDACAO https://staging.koddahub.com.br
+  -> PRODUCTION /home/kodda/public_html
+```
+
+O staging usa o VirtualHost versionado em
+`deploy/apache/staging.koddahub.com.br.conf`. O artefato publicado deve conter
+somente o conteúdo de `dist/`. Nunca copie `.git`, `.env`, documentação, scripts
+de desenvolvimento, segredos ou credenciais.
+
+Enquanto o DNS não estiver criado, valide o VirtualHost localmente com o header
+`Host`. Depois que o DNS apontar para o servidor, emita o certificado pelo mesmo
+mecanismo Let's Encrypt já usado no servidor e só então valide HTTPS. Produção
+não deve ser usada como staging e exige uma etapa independente, aprovação e
+plano de rollback.

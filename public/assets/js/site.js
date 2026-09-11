@@ -32,11 +32,11 @@
   animatedGroups.forEach((element) => revealObserver.observe(element));
 })();
 
-/* Chat de atendimento: configure o endpoint abaixo antes de publicar. */
+/* Chat de atendimento: o endpoint e injetado pelo build conforme o ambiente. */
 (function () {
   "use strict";
 
-  const CHAT_WEBHOOK_URL = "COLOQUE_AQUI_O_WEBHOOK";
+  const CHAT_WEBHOOK_URL = document.querySelector('meta[name="koddahub-chat-webhook-url"]')?.content.trim() || "";
   const SESSION_KEY = "kodda_chat_session_id";
   const MESSAGES_KEY = "kodda_chat_messages";
   const MAX_MESSAGES = 50;
@@ -160,7 +160,7 @@
   }
 
   async function sendMessageToAgent(message) {
-    if (!CHAT_WEBHOOK_URL || CHAT_WEBHOOK_URL === "COLOQUE_AQUI_O_WEBHOOK") throw new Error("Webhook do chat não configurado");
+    if (!CHAT_WEBHOOK_URL) throw new Error("Webhook do chat não configurado");
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), REQUEST_TIMEOUT);
     try {
