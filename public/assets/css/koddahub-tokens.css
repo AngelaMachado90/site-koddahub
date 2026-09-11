@@ -1,0 +1,151 @@
+:root {
+  color-scheme: light;
+
+  /* Brand: source of truth for the KoddaHub textual wordmark. */
+  --kdh-brand-kodda: #7c3aed;
+  --kdh-brand-hub: #facc15;
+  --kdh-brand-kodda-on-dark: #a78bfa;
+  --kdh-brand-hub-on-dark: #fde047;
+
+  /* Purple scale. */
+  --kdh-purple-50: #f5f3ff;
+  --kdh-purple-100: #ede9fe;
+  --kdh-purple-200: #ddd6fe;
+  --kdh-purple-300: #c4b5fd;
+  --kdh-purple-400: #a78bfa;
+  --kdh-purple-500: #8b5cf6;
+  --kdh-purple-600: #7c3aed;
+  --kdh-purple-700: #6d28d9;
+  --kdh-purple-800: #5b21b6;
+  --kdh-purple-900: #4c1d95;
+
+  /* Yellow scale. */
+  --kdh-yellow-50: #fefce8;
+  --kdh-yellow-100: #fef9c3;
+  --kdh-yellow-200: #fef08a;
+  --kdh-yellow-300: #fde047;
+  --kdh-yellow-400: #facc15;
+  --kdh-yellow-500: #eab308;
+  --kdh-yellow-600: #ca8a04;
+  --kdh-yellow-700: #a16207;
+  --kdh-yellow-800: #854d0e;
+  --kdh-yellow-900: #713f12;
+
+  /* Neutral surfaces and text. */
+  --kdh-bg: #f8fafc;
+  --kdh-bg-subtle: #f1f5f9;
+  --kdh-surface: #ffffff;
+  --kdh-surface-raised: #ffffff;
+  --kdh-text-primary: #0f172a;
+  --kdh-text-secondary: #334155;
+  --kdh-text-muted: #64748b;
+  --kdh-text-inverse: #ffffff;
+  --kdh-border: #cbd5e1;
+  --kdh-border-subtle: #e2e8f0;
+
+  /* Functional interface colors. */
+  --kdh-primary: var(--kdh-purple-700);
+  --kdh-primary-hover: var(--kdh-purple-800);
+  --kdh-primary-active: var(--kdh-purple-900);
+  --kdh-accent: var(--kdh-brand-hub);
+  --kdh-accent-hover: var(--kdh-yellow-300);
+  --kdh-text-accent-yellow: var(--kdh-yellow-800);
+  --kdh-focus-ring: rgba(124, 58, 237, 0.38);
+
+  /* Feedback colors remain independent from the brand. */
+  --kdh-success: #15803d;
+  --kdh-warning: #a16207;
+  --kdh-danger: #b91c1c;
+  --kdh-info: #0369a1;
+
+  /* Typography. */
+  --kdh-font-sans: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --kdh-font-weight-regular: 400;
+  --kdh-font-weight-medium: 500;
+  --kdh-font-weight-semibold: 600;
+  --kdh-font-weight-bold: 700;
+  --kdh-font-weight-extra-bold: 800;
+
+  /* Spacing: 4px base scale. */
+  --kdh-space-1: 0.25rem;
+  --kdh-space-2: 0.5rem;
+  --kdh-space-3: 0.75rem;
+  --kdh-space-4: 1rem;
+  --kdh-space-6: 1.5rem;
+  --kdh-space-8: 2rem;
+  --kdh-space-12: 3rem;
+  --kdh-space-16: 4rem;
+
+  /* Shape and elevation. */
+  --kdh-radius-sm: 0.5rem;
+  --kdh-radius-md: 0.8rem;
+  --kdh-radius-lg: 1.25rem;
+  --kdh-radius-xl: 1.7rem;
+  --kdh-radius-pill: 999px;
+  --kdh-shadow-sm: 0 5px 14px rgba(15, 23, 42, 0.13);
+  --kdh-shadow-md: 0 12px 34px rgba(15, 23, 42, 0.10);
+  --kdh-shadow-lg: 0 24px 70px rgba(15, 23, 42, 0.14);
+
+  /* Bootstrap 5.3 integration. */
+  --bs-body-font-family: var(--kdh-font-sans);
+  --bs-body-color: var(--kdh-text-primary);
+  --bs-body-bg: var(--kdh-bg);
+  --bs-primary: var(--kdh-primary);
+  --bs-primary-rgb: 109, 40, 217;
+  --bs-link-color: var(--kdh-primary);
+  --bs-link-hover-color: var(--kdh-primary-hover);
+  --bs-focus-ring-color: var(--kdh-focus-ring);
+  --bs-border-color: var(--kdh-border);
+}
+
+/* Reusable textual brand. Color is not the only accessible name. */
+.kdh-brand-wordmark {
+  display: inline-flex;
+  white-space: nowrap;
+  font: inherit;
+  letter-spacing: inherit;
+}
+
+.kdh-brand-kodda {
+  color: var(--kdh-brand-kodda);
+}
+
+.kdh-brand-hub {
+  color: var(--kdh-brand-hub);
+}
+
+/* Compatibility for the current footer markup. */
+.footer-brand {
+  color: var(--kdh-brand-kodda) !important;
+}
+
+.footer-brand > span {
+  color: var(--kdh-brand-hub);
+}
+
+.kdh-brand-wordmark-on-dark .kdh-brand-kodda,
+[data-bs-theme="dark"] .kdh-brand-wordmark .kdh-brand-kodda {
+  color: var(--kdh-brand-kodda-on-dark);
+}
+
+.kdh-brand-wordmark-on-dark .kdh-brand-hub,
+[data-bs-theme="dark"] .kdh-brand-wordmark .kdh-brand-hub {
+  color: var(--kdh-brand-hub-on-dark);
+}
+
+.kdh-credit {
+  color: var(--kdh-text-secondary);
+}
+
+.kdh-link {
+  color: var(--kdh-primary);
+}
+
+.kdh-link:hover {
+  color: var(--kdh-primary-hover);
+}
+
+:focus-visible {
+  outline-color: var(--kdh-primary);
+  box-shadow: 0 0 0 0.25rem var(--kdh-focus-ring);
+}
