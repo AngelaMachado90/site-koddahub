@@ -169,6 +169,26 @@ Use `--kdh-radius-sm`, `md`, `lg`, `xl` e `pill`. Para elevação, use
 | Link | Roxo funcional, sublinhado quando o contexto exigir distinção |
 | Focus State | Contorno e anel visíveis; nunca remover sem alternativa |
 
+### Launcher do chatbot
+
+O launcher anterior em formato horizontal foi substituído por um botão circular
+fixado no canto inferior direito. O componente preserva a classe
+`kodda-chat-trigger` consumida pelo JavaScript existente.
+
+| Propriedade | Desktop | Mobile |
+| --- | --- | --- |
+| Dimensão | 64 × 64 px | 56 × 56 px |
+| Distância inferior | 24 px | 16 px |
+| Distância direita | 24 px | 16 px |
+| Conteúdo | Ícone de chat amarelo sobre roxo | Mesmo ícone, sem tooltip permanente |
+
+O texto “Tire suas dúvidas” é apresentado em um balão lateral discreto no
+`hover` e no `focus-visible`. O botão usa elemento `button`,
+`aria-label="Tire suas dúvidas"`, `aria-controls` e `aria-expanded`. Hover eleva
+o componente e reforça suavemente a sombra; foco por teclado acrescenta
+contorno e anel visíveis. Ao abrir o painel, a lógica JavaScript existente
+oculta o launcher; ao fechar, restaura o botão e devolve o foco.
+
 ## 8. Governança
 
 - Reutilize tokens antes de adicionar cores ou valores paralelos.
