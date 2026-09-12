@@ -15,7 +15,9 @@ O fluxo é: VAL → Markdown editorial → aprovação → `scripts/build.py` �
 `dist/` manualmente. A publicação produtiva não faz parte do build.
 
 O status deve ser `draft`, `review`, `scheduled`, `published` ou `archived`.
-Somente `published` com `publish_date` até a data do build aparece. Um artigo
+`published` e `scheduled` aparecem somente quando `publish_date` chega. O status
+`scheduled` permite a inclusão no build do dia programado; os demais estados
+ficam fora do site. Um artigo
 publicado requer `title`, `seo_title`, `meta_description`, `summary`, `category`,
 `reading_time`, `slug` e `publish_date` ISO (AAAA-MM-DD). O slug deve ter
 letras minúsculas, números e hífens. `cover`, `cover_alt`, `cover_width` e
@@ -43,3 +45,23 @@ final do servidor HTTP/Apache. Não há rewrite que transforme 404 em 200.
 Para validar: `python3 -m unittest discover -s tests -v`,
 `python3 scripts/build.py` e sirva `dist/` com `python3 -m http.server 8000 -d dist`.
 Verifique `/`, `/blog`, `/blog/`, artigo publicado e uma URL inexistente.
+
+## Publicação agendada
+
+Os 30 textos do [planejamento editorial](editorial/planejamento-30-artigos-2026.md)
+foram preparados separadamente do rascunho inaugural. Quatro textos com pautas
+de 09 a 12/09 foram publicados em 12/09/2026, sua data real de publicação.
+Os outros 26 estão em `docs/editorial/agendados/` com `status: scheduled` e
+`publish_date` entre 13/09 e 08/10/2026. Não confunda `planned_date` com a data
+real: ela preserva o histórico do planejamento.
+
+O cron do usuário `kodda` executa `scripts/publish_due.py` às 09:00 no fuso
+`America/Sao_Paulo`. O script só age quando encontra artigo devido ainda ausente
+em `/home/kodda/public_html/blog/`. Ele executa o build, verifica o artigo
+no artefato, salva uma cópia de `blog/` e `sitemap.xml` em
+`/home/kodda/site-koddahub-backups/`, atualiza apenas essas saídas e confirma
+que o arquivo público existe. Em erro de cópia, restaura o backup. Se um dia
+foi perdido, o script para em vez de afirmar uma data de publicação falsa;
+revisar o agendamento antes de retomar. O log do cron fica em
+`/home/kodda/site-koddahub-publish.log`. A publicação de conteúdo não faz push
+ou commit automático.

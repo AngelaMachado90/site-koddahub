@@ -4,6 +4,7 @@ import re
 from datetime import date
 from html import escape
 from pathlib import Path
+from urllib.parse import urlparse
 
 import yaml
 
@@ -62,6 +63,22 @@ def markdown(value):
     return "\n".join(blocks)
 
 
+def source_links(body):
+    """Exibe somente URLs HTTPS presentes nas notas de referência editorial."""
+    section = body.split("## Referências", 1)
+    if len(section) == 1:
+        return ""
+    urls = []
+    for match in re.findall(r"https://[^\s)]+", section[1]):
+        url = match.rstrip(".,;:")
+        if urlparse(url).hostname and url not in urls:
+            urls.append(url)
+    if not urls:
+        return ""
+    links = "".join(f'<li><a href="{e(url)}">{e(urlparse(url).hostname)}</a></li>' for url in urls)
+    return '<section aria-labelledby="fontes-artigo"><h2 id="fontes-artigo">Fontes</h2><ul>' + links + '</ul></section>'
+
+
 def articles(editorial=EDITORIAL, today=None):
     today = today or date.today()
     found = []
@@ -71,11 +88,11 @@ def articles(editorial=EDITORIAL, today=None):
         if not match:
             continue
         meta = yaml.safe_load(match[1]) or {}
-        if meta.get("status") != "published":
+        if meta.get("status") not in {"published", "scheduled"}:
             continue
         published = meta.get("publish_date")
         if not published:
-            raise ValueError(f"Artigo publicado sem publish_date: {path}")
+            raise ValueError(f"Artigo público ou agendado sem publish_date: {path}")
         published = date.fromisoformat(str(published))
         if published > today:
             continue
@@ -125,7 +142,7 @@ def build_blog(dist, home, site_url, version, editorial=EDITORIAL):
     for item in entries:
         url = blog_url + item['slug'] + '/'
         related = '<ul>' + ''.join(f'<li><a href="/blog/{e(other["slug"])}/">{e(other["title"])}</a></li>' for other in entries if other is not item) + '</ul>' if len(entries)>1 else '<p><a href="/blog/">Ver todos os artigos</a></p>'
-        content = markdown(item['body'].split('## Links internos sugeridos')[0].split('## Referências')[0].split('## Imagem de capa')[0])
+        content = markdown(item['body'].split('## Links internos sugeridos')[0].split('## Referências')[0].split('## Imagem de capa')[0]) + source_links(item['body'])
         cover = ''
         if item.get('cover'):
             cover_path = str(item['cover'])
