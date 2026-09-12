@@ -128,6 +128,7 @@ def shell(home, body, title, description, canonical, site_url, version, schema, 
 
 
 MONTHS_PT = ("janeiro", "fevereiro", "março", "abril", "maio", "junho", "julho", "agosto", "setembro", "outubro", "novembro", "dezembro")
+FEATURED_SLUG = "site-responsivo-como-oferecer-uma-boa-experiencia-em-cada-tela"
 
 
 def format_date_pt(value):
@@ -156,8 +157,10 @@ def card_html(item, featured=False, position=1):
 
 def build_blog(dist, home, site_url, version, editorial=EDITORIAL):
     entries = articles(editorial)
-    featured = card_html(entries[0], featured=True) if entries else ""
-    listing = ''.join(card_html(item, position=position) for position, item in enumerate(entries[1:], start=2)) if entries else '<div class="col-12"><div class="blog-empty"><p class="mb-2">Os primeiros artigos estão em preparação.</p><a href="/#processo">Conheça como trabalhamos <span aria-hidden="true">→</span></a></div></div>'
+    featured_item = next((item for item in entries if item['slug'] == FEATURED_SLUG), entries[0] if entries else None)
+    featured = card_html(featured_item, featured=True) if featured_item else ""
+    remaining = [item for item in entries if item is not featured_item]
+    listing = ''.join(card_html(item, position=position) for position, item in enumerate(remaining, start=2)) if entries else '<div class="col-12"><div class="blog-empty"><p class="mb-2">Os primeiros artigos estão em preparação.</p><a href="/#processo">Conheça como trabalhamos <span aria-hidden="true">→</span></a></div></div>'
     count = f"{len(entries)} artigo{'s' if len(entries) != 1 else ''} publicado{'s' if len(entries) != 1 else ''}" if entries else "Novos textos em preparação"
     blog_url = site_url + '/blog/'
     blog_schema = {"@context":"https://schema.org","@type":"Blog","name":"Blog Koddahub","url":blog_url,"description":"Tecnologia aplicada a problemas reais."}
