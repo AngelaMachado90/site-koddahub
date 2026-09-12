@@ -110,7 +110,7 @@ def articles(editorial=EDITORIAL, today=None):
     return sorted(found, key=lambda a: a["publish_date"], reverse=True)
 
 
-def shell(home, body, title, description, canonical, site_url, version, schema, article=False):
+def shell(home, body, title, description, canonical, site_url, version, schema, article=False, image_path=None):
     header = re.search(r'<header class="site-header.*?</header>', home, re.S).group()
     footer = re.search(r'<footer class="site-footer.*?</footer>', home, re.S).group()
     chat = re.search(r'<div class="kodda-chat">.*?(?=\n  <script src=)', home, re.S).group()
@@ -118,7 +118,7 @@ def shell(home, body, title, description, canonical, site_url, version, schema, 
     header = header.replace('href="#inicio"', 'href="/"').replace('href="#servicos"', 'href="/#servicos"').replace('href="#processo"', 'href="/#processo"').replace('href="#cases"', 'href="/#cases"').replace('href="#contato"', 'href="/#contato"')
     header = header.replace('<a class="nav-link" href="/blog/">Blog</a>', '<a class="nav-link" href="/blog/" aria-current="page">Blog</a>')
     footer = footer.replace('href="#inicio"', 'href="/"')
-    image = site_url + '/assets/images/hero/koddahub-hero.webp'
+    image = site_url + (image_path or '/assets/images/hero/koddahub-hero.webp')
     og_type = 'article' if article else 'website'
     schema_json = json.dumps(schema, ensure_ascii=False).replace('<', '\\u003c')
     head = f'''<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>{e(title)}</title><meta name="description" content="{e(description)}"><meta name="theme-color" content="#0a1a2f"><meta name="koddahub-chat-webhook-url" content="{{{{CHAT_WEBHOOK_URL}}}}"><link rel="canonical" href="{e(canonical)}"><meta property="og:locale" content="pt_BR"><meta property="og:type" content="{og_type}"><meta property="og:site_name" content="KoddaHub"><meta property="og:title" content="{e(title)}"><meta property="og:description" content="{e(description)}"><meta property="og:url" content="{e(canonical)}"><meta property="og:image" content="{e(image)}"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="{e(title)}"><meta name="twitter:description" content="{e(description)}"><meta name="twitter:image" content="{e(image)}"><link rel="icon" type="image/webp" href="/assets/images/logo/koddahub-logo-128.webp"><link rel="stylesheet" href="/assets/vendor/bootstrap/bootstrap.min.css?v={e(version)}"><link rel="stylesheet" href="/assets/css/koddahub-tokens.css?v={e(version)}"><link rel="stylesheet" href="/assets/css/style.css?v={e(version)}"><link rel="stylesheet" href="/assets/css/blog.css?v={e(version)}"><script type="application/ld+json">{schema_json}</script></head><body><a class="skip-link" href="#conteudo">Pular para o conteúdo</a>'''
@@ -189,7 +189,9 @@ def build_blog(dist, home, site_url, version, editorial=EDITORIAL):
         schema = {"@context":"https://schema.org","@type":"BlogPosting","headline":item['title'],"description":item['meta_description'],"datePublished":str(item['publish_date']),"author":{"@type":"Organization","name":"Koddahub"},"mainEntityOfPage":url}
         if item.get('modified_date'):
             schema['dateModified'] = str(item['modified_date'])
-        page = shell(home, body, item['seo_title'], item['meta_description'], url, site_url, version, schema, True)
+        if item.get('cover'):
+            schema['image'] = site_url + item['cover']
+        page = shell(home, body, item['seo_title'], item['meta_description'], url, site_url, version, schema, True, item.get('cover'))
         target_dir = target/item['slug']; target_dir.mkdir(exist_ok=True)
         (target_dir/'index.html').write_text(page, encoding='utf-8')
     return [blog_url] + [blog_url + item['slug'] + '/' for item in entries]

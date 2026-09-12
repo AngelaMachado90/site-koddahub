@@ -78,6 +78,9 @@ Conteúdo.
             featured = listing.split('class="card blog-card blog-featured"', 1)[1].split('</article>', 1)[0]
             self.assertIn('href="/blog/site-responsivo-como-oferecer-uma-boa-experiencia-em-cada-tela/"', featured)
             self.assertIn('src="/assets/images/blog/site-responsivo.jpg"', featured)
+            chatbot = (target/'blog/chatbot-no-atendimento-o-que-automatizar-sem-perder-o-contexto-da-conversa/index.html').read_text(encoding='utf-8')
+            self.assertIn('src="/assets/images/blog/chatbot-automacao-contexto.webp"', chatbot)
+            self.assertIn('property="og:image" content="https://koddahub.com.br/assets/images/blog/chatbot-automacao-contexto.webp"', chatbot)
 
     def test_published_article_and_seo(self):
         with tempfile.TemporaryDirectory() as temporary:

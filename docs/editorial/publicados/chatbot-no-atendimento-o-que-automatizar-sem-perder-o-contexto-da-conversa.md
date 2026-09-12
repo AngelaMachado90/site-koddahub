@@ -10,15 +10,13 @@ planned_date: 09/09/2026
 publish_date: 2026-09-12
 status: published
 author: VAL — Valor, Autoridade e Linguagem Koddahub
-cover: /assets/images/blog/chatbot-atendimento-pexels.jpg
-cover_alt: Profissional de atendimento com fone de ouvido, sorrindo enquanto faz anotações durante uma conversa
-cover_width: 1880
-cover_height: 1255
+cover: /assets/images/blog/chatbot-automacao-contexto.webp
+cover_alt: Ilustração de conversa com chatbot e transferência do contexto para uma atendente humana
+cover_width: 1672
+cover_height: 941
 image_source:
-  provider: Pexels
-  photographer: Pavel Danilyuk
-  photo_id: 7658428
-  url: https://www.pexels.com/photo/woman-in-headphones-holding-pen-and-smiling-while-talking-7658428/
+  provider: OpenAI
+  type: imagem gerada para o Blog Koddahub
 ---
 
 # Chatbot no atendimento: o que automatizar sem perder o contexto da conversa
