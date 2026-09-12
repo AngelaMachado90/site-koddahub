@@ -113,6 +113,7 @@ Texto de teste.
             self.assertIn('Exemplo editorial', listing)
             self.assertIn('/assets/vendor/bootstrap/bootstrap.bundle.min.js?v=test', listing)
             self.assertIn('/assets/js/site.js?v=test', listing)
+            self.assertIn('src="/assets/images/logo/kodda-chat-avatar-128.webp"', listing)
             self.assertIn('<title>Exemplo editorial | Blog Koddahub</title>', page)
             self.assertIn('/assets/js/site.js?v=test', page)
             self.assertIn('rel="canonical" href="https://koddahub.com.br/blog/exemplo-editorial/"', page)
