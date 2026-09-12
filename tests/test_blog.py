@@ -81,6 +81,9 @@ Conteúdo.
             chatbot = (target/'blog/chatbot-no-atendimento-o-que-automatizar-sem-perder-o-contexto-da-conversa/index.html').read_text(encoding='utf-8')
             self.assertIn('src="/assets/images/blog/chatbot-automacao-contexto.webp"', chatbot)
             self.assertIn('property="og:image" content="https://koddahub.com.br/assets/images/blog/chatbot-automacao-contexto.webp"', chatbot)
+            n8n = (target/'blog/n8n-na-pratica-quando-faz-sentido-automatizar-um-processo-com-a-ferramenta/index.html').read_text(encoding='utf-8')
+            self.assertIn('src="/assets/images/blog/n8n-workflow-automacao.webp"', n8n)
+            self.assertIn('property="og:image" content="https://koddahub.com.br/assets/images/blog/n8n-workflow-automacao.webp"', n8n)
 
     def test_published_article_and_seo(self):
         with tempfile.TemporaryDirectory() as temporary:
