@@ -127,21 +127,47 @@ def shell(home, body, title, description, canonical, site_url, version, schema, 
     return head + header + '<main id="conteudo">' + body + '</main>' + footer + chat + scripts + '</body></html>'
 
 
+MONTHS_PT = ("janeiro", "fevereiro", "março", "abril", "maio", "junho", "julho", "agosto", "setembro", "outubro", "novembro", "dezembro")
+
+
+def format_date_pt(value):
+    return f"{value.day} de {MONTHS_PT[value.month - 1]} de {value.year}"
+
+
+def card_html(item, featured=False, position=1):
+    title = e(item["title"])
+    url = f'/blog/{e(item["slug"])}/'
+    date_label = e(format_date_pt(item["publish_date"]))
+    category = e(item["category"])
+    summary = e(item["summary"])
+    meta = f'<div class="blog-card-meta"><time datetime="{e(item["publish_date"])}">{date_label}</time><span aria-hidden="true">·</span><span>{e(item["reading_time"])} de leitura</span></div>'
+    cover = item.get("cover")
+    cover_image = ''
+    if cover:
+        cover_image = f'<img class="blog-card-cover" src="{e(cover)}" width="{e(item.get("cover_width", ""))}" height="{e(item.get("cover_height", ""))}" alt="" loading="lazy" decoding="async">'
+    if featured:
+        art_class = "blog-featured-art blog-featured-art--cover h-100" if cover_image else "blog-featured-art h-100"
+        art_column_class = "col-lg-5" if cover_image else "col-lg-5 d-none d-lg-block"
+        return f'''<article class="card blog-card blog-featured"><a class="blog-card-link" href="{url}" aria-label="Ler artigo: {title}"><div class="row g-0"><div class="col-lg-7"><div class="blog-card-body"><span class="blog-featured-label">Em destaque</span><span class="blog-category">{category}</span><h3 class="blog-card-title">{title}</h3><p class="blog-card-summary">{summary}</p>{meta}<span class="blog-read-link">Ler artigo <span aria-hidden="true">→</span></span></div></div><div class="{art_column_class}"><div class="{art_class}" aria-hidden="true">{cover_image}</div></div></div></a></article>'''
+    tone = position % 3
+    media = f'<div class="blog-card-media blog-card-media--cover" aria-hidden="true">{cover_image}</div>' if cover_image else f'<div class="blog-card-media blog-tone-{tone}" aria-hidden="true"><span>{position:02d}</span></div>'
+    return f'''<div class="col-md-6 col-xl-4"><article class="card blog-card h-100"><a class="blog-card-link d-flex flex-column h-100" href="{url}" aria-label="Ler artigo: {title}">{media}<div class="blog-card-body d-flex flex-column flex-grow-1"><span class="blog-category">{category}</span><h3 class="blog-card-title">{title}</h3><p class="blog-card-summary">{summary}</p><div class="mt-auto">{meta}<span class="blog-read-link">Ler artigo <span aria-hidden="true">→</span></span></div></div></a></article></div>'''
+
+
 def build_blog(dist, home, site_url, version, editorial=EDITORIAL):
     entries = articles(editorial)
-    cards = []
-    for item in entries:
-        slug = item['slug']; url = f'/blog/{slug}/'
-        cards.append(f'<div class="col-md-6 col-xl-4"><article class="card blog-card h-100"><div class="card-body d-flex flex-column"><span class="badge text-bg-light align-self-start mb-3">{e(item["category"])}</span><h3 class="h4 card-title"><a class="stretched-link" href="{url}">{e(item["title"])}</a></h3><p class="card-text">{e(item["summary"])}</p><p class="small text-muted mt-auto mb-0">{e(item["publish_date"])} · {e(item["reading_time"])}</p></div></article></div>')
-    listing = ''.join(cards) if cards else '<div class="col-12"><p>Os primeiros artigos estão em preparação. Enquanto isso, conheça <a href="/#processo">como trabalhamos</a>.</p></div>'
+    featured = card_html(entries[0], featured=True) if entries else ""
+    listing = ''.join(card_html(item, position=position) for position, item in enumerate(entries[1:], start=2)) if entries else '<div class="col-12"><div class="blog-empty"><p class="mb-2">Os primeiros artigos estão em preparação.</p><a href="/#processo">Conheça como trabalhamos <span aria-hidden="true">→</span></a></div></div>'
+    count = f"{len(entries)} artigo{'s' if len(entries) != 1 else ''} publicado{'s' if len(entries) != 1 else ''}" if entries else "Novos textos em preparação"
     blog_url = site_url + '/blog/'
     blog_schema = {"@context":"https://schema.org","@type":"Blog","name":"Blog Koddahub","url":blog_url,"description":"Tecnologia aplicada a problemas reais."}
-    body = (PUBLIC/'blog/index.template.html').read_text(encoding='utf-8').replace('{{ARTICLES}}', listing)
+    body = (PUBLIC/'blog/index.template.html').read_text(encoding='utf-8').replace('{{ARTICLES}}', listing).replace('{{FEATURED}}', featured).replace('{{COUNT}}', e(count)).replace('{{SECTION_TITLE}}', 'Artigos' if entries else 'Em breve')
     target = dist/'blog'; target.mkdir(exist_ok=True)
     (target/'index.html').write_text(shell(home, body, 'Blog Koddahub | Tecnologia aplicada a problemas reais', 'Conteúdos sobre automação, inteligência artificial, dados, desenvolvimento, qualidade, DevOps e tecnologia aplicada ao negócio.', blog_url, site_url, version, blog_schema), encoding='utf-8')
     for item in entries:
         url = blog_url + item['slug'] + '/'
-        related = '<ul>' + ''.join(f'<li><a href="/blog/{e(other["slug"])}/">{e(other["title"])}</a></li>' for other in entries if other is not item) + '</ul>' if len(entries)>1 else '<p><a href="/blog/">Ver todos os artigos</a></p>'
+        other_articles = [other for other in entries if other is not item][:3]
+        related = '<ul class="blog-related-list">' + ''.join(f'<li><a href="/blog/{e(other["slug"])}/">{e(other["title"])} <span aria-hidden="true">→</span></a></li>' for other in other_articles) + '</ul>' if other_articles else '<p><a href="/blog/">Ver todos os artigos</a></p>'
         content = markdown(item['body'].split('## Links internos sugeridos')[0].split('## Referências')[0].split('## Imagem de capa')[0]) + source_links(item['body'])
         cover = ''
         if item.get('cover'):
@@ -155,7 +181,7 @@ def build_blog(dist, home, site_url, version, editorial=EDITORIAL):
                     raise ValueError(f'{key} obrigatório com cover')
             cover = f'<img class="blog-cover rounded my-4" src="{e(cover_path)}" width="{e(item["cover_width"])}" height="{e(item["cover_height"])}" alt="{e(item["cover_alt"])}">'
         body = (PUBLIC/'blog/article.template.html').read_text(encoding='utf-8')
-        for key, value in {'CATEGORY':e(item['category']),'TITLE':e(item['title']),'SUMMARY':e(item['summary']),'DATE':e(item['publish_date']),'READING_TIME':e(item['reading_time']),'AUTHOR':e(item.get('author','VAL — Valor, Autoridade e Linguagem Koddahub')),'COVER':cover,'CONTENT':content,'RELATED':related}.items():
+        for key, value in {'CATEGORY':e(item['category']),'TITLE':e(item['title']),'SUMMARY':e(item['summary']),'DATE':e(format_date_pt(item['publish_date'])),'DATE_ISO':e(item['publish_date']),'READING_TIME':e(item['reading_time']),'AUTHOR':e(item.get('author','VAL — Valor, Autoridade e Linguagem Koddahub')),'COVER':cover,'CONTENT':content,'RELATED':related}.items():
             body = body.replace('{{'+key+'}}', value)
         schema = {"@context":"https://schema.org","@type":"BlogPosting","headline":item['title'],"description":item['meta_description'],"datePublished":str(item['publish_date']),"author":{"@type":"Organization","name":"Koddahub"},"mainEntityOfPage":url}
         if item.get('modified_date'):

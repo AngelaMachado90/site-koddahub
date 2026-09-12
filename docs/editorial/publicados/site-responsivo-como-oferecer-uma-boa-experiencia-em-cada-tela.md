@@ -12,6 +12,14 @@ planned_date: 11/09/2026
 publish_date: 2026-09-12
 status: published
 author: VAL — Valor, Autoridade e Linguagem Koddahub
+cover: /assets/images/blog/site-responsivo.jpg
+cover_alt: Monitor, tablet e celular exibindo o mesmo site responsivo em uma mesa de trabalho
+cover_width: 612
+cover_height: 356
+image_source:
+  provider: iStock
+  photographer: milindri
+  photo_id: 1061329208
 ---
 
 # Site responsivo: como oferecer uma boa experiência em cada tela

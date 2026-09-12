@@ -1,2 +1,22 @@
-<section class="blog-hero py-5"><div class="container-xl py-lg-4"><p class="section-kicker">Blog Koddahub</p><h1>Tecnologia aplicada a problemas reais.</h1><p class="lead mb-0">Automação, IA, dados, engenharia e qualidade explicados sem hype e com contexto.</p></div></section>
-<section class="section-space"><div class="container-xl"><h2 class="mb-4">Artigos</h2><div class="row g-4">{{ARTICLES}}</div></div></section>
+<section class="blog-hero" aria-labelledby="blog-title">
+  <div class="container-xl position-relative">
+    <div class="row align-items-center g-4">
+      <div class="col-lg-8">
+        <p class="blog-eyebrow mb-3">Blog Koddahub</p>
+        <h1 id="blog-title">Tecnologia aplicada a <span>problemas reais.</span></h1>
+        <p class="blog-hero-lead mb-0">Automação, inteligência artificial, dados e engenharia explicados com contexto, critérios e exemplos úteis.</p>
+      </div>
+      <div class="col-lg-4 text-lg-end"><p class="blog-hero-count mb-0">{{COUNT}}</p></div>
+    </div>
+  </div>
+</section>
+<section class="blog-listing" aria-labelledby="blog-list-title">
+  <div class="container-xl">
+    <div class="blog-list-heading d-flex flex-column flex-md-row justify-content-between align-items-md-end gap-3">
+      <div><p class="blog-overline mb-2">Leitura para decidir melhor</p><h2 id="blog-list-title">{{SECTION_TITLE}}</h2></div>
+      <p class="blog-list-intro mb-0">Ideias e orientações práticas para levar tecnologia ao trabalho cotidiano.</p>
+    </div>
+    {{FEATURED}}
+    <div class="row g-4">{{ARTICLES}}</div>
+  </div>
+</section>

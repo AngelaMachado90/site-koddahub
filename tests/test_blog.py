@@ -5,7 +5,7 @@ from datetime import date
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'scripts'))
-from blog import articles, build_blog, markdown, source_links
+from blog import articles, build_blog, card_html, markdown, source_links
 from publish_due import due_articles
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -61,6 +61,13 @@ Conteúdo.
         rendered = source_links("## Referências para revisão\n\nDocumentação: https://docs.n8n.io/ e texto interno.")
         self.assertIn('href="https://docs.n8n.io/"', rendered)
         self.assertNotIn('texto interno', rendered)
+
+    def test_card_uses_article_cover_when_available(self):
+        item = {"title": "Artigo com imagem", "slug": "artigo-com-imagem", "publish_date": date(2026, 9, 12), "category": "Atendimento", "summary": "Resumo com imagem.", "reading_time": "15 minutos", "cover": "/assets/images/blog/exemplo.jpg", "cover_width": 1880, "cover_height": 1255}
+        rendered = card_html(item, position=2)
+        self.assertIn('blog-card-media--cover', rendered)
+        self.assertIn('src="/assets/images/blog/exemplo.jpg"', rendered)
+        self.assertIn('alt=""', rendered)
 
     def test_published_article_and_seo(self):
         with tempfile.TemporaryDirectory() as temporary:

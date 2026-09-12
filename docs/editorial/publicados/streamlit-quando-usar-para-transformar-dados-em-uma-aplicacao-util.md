@@ -12,6 +12,15 @@ planned_date: 10/09/2026
 publish_date: 2026-09-12
 status: published
 author: VAL — Valor, Autoridade e Linguagem Koddahub
+cover: /assets/images/blog/streamlit-dashboard-pexels.jpg
+cover_alt: Monitor exibindo gráficos e indicadores, com duas pessoas trabalhando em um escritório ao fundo
+cover_width: 1880
+cover_height: 1255
+image_source:
+  provider: Pexels
+  photographer: Kampus Production
+  photo_id: 8204311
+  url: https://www.pexels.com/photo/computer-monitor-with-stock-exchange-figures-in-an-office-8204311/
 ---
 
 # Streamlit: quando usar para transformar dados em uma aplicação útil
