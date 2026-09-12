@@ -8,6 +8,8 @@ from html import escape
 from pathlib import Path
 from urllib.parse import urlparse
 
+from blog import build_blog
+
 ROOT = Path(__file__).resolve().parents[1]
 PUBLIC = ROOT / "public"
 DIST = ROOT / "dist"
@@ -38,9 +40,10 @@ def build() -> None:
     html = html.replace("{{SITE_URL}}", site_url)
     html = html.replace("{{CHAT_WEBHOOK_URL}}", escape(chat_webhook_url, quote=True))
     (DIST / "index.html").write_text(html, encoding="utf-8")
+    urls = build_blog(DIST, html, site_url, version)
     (DIST / "version.txt").write_text(version, encoding="utf-8")
     (DIST / "sitemap.xml").write_text(
-        f'<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n  <url><loc>{site_url}/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>\n</urlset>\n',
+        '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + ''.join(f'  <url><loc>{url}</loc></url>\n' for url in [site_url + '/', *urls]) + '</urlset>\n',
         encoding="utf-8",
     )
     print(f"Build concluido: {DIST}")

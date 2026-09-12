@@ -63,3 +63,15 @@ Enquanto o DNS não estiver criado, valide o VirtualHost localmente com o header
 mecanismo Let's Encrypt já usado no servidor e só então valide HTTPS. Produção
 não deve ser usada como staging e exige uma etapa independente, aprovação e
 plano de rollback.
+
+## Blog
+
+O build gera `dist/blog/index.html` e uma pasta `dist/blog/<slug>/index.html`
+por artigo publicado. A fonte editorial única é `docs/editorial/**/*.md`, com
+front matter YAML e corpo Markdown. Consulte [o fluxo do blog](docs/blog.md)
+para status, metadados, URLs e publicação. O build requer PyYAML no Python local.
+
+```bash
+python3 -m unittest discover -s tests -v
+python3 scripts/build.py
+```
