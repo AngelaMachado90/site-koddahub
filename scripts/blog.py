@@ -114,7 +114,7 @@ def shell(home, body, title, description, canonical, site_url, version, schema, 
     header = re.search(r'<header class="site-header.*?</header>', home, re.S).group()
     footer = re.search(r'<footer class="site-footer.*?</footer>', home, re.S).group()
     chat = re.search(r'<div class="kodda-chat">.*?(?=\n  <script src=)', home, re.S).group()
-    scripts = re.search(r'  <script src=.*?</script>', home, re.S).group()
+    scripts = ''.join(re.findall(r'<script\b[^>]*\bsrc="[^"]+"[^>]*></script>', home))
     header = header.replace('href="#inicio"', 'href="/"').replace('href="#servicos"', 'href="/#servicos"').replace('href="#processo"', 'href="/#processo"').replace('href="#cases"', 'href="/#cases"').replace('href="#contato"', 'href="/#contato"')
     header = header.replace('<a class="nav-link" href="/blog/">Blog</a>', '<a class="nav-link" href="/blog/" aria-current="page">Blog</a>')
     footer = footer.replace('href="#inicio"', 'href="/"')
