@@ -23,25 +23,40 @@ def inline(value):
 
 def markdown(value):
     blocks, paragraph, items = [], [], []
+    list_tag = None
+
     def flush():
+        nonlocal list_tag
         if paragraph:
             blocks.append("<p>" + inline(" ".join(paragraph)) + "</p>")
             paragraph.clear()
         if items:
-            blocks.append("<ul>" + "".join("<li>" + inline(x) + "</li>" for x in items) + "</ul>")
+            blocks.append(f"<{list_tag}>" + "".join("<li>" + inline(x) + "</li>" for x in items) + f"</{list_tag}>")
             items.clear()
-    for line in value.splitlines():
-        line = line.strip()
+            list_tag = None
+
+    for raw_line in value.splitlines():
+        line = raw_line.strip()
+        numbered = re.match(r"[0-9]+\. (.+)", line)
         if not line:
             flush()
         elif line.startswith("## "):
-            flush(); blocks.append("<h2>" + inline(line[3:]) + "</h2>")
+            flush()
+            blocks.append("<h2>" + inline(line[3:]) + "</h2>")
         elif line.startswith("### "):
-            flush(); blocks.append("<h3>" + inline(line[4:]) + "</h3>")
-        elif line.startswith("- "):
-            if paragraph: flush()
-            items.append(line[2:])
+            flush()
+            blocks.append("<h3>" + inline(line[4:]) + "</h3>")
+        elif line.startswith("- ") or numbered:
+            tag = "ol" if numbered else "ul"
+            if paragraph or (list_tag and list_tag != tag):
+                flush()
+            list_tag = tag
+            items.append(numbered.group(1) if numbered else line[2:])
+        elif items and raw_line.startswith(("  ", "\t")):
+            items[-1] += " " + line
         elif not line.startswith("# "):
+            if items:
+                flush()
             paragraph.append(line)
     flush()
     return "\n".join(blocks)

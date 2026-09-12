@@ -5,13 +5,20 @@ from datetime import date
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'scripts'))
-from blog import articles, build_blog
+from blog import articles, build_blog, markdown
 
 ROOT = Path(__file__).resolve().parents[1]
 
 class BlogTests(unittest.TestCase):
     def test_draft_stays_private(self):
         self.assertNotIn("boas-vindas-blog-koddahub", {entry["slug"] for entry in articles()})
+
+    def test_numbered_list_keeps_items_and_wrapped_lines(self):
+        rendered = markdown("1. **Primeira pergunta?** Texto\n2. **Segunda pergunta?** Linha\n   continua aqui.")
+        self.assertIn('<ol>', rendered)
+        self.assertIn('<li><strong>Primeira pergunta?</strong> Texto</li>', rendered)
+        self.assertIn('<li><strong>Segunda pergunta?</strong> Linha continua aqui.</li>', rendered)
+        self.assertEqual(rendered.count('<li>'), 2)
 
     def test_published_article_and_seo(self):
         with tempfile.TemporaryDirectory() as temporary:

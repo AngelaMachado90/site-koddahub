@@ -4,7 +4,9 @@ A fonte editorial é `docs/editorial/**/*.md`. VAL — Valor, Autoridade e
 Linguagem Koddahub — prepara o rascunho, que passa por revisão e aprovação
 editorial antes de receber `status: published` e `publish_date` no front matter.
 VAL é identidade editorial, não pessoa física. O rascunho inaugural permanece
-em `docs/editorial/rascunhos/` com `status: draft` e não entra no site.
+em `docs/editorial/rascunhos/` com `status: draft`; a imagem original está em
+`docs/editorial/assets/`. Esses arquivos são versionados, mas não entram em
+`dist/` nem no site público enquanto o artigo estiver em revisão.
 
 O fluxo é: VAL → Markdown editorial → aprovação → `scripts/build.py` →
 `dist/blog/` → validação local → publicação em etapa separada. O build copia
@@ -16,10 +18,16 @@ O status deve ser `draft`, `review`, `scheduled`, `published` ou `archived`.
 Somente `published` com `publish_date` até a data do build aparece. Um artigo
 publicado requer `title`, `seo_title`, `meta_description`, `summary`, `category`,
 `reading_time`, `slug` e `publish_date` ISO (AAAA-MM-DD). O slug deve ter
-letras minúsculas, números e hífens. `cover`, `cover_alt`, `cover_width` e `cover_height` são opcionais em conjunto; a capa deve apontar para arquivo existente em `/assets/images/`. `modified_date` é opcional; use apenas
-quando houver alteração editorial real. O corpo Markdown suporta parágrafos,
-H2, H3, listas simples e negrito. Links editoriais sugeridos no rascunho não
-são publicados automaticamente. Não use HTML bruto como conteúdo editorial.
+letras minúsculas, números e hífens. `cover`, `cover_alt`, `cover_width` e
+`cover_height` são opcionais em conjunto; a capa deve apontar para arquivo
+existente em `/assets/images/`. `modified_date` é opcional; use apenas
+quando houver alteração editorial real. Antes da publicação, escolha a
+capa definitiva, otimize-a para web, coloque-a em `public/assets/images/` e
+preencha `cover`, `cover_alt`, `cover_width` e `cover_height`. O alt deve
+descrever a imagem efetivamente usada, não apenas o conceito do prompt. O corpo
+Markdown suporta parágrafos, H2, H3, listas simples, listas numeradas e
+negrito. Links editoriais sugeridos no rascunho não são publicados
+automaticamente. Não use HTML bruto como conteúdo editorial.
 
 A home usa `public/blog/index.template.html`; o artigo usa
 `public/blog/article.template.html`; o renderizador está em `scripts/blog.py`.

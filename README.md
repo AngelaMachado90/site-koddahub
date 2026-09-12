@@ -74,7 +74,7 @@ Por padrão, `SITE_URL` é `https://koddahub.com.br`, `CHAT_WEBHOOK_URL` fica va
 
 ## Blog Koddahub
 
-VAL prepara o Markdown editorial → revisão e aprovação → `status: published` com `publish_date` → build → `/blog/` e `/blog/<slug>/`. A fonte é `docs/editorial/**/*.md`; `scripts/blog.py` seleciona os textos e gera os HTMLs. Os estados previstos no fluxo editorial são `draft`, `review`, `scheduled`, `published` e `archived`. O build inclui **somente** `published` com data até o dia do build. Existe um rascunho inaugural local em `docs/editorial/rascunhos/`, ainda sem rastreamento no Git, com status `draft`; ele não é publicado nem incluído automaticamente em um clone.
+VAL prepara o Markdown editorial → revisão e aprovação → `status: published` com `publish_date` → build → `/blog/` e `/blog/<slug>/`. A fonte é `docs/editorial/**/*.md`; `scripts/blog.py` seleciona os textos e gera os HTMLs. Os estados previstos no fluxo editorial são `draft`, `review`, `scheduled`, `published` e `archived`. O build inclui **somente** `published` com data até o dia do build. O rascunho inaugural fica em `docs/editorial/rascunhos/`, com status `draft`; sua imagem de referência fica em `docs/editorial/assets/`. Nenhum dos dois entra no site público enquanto estiver em revisão.
 
 ### VAL — Valor, Autoridade e Linguagem Koddahub
 
