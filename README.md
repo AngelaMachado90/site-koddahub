@@ -122,7 +122,7 @@ Depois do build, valide `/`, `/blog/`, `/blog` (redirecionamento) e uma URL inex
 
 ## Deploy
 
-A publicação agendada do blog roda às 09:00 no fuso `America/Sao_Paulo` pelo cron do usuário `kodda`. `scripts/publish_due.py` detecta artigos devidos, executa o build, guarda backup de `blog/` e `sitemap.xml`, copia apenas esses artefatos e verifica as páginas novas. Se uma data passou sem publicação, o job interrompe para revisão da data real; consulte o log local e a seção de agendamento em [docs/blog.md](docs/blog.md).
+A publicação agendada do blog roda às 09:00 no fuso `America/Sao_Paulo` pelo cron do usuário `kodda`. `scripts/publish_due.py` detecta artigos devidos, executa o build, guarda backup de `blog/` e `sitemap.xml`, copia apenas esses artefatos e verifica as páginas novas. O usuário `kodda` precisa escrever em `dist/`, `public_html/blog/` e `public_html/sitemap.xml`; o build executado como administrador devolve a propriedade de `dist/` ao dono do projeto. Se uma data passou sem publicação, o job interrompe para revisão da data real; consulte o log local e a seção de agendamento em [docs/blog.md](docs/blog.md).
 
 
 O fluxo é fonte → commit → build → validação → staging quando disponível → produção autorizada. Publica-se **somente o conteúdo de `dist/`**, nunca a árvore `public/`, documentação, `.git` ou arquivos de ambiente. O destino produtivo confirmado é `/home/kodda/public_html`, servido por Apache. O staging usa `/home/kodda/staging/site-koddahub` e o VirtualHost em `deploy/apache/staging.koddahub.com.br.conf`; DNS/HTTPS públicos ainda precisam ser concluídos antes de tratá-lo como etapa de homologação externa.

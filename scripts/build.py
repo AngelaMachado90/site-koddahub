@@ -47,6 +47,12 @@ def build() -> None:
         '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + ''.join(f'  <url><loc>{url}</loc></url>\n' for url in [site_url + '/', *urls]) + '</urlset>\n',
         encoding="utf-8",
     )
+    # O agendador publica como dono do projeto; builds administrativos não podem
+    # deixar dist/ sem permissão de escrita para a próxima execução.
+    if os.geteuid() == 0:
+        owner = ROOT.stat()
+        for path in (DIST, *DIST.rglob("*")):
+            os.chown(path, owner.st_uid, owner.st_gid)
     print(f"Build concluido: {DIST}")
 
 if __name__ == "__main__":
