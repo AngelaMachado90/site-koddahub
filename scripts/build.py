@@ -8,7 +8,7 @@ from html import escape
 from pathlib import Path
 from urllib.parse import urlparse
 
-from blog import build_blog
+from blog import build_blog, google_tag
 
 ROOT = Path(__file__).resolve().parents[1]
 PUBLIC = ROOT / "public"
@@ -35,6 +35,7 @@ def build() -> None:
     site_url = environment_url("SITE_URL", "https://koddahub.com.br", required=True).rstrip("/")
     chat_webhook_url = environment_url("CHAT_WEBHOOK_URL")
     html = TEMPLATE.read_text(encoding="utf-8")
+    html = html.replace("{{GA4_TAG}}", google_tag())
     html = html.replace("{{YEAR}}", str(datetime.now().year))
     html = html.replace("{{ASSET_VERSION}}", version)
     html = html.replace("{{SITE_URL}}", site_url)

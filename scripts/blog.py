@@ -11,6 +11,13 @@ import yaml
 ROOT = Path(__file__).resolve().parents[1]
 EDITORIAL = ROOT / "docs/editorial"
 PUBLIC = ROOT / "public"
+GA4_MEASUREMENT_ID = "G-3DNTXV2CYK"
+
+
+def google_tag():
+    return f'''<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id={GA4_MEASUREMENT_ID}"></script>
+<script>window.dataLayer = window.dataLayer || []; function gtag(){{dataLayer.push(arguments);}} gtag('js', new Date()); gtag('config', '{GA4_MEASUREMENT_ID}');</script>'''
 
 
 def e(value):
@@ -113,15 +120,16 @@ def articles(editorial=EDITORIAL, today=None):
 def shell(home, body, title, description, canonical, site_url, version, schema, article=False, image_path=None):
     header = re.search(r'<header class="site-header.*?</header>', home, re.S).group()
     footer = re.search(r'<footer class="site-footer.*?</footer>', home, re.S).group()
-    chat = re.search(r'<div class="kodda-chat">.*?(?=\n  <script src=)', home, re.S).group()
-    scripts = ''.join(re.findall(r'<script\b[^>]*\bsrc="[^"]+"[^>]*></script>', home))
+    chat_match = re.search(r'<div class="kodda-chat">.*?(?=\n  <script src=)', home, re.S)
+    chat = chat_match.group()
+    scripts = ''.join(re.findall(r'<script\b[^>]*\bsrc="[^"]+"[^>]*></script>', home[chat_match.end():]))
     header = header.replace('href="#inicio"', 'href="/"').replace('href="#servicos"', 'href="/#servicos"').replace('href="#processo"', 'href="/#processo"').replace('href="#cases"', 'href="/#cases"').replace('href="#contato"', 'href="/#contato"')
     header = header.replace('<a class="nav-link" href="/blog/">Blog</a>', '<a class="nav-link" href="/blog/" aria-current="page">Blog</a>')
     footer = footer.replace('href="#inicio"', 'href="/"')
     image = site_url + (image_path or '/assets/images/hero/koddahub-hero.webp')
     og_type = 'article' if article else 'website'
     schema_json = json.dumps(schema, ensure_ascii=False).replace('<', '\\u003c')
-    head = f'''<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>{e(title)}</title><meta name="description" content="{e(description)}"><meta name="theme-color" content="#0a1a2f"><meta name="koddahub-chat-webhook-url" content="{{{{CHAT_WEBHOOK_URL}}}}"><link rel="canonical" href="{e(canonical)}"><meta property="og:locale" content="pt_BR"><meta property="og:type" content="{og_type}"><meta property="og:site_name" content="KoddaHub"><meta property="og:title" content="{e(title)}"><meta property="og:description" content="{e(description)}"><meta property="og:url" content="{e(canonical)}"><meta property="og:image" content="{e(image)}"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="{e(title)}"><meta name="twitter:description" content="{e(description)}"><meta name="twitter:image" content="{e(image)}"><link rel="icon" type="image/webp" href="/assets/images/logo/koddahub-logo-128.webp"><link rel="stylesheet" href="/assets/vendor/bootstrap/bootstrap.min.css?v={e(version)}"><link rel="stylesheet" href="/assets/css/koddahub-tokens.css?v={e(version)}"><link rel="stylesheet" href="/assets/css/style.css?v={e(version)}"><link rel="stylesheet" href="/assets/css/blog.css?v={e(version)}"><script type="application/ld+json">{schema_json}</script></head><body><a class="skip-link" href="#conteudo">Pular para o conteúdo</a>'''
+    head = f'''<!doctype html><html lang="pt-BR"><head>{google_tag()}<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>{e(title)}</title><meta name="description" content="{e(description)}"><meta name="theme-color" content="#0a1a2f"><meta name="koddahub-chat-webhook-url" content="{{{{CHAT_WEBHOOK_URL}}}}"><link rel="canonical" href="{e(canonical)}"><meta property="og:locale" content="pt_BR"><meta property="og:type" content="{og_type}"><meta property="og:site_name" content="KoddaHub"><meta property="og:title" content="{e(title)}"><meta property="og:description" content="{e(description)}"><meta property="og:url" content="{e(canonical)}"><meta property="og:image" content="{e(image)}"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="{e(title)}"><meta name="twitter:description" content="{e(description)}"><meta name="twitter:image" content="{e(image)}"><link rel="icon" type="image/webp" href="/assets/images/logo/koddahub-logo-128.webp"><link rel="stylesheet" href="/assets/vendor/bootstrap/bootstrap.min.css?v={e(version)}"><link rel="stylesheet" href="/assets/css/koddahub-tokens.css?v={e(version)}"><link rel="stylesheet" href="/assets/css/style.css?v={e(version)}"><link rel="stylesheet" href="/assets/css/blog.css?v={e(version)}"><script type="application/ld+json">{schema_json}</script></head><body><a class="skip-link" href="#conteudo">Pular para o conteúdo</a>'''
     webhook = re.search(r'<meta name="koddahub-chat-webhook-url" content="([^"]*)">', home).group(1)
     head = head.replace('{{CHAT_WEBHOOK_URL}}', webhook)
     return head + header + '<main id="conteudo">' + body + '</main>' + footer + chat + scripts + '</body></html>'
