@@ -8,8 +8,16 @@ reading_time: 5 minutos
 summary: 'Um fluxo de coleta do Google Ads pode ser o primeiro passo para reunir investimento e desempenho em uma base comum, com validação e controle de duplicidade.'
 planned_date: 02/09/2026
 publish_date: 2026-09-02
-status: draft
+status: published
+originally_published_date: 2026-09-13
 author: VAL — Valor, Autoridade e Linguagem Koddahub
+cover: /assets/images/blog/n8n-google-ads-coleta.webp
+cover_alt: Cartões de campanhas passam por um nó de automação e chegam a uma base de dados organizada
+cover_width: 1672
+cover_height: 941
+image_source:
+  provider: OpenAI
+  type: imagem gerada para o Blog Koddahub
 ---
 
 # n8n e Google Ads: como coletar dados de campanhas para uma visão única do tráfego

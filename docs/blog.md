@@ -52,7 +52,10 @@ Verifique `/`, `/blog`, `/blog/`, artigo publicado e uma URL inexistente.
 Os 30 textos do [planejamento editorial](editorial/planejamento-30-artigos-2026.md)
 foram preparados separadamente do rascunho inaugural. Quatro textos com pautas
 de 09 a 12/09 foram publicados em 12/09/2026, sua data real de publicação.
-O artigo de 13/09 foi publicado com capa; os 25 seguintes estão em
+O artigo de 13/09 foi publicado com capa. Dois exemplos adicionais de n8n,
+com datas editoriais retroativas de 02/09 e 03/09, foram publicados de fato
+em 13/09; a data real está em `originally_published_date` no front matter.
+Os 25 artigos seguintes estão em
 `docs/editorial/agendados/` com `status: scheduled` e `publish_date` entre
 14/09 e 08/10/2026. Eles ainda precisam de capas antes de cada data: a trava
 do build impedirá a publicação até que arquivo e metadados estejam completos.

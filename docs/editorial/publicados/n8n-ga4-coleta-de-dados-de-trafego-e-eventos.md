@@ -8,8 +8,16 @@ reading_time: 5 minutos
 summary: 'A coleta de dados do GA4 fica mais útil quando período, dimensões, métricas e qualidade da medição são definidos antes da automação.'
 planned_date: 03/09/2026
 publish_date: 2026-09-03
-status: draft
+status: published
+originally_published_date: 2026-09-13
 author: VAL — Valor, Autoridade e Linguagem Koddahub
+cover: /assets/images/blog/n8n-ga4-coleta.webp
+cover_alt: Interações em um site passam por uma automação e são organizadas em linhas por data
+cover_width: 1672
+cover_height: 941
+image_source:
+  provider: OpenAI
+  type: imagem gerada para o Blog Koddahub
 ---
 
 # n8n e GA4: como coletar dados de tráfego e eventos com critérios claros
