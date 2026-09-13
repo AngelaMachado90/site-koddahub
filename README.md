@@ -96,7 +96,7 @@ A home e as páginas do blog têm title, meta description, canonical, Open Graph
 
 ## Chatbot e configuração
 
-O launcher flutuante e sua lógica ficam em `public/index.template.html` e `public/assets/js/site.js`; o blog reutiliza o mesmo shell no build. O JavaScript lê o endpoint da meta tag preenchida por `CHAT_WEBHOOK_URL` durante o build. Sem webhook, `public/assets/js/chat-fallback.js` oferece respostas rápidas com links para os quatro artigos já publicados e mantém o acesso ao WhatsApp. Essa resposta local não é um assistente de IA. **Status atual: integração de webhook remoto pendente** nos artefatos verificados de staging e produção.
+O launcher flutuante e sua lógica ficam em `public/index.template.html` e `public/assets/js/site.js`; o blog reutiliza o mesmo shell no build. O JavaScript lê o endpoint da meta tag preenchida por `CHAT_WEBHOOK_URL` durante o build. Sem webhook, `public/assets/js/chat-fallback.js` oferece respostas rápidas com links para artigos. Quando a pessoa manifesta interesse em implementar uma solução, o fluxo local pede nome, telefone e e-mail e prepara uma mensagem para a equipe no WhatsApp; o envio só ocorre após confirmação da pessoa no aplicativo. Esses dados do fluxo não são gravados no histórico local do chat. Essa resposta local não é um assistente de IA. **Status atual: integração de webhook remoto pendente** nos artefatos verificados de staging e produção.
 
 | Variável | Uso |
 | --- | --- |

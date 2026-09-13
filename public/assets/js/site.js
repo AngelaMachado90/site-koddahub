@@ -64,6 +64,9 @@
 
   let isSending = false;
   let messages = loadMessages();
+  const localConversation = window.koddaChatFallback?.createConversation();
+  const lastArticle = [...messages].reverse().find((message) => message.link?.href);
+  if (lastArticle) localConversation?.rememberArticle(lastArticle.link.href);
 
   function readStorage(key, fallback) {
     try {
@@ -130,6 +133,10 @@
         link.className = "kodda-message-link";
         link.href = options.link.href;
         link.textContent = `${options.link.label} →`;
+        if (link.hostname === "wa.me") {
+          link.target = "_blank";
+          link.rel = "noopener";
+        }
         message.append(content, link, time);
       } else {
         message.append(content, time);
@@ -208,7 +215,7 @@
   }
 
   function localReply(message) {
-    return window.koddaChatFallback?.reply(message) || {
+    return localConversation?.reply(message) || {
       text: "O atendimento automático está indisponível. Fale com nossa equipe pelo WhatsApp abaixo."
     };
   }
@@ -221,12 +228,13 @@
     resizeInput();
     input.disabled = true;
     sendButton.disabled = true;
-    addMessage(text, "user");
+    const localAnswer = HAS_REMOTE_AGENT ? null : localReply(text);
+    addMessage(text, "user", { persist: !localAnswer?.lead });
     const typing = HAS_REMOTE_AGENT ? addMessage("", "assistant", { typing: true, persist: false }) : null;
     try {
-      const answer = HAS_REMOTE_AGENT ? await sendMessageToAgent(text) : localReply(text);
+      const answer = HAS_REMOTE_AGENT ? await sendMessageToAgent(text) : localAnswer;
       typing?.remove();
-      addMessage(answer.text, "assistant", { link: answer.link });
+      addMessage(answer.text, "assistant", { link: answer.link, persist: !answer.lead });
     } catch (error) {
       console.error("Falha ao enviar mensagem ao agente:", error);
       typing?.remove();
