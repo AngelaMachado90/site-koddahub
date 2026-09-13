@@ -112,6 +112,7 @@ Texto de teste.
             self.assertIn('/blog/exemplo-editorial/', urls[1])
             self.assertIn('Exemplo editorial', listing)
             self.assertIn('/assets/vendor/bootstrap/bootstrap.bundle.min.js?v=test', listing)
+            self.assertIn('/assets/js/chat-fallback.js?v=test', listing)
             self.assertIn('/assets/js/site.js?v=test', listing)
             self.assertIn('src="/assets/images/logo/kodda-chat-avatar-128.webp"', listing)
             self.assertEqual(listing.count('https://www.googletagmanager.com/gtag/js?id=G-3DNTXV2CYK'), 1)

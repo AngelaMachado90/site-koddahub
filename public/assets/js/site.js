@@ -41,17 +41,26 @@
   const MESSAGES_KEY = "kodda_chat_messages";
   const MAX_MESSAGES = 50;
   const REQUEST_TIMEOUT = 20000;
-  const WELCOME_MESSAGE = "Olá! Sou a Kodda, assistente da KoddaHub. Como posso ajudar?";
-  const ERROR_MESSAGE = "Não consegui responder agora. Tente novamente em alguns instantes.";
+  const HAS_REMOTE_AGENT = Boolean(CHAT_WEBHOOK_URL);
+  const WELCOME_MESSAGE = HAS_REMOTE_AGENT
+    ? "Olá! Sou a Kodda, assistente da KoddaHub. Como posso ajudar?"
+    : "Olá! Posso indicar conteúdos sobre n8n, sites responsivos, Streamlit e chatbots. Qual tema você procura? Para falar com nossa equipe, use o WhatsApp abaixo.";
+  const LEGACY_ERROR_MESSAGE = "Não consegui responder agora. Tente novamente em alguns instantes.";
+  const ERROR_MESSAGE = "Não consegui responder agora. Sua pergunta continua no campo para tentar de novo. Você também pode falar com nossa equipe pelo WhatsApp abaixo.";
 
   const trigger = document.querySelector(".kodda-chat-trigger");
   const panel = document.getElementById("koddaChatPanel");
+  const description = panel?.querySelector("#koddaChatDescription");
   const closeButton = panel?.querySelector(".kodda-chat-close");
   const messagesElement = panel?.querySelector(".kodda-chat-messages");
   const form = panel?.querySelector(".kodda-chat-form");
   const input = panel?.querySelector(".kodda-chat-input");
   const sendButton = panel?.querySelector(".kodda-chat-send");
   if (!trigger || !panel || !closeButton || !messagesElement || !form || !input || !sendButton) return;
+  if (!HAS_REMOTE_AGENT) {
+    document.querySelector(".kodda-chat")?.classList.add("kodda-chat-local");
+    if (description) description.textContent = "Respostas rápidas do blog";
+  }
 
   let isSending = false;
   let messages = loadMessages();
@@ -79,7 +88,13 @@
     try {
       const saved = JSON.parse(readStorage(MESSAGES_KEY, "[]"));
       if (!Array.isArray(saved)) return [];
-      return saved.filter((item) => item && ["user", "assistant"].includes(item.role) && typeof item.text === "string").slice(-MAX_MESSAGES);
+      return saved.filter((item) => item && ["user", "assistant"].includes(item.role) && typeof item.text === "string" && item.text !== LEGACY_ERROR_MESSAGE)
+        .map((item) => ({
+          role: item.role,
+          text: item.text,
+          timestamp: item.timestamp,
+          link: item.link && typeof item.link.href === "string" && /^\/blog\/[a-z0-9-]+\/$/.test(item.link.href) && typeof item.link.label === "string" ? item.link : undefined
+        })).slice(-MAX_MESSAGES);
     } catch (_) {
       return [];
     }
@@ -110,11 +125,19 @@
       const time = document.createElement("time");
       const timestamp = options.timestamp ? new Date(options.timestamp) : new Date();
       content.textContent = text;
+      if (options.link) {
+        const link = document.createElement("a");
+        link.className = "kodda-message-link";
+        link.href = options.link.href;
+        link.textContent = `${options.link.label} →`;
+        message.append(content, link, time);
+      } else {
+        message.append(content, time);
+      }
       time.dateTime = timestamp.toISOString();
       time.textContent = formatTime(timestamp);
-      message.append(content, time);
       if (options.persist !== false) {
-        messages.push({ role, text, timestamp: timestamp.toISOString() });
+        messages.push({ role, text, timestamp: timestamp.toISOString(), link: options.link });
         persistMessages();
       }
     }
@@ -129,7 +152,11 @@
       addMessage(WELCOME_MESSAGE, "assistant");
       return;
     }
-    messages.forEach((message) => addMessage(message.text, message.role, { timestamp: message.timestamp, persist: false }));
+    messages.forEach((message) => addMessage(message.text, message.role, { timestamp: message.timestamp, link: message.link, persist: false }));
+    if (!HAS_REMOTE_AGENT && messages.at(-1)?.role === "user") {
+      const answer = localReply(messages.at(-1).text);
+      addMessage(answer.text, "assistant", { link: answer.link });
+    }
     scrollChatToBottom();
   }
 
@@ -174,10 +201,16 @@
       const data = await response.json();
       const answer = typeof data.output === "string" ? data.output : data.message;
       if (typeof answer !== "string" || !answer.trim()) throw new Error("Resposta vazia");
-      return answer.trim();
+      return { text: answer.trim() };
     } finally {
       clearTimeout(timeoutId);
     }
+  }
+
+  function localReply(message) {
+    return window.koddaChatFallback?.reply(message) || {
+      text: "O atendimento automático está indisponível. Fale com nossa equipe pelo WhatsApp abaixo."
+    };
   }
 
   async function sendMessage() {
@@ -189,15 +222,17 @@
     input.disabled = true;
     sendButton.disabled = true;
     addMessage(text, "user");
-    const typing = addMessage("", "assistant", { typing: true, persist: false });
+    const typing = HAS_REMOTE_AGENT ? addMessage("", "assistant", { typing: true, persist: false }) : null;
     try {
-      const answer = await sendMessageToAgent(text);
-      typing.remove();
-      addMessage(answer, "assistant");
+      const answer = HAS_REMOTE_AGENT ? await sendMessageToAgent(text) : localReply(text);
+      typing?.remove();
+      addMessage(answer.text, "assistant", { link: answer.link });
     } catch (error) {
       console.error("Falha ao enviar mensagem ao agente:", error);
-      typing.remove();
-      addMessage(ERROR_MESSAGE, "assistant");
+      typing?.remove();
+      input.value = text;
+      resizeInput();
+      addMessage(ERROR_MESSAGE, "assistant", { persist: false });
     } finally {
       isSending = false;
       input.disabled = false;
