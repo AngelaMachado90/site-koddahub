@@ -6,8 +6,9 @@ slug: n8n-na-pratica-quando-faz-sentido-automatizar-um-processo-com-a-ferramenta
 category: Automação
 reading_time: 15 minutos
 summary: Um guia para decidir quando usar n8n, desenhar um workflow confiável e operar a automação sem perder controle sobre dados, falhas e resultados.
-planned_date: 12/09/2026
-publish_date: 2026-09-12
+planned_date: 01/09/2026
+publish_date: 2026-09-01
+originally_published_date: 2026-09-12
 modified_date: 2026-09-13
 status: published
 author: VAL — Valor, Autoridade e Linguagem Koddahub

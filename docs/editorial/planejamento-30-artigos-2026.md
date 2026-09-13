@@ -1,13 +1,13 @@
 # Pautas propostas para o Blog Koddahub — 30 artigos
 
-Planejamento editorial da VAL — Valor, Autoridade e Linguagem Koddahub. As quatro primeiras datas e temas vieram da solicitação; interpretei `09` como 09/09/2026. As outras 26 datas seguem uma cadência diária proposta a partir de 13/09/2026. **Data de pauta não é `publish_date`**. Após a aprovação de publicação, os quatro temas iniciais receberam data real de 12/09/2026; os 26 seguintes foram agendados para as datas propostas.
+Planejamento editorial da VAL — Valor, Autoridade e Linguagem Koddahub. As quatro primeiras datas e temas vieram da solicitação; interpretei `09` como 09/09/2026. As outras 26 datas seguem uma cadência diária proposta a partir de 13/09/2026. O artigo de n8n foi publicado originalmente em 12/09/2026; por solicitação posterior, sua data exibida no blog foi ajustada retroativamente para 01/09/2026, preservando a data original em `originally_published_date`. Os outros três textos iniciais receberam `publish_date: 2026-09-12`; os 26 seguintes foram agendados para as datas propostas.
 
 | Data proposta | Pilar | Título editorial proposto |
 | --- | --- | --- |
 | 09/09/2026 | Atendimento | Chatbot no atendimento: o que automatizar sem perder o contexto da conversa |
 | 10/09/2026 | Dados | Streamlit: quando usar para transformar dados em uma aplicação útil |
 | 11/09/2026 | Desenvolvimento | Site responsivo: como oferecer uma boa experiência em cada tela |
-| 12/09/2026 | Automação | n8n na prática: quando faz sentido automatizar um processo com a ferramenta |
+| 01/09/2026 | Automação | n8n na prática: quando faz sentido automatizar um processo com a ferramenta |
 | 13/09/2026 | Automação | Antes de automatizar: cinco perguntas para entender o processo |
 | 14/09/2026 | Integrações | Integração entre sistemas: como evitar retrabalho e informação duplicada |
 | 15/09/2026 | Dados | Dado, métrica e KPI: diferenças que ajudam a decidir melhor |
@@ -39,4 +39,14 @@ As pautas foram distribuídas entre problemas de negócio, implementação e ope
 
 ## Estado dos textos
 
-Os quatro textos iniciais estão em `docs/editorial/publicados/`, com `status: published` e `publish_date: 2026-09-12`. Os outros 26 estão em `docs/editorial/agendados/`, com `status: scheduled` e datas de 13/09 a 08/10/2026. O rascunho inaugural permanece separado em `docs/editorial/rascunhos/`. Revisões futuras devem preservar precisão técnica, fontes, SEO e data real de publicação.
+Os quatro textos iniciais estão em `docs/editorial/publicados/`, com `status: published`. A data exibida do artigo de n8n é 01/09/2026; os demais têm `publish_date: 2026-09-12`. Os outros 26 estão em `docs/editorial/agendados/`, com `status: scheduled` e datas de 13/09 a 08/10/2026. O rascunho inaugural permanece separado em `docs/editorial/rascunhos/`. Revisões futuras devem preservar precisão técnica, fontes, SEO e o registro da data original de publicação.
+
+## Série de exemplos de uso do n8n
+
+| Data editorial proposta | Estado | Exemplo |
+| --- | --- | --- |
+| 02/09/2026 | Rascunho | Google Ads: coleta e padronização dos dados de campanhas |
+| 03/09/2026 | Pauta a confirmar | GA4: coleta de sessões e eventos com definições verificadas |
+| 04/09/2026 | Pauta a confirmar | Visão unificada: comparar investimento, tráfego e ações sem misturar métricas |
+
+As datas da série já passaram. Os novos textos só devem entrar no site após revisão editorial e decisão explícita sobre exibir datas retroativas ou a data real da nova publicação. As capturas dos workflows servem apenas como contexto; os exemplos públicos devem permanecer anonimizados.
