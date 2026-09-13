@@ -70,7 +70,7 @@ Abra `http://localhost:8000/` e `http://localhost:8000/blog/`. O servidor Python
 python3 scripts/build.py
 ```
 
-Por padrão, `SITE_URL` é `https://koddahub.com.br`, `CHAT_WEBHOOK_URL` fica vazio e `ASSET_VERSION` usa o horário do build. URLs configuradas precisam ser HTTP(S) válidas. Um artigo `published` sem metadados obrigatórios, data válida ou slug válido interrompe o build com erro; não publique o artefato após uma falha. Confira `dist/index.html`, `dist/blog/index.html` e `dist/sitemap.xml` antes de qualquer deploy.
+Por padrão, `SITE_URL` é `https://koddahub.com.br`, `CHAT_WEBHOOK_URL` fica vazio e `ASSET_VERSION` usa o horário do build. URLs configuradas precisam ser HTTP(S) válidas. Um artigo público sem capa válida, metadados obrigatórios, data válida ou slug válido interrompe o build com erro; não publique o artefato após uma falha. Confira `dist/index.html`, `dist/blog/index.html` e `dist/sitemap.xml` antes de qualquer deploy.
 
 ## Blog Koddahub
 

@@ -21,8 +21,9 @@ ficam fora do site. Um artigo
 publicado requer `title`, `seo_title`, `meta_description`, `summary`, `category`,
 `reading_time`, `slug` e `publish_date` ISO (AAAA-MM-DD). O slug deve ter
 letras minúsculas, números e hífens. `cover`, `cover_alt`, `cover_width` e
-`cover_height` são opcionais em conjunto; a capa deve apontar para arquivo
-existente em `/assets/images/`. `modified_date` é opcional; use apenas
+`cover_height` são obrigatórios para qualquer artigo elegível ao build; a capa
+deve apontar para arquivo existente em `/assets/images/`. Sem capa, o build
+interrompe a publicação. `modified_date` é opcional; use apenas
 quando houver alteração editorial real. Antes da publicação, escolha a
 capa definitiva, otimize-a para web, coloque-a em `public/assets/images/` e
 preencha `cover`, `cover_alt`, `cover_width` e `cover_height`. O alt deve
@@ -51,8 +52,11 @@ Verifique `/`, `/blog`, `/blog/`, artigo publicado e uma URL inexistente.
 Os 30 textos do [planejamento editorial](editorial/planejamento-30-artigos-2026.md)
 foram preparados separadamente do rascunho inaugural. Quatro textos com pautas
 de 09 a 12/09 foram publicados em 12/09/2026, sua data real de publicação.
-Os outros 26 estão em `docs/editorial/agendados/` com `status: scheduled` e
-`publish_date` entre 13/09 e 08/10/2026. Não confunda `planned_date` com a data
+O artigo de 13/09 foi publicado com capa; os 25 seguintes estão em
+`docs/editorial/agendados/` com `status: scheduled` e `publish_date` entre
+14/09 e 08/10/2026. Eles ainda precisam de capas antes de cada data: a trava
+do build impedirá a publicação até que arquivo e metadados estejam completos.
+Não confunda `planned_date` com a data
 real: ela preserva o histórico do planejamento.
 
 O cron do usuário `kodda` executa `scripts/publish_due.py` às 09:00 no fuso

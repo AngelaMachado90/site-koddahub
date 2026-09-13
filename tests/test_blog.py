@@ -98,6 +98,10 @@ reading_time: 2 minutos
 slug: exemplo-editorial
 status: published
 publish_date: 2026-01-01
+cover: /assets/images/blog/n8n-workflow-automacao.webp
+cover_alt: Fluxo de automação ilustrado
+cover_width: 1672
+cover_height: 941
 ---
 # Exemplo editorial
 
@@ -124,6 +128,26 @@ Texto de teste.
             self.assertIn('name="description" content="Artigo de teste do blog."', page)
             self.assertIn('BlogPosting', page)
             self.assertIn('<h1>Exemplo editorial</h1>', page)
+
+    def test_public_article_without_cover_blocks_build(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            source = Path(temporary)
+            (source/'no-cover.md').write_text('''---
+title: Artigo sem capa
+seo_title: Artigo sem capa
+meta_description: Exemplo.
+summary: Exemplo.
+category: Automação
+reading_time: 2 minutos
+slug: artigo-sem-capa
+status: published
+publish_date: 2026-01-01
+---
+# Artigo sem capa
+''', encoding='utf-8')
+            home = (ROOT/'public/index.template.html').read_text(encoding='utf-8').replace('{{YEAR}}','2026').replace('{{ASSET_VERSION}}','test').replace('{{SITE_URL}}','https://koddahub.com.br').replace('{{CHAT_WEBHOOK_URL}}','')
+            with self.assertRaisesRegex(ValueError, 'Artigo sem capa'):
+                build_blog(source, home, 'https://koddahub.com.br', 'test', source)
 
 if __name__ == '__main__':
     unittest.main()

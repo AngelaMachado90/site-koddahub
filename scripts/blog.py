@@ -165,6 +165,17 @@ def card_html(item, featured=False, position=1):
 
 def build_blog(dist, home, site_url, version, editorial=EDITORIAL):
     entries = articles(editorial)
+    for item in entries:
+        cover_path = str(item.get('cover') or '')
+        if not cover_path:
+            raise ValueError(f"Artigo sem capa não pode ser publicado: {item['slug']}")
+        if not re.fullmatch(r'/assets/images/[a-zA-Z0-9_./-]+', cover_path) or '..' in cover_path:
+            raise ValueError(f"Caminho de capa inválido: {item['slug']}")
+        if not (PUBLIC / cover_path.lstrip('/')).is_file():
+            raise ValueError(f"Imagem de capa inexistente: {item['slug']}")
+        for key in ('cover_alt', 'cover_width', 'cover_height'):
+            if not item.get(key):
+                raise ValueError(f"{key} obrigatório com cover: {item['slug']}")
     featured_item = next((item for item in entries if item['slug'] == FEATURED_SLUG), entries[0] if entries else None)
     featured = card_html(featured_item, featured=True) if featured_item else ""
     remaining = [item for item in entries if item is not featured_item]
@@ -180,26 +191,16 @@ def build_blog(dist, home, site_url, version, editorial=EDITORIAL):
         other_articles = [other for other in entries if other is not item][:3]
         related = '<ul class="blog-related-list">' + ''.join(f'<li><a href="/blog/{e(other["slug"])}/">{e(other["title"])} <span aria-hidden="true">→</span></a></li>' for other in other_articles) + '</ul>' if other_articles else '<p><a href="/blog/">Ver todos os artigos</a></p>'
         content = markdown(item['body'].split('## Links internos sugeridos')[0].split('## Referências')[0].split('## Imagem de capa')[0]) + source_links(item['body'])
-        cover = ''
-        if item.get('cover'):
-            cover_path = str(item['cover'])
-            if not re.fullmatch(r'/assets/images/[a-zA-Z0-9_./-]+', cover_path) or '..' in cover_path:
-                raise ValueError('Caminho de capa inválido')
-            if not (PUBLIC / cover_path.lstrip('/')).is_file():
-                raise ValueError('Imagem de capa inexistente')
-            for key in ('cover_alt', 'cover_width', 'cover_height'):
-                if not item.get(key):
-                    raise ValueError(f'{key} obrigatório com cover')
-            cover = f'<img class="blog-cover rounded my-4" src="{e(cover_path)}" width="{e(item["cover_width"])}" height="{e(item["cover_height"])}" alt="{e(item["cover_alt"])}">'
+        cover_path = str(item['cover'])
+        cover = f'<img class="blog-cover rounded my-4" src="{e(cover_path)}" width="{e(item["cover_width"])}" height="{e(item["cover_height"])}" alt="{e(item["cover_alt"])}">'
         body = (PUBLIC/'blog/article.template.html').read_text(encoding='utf-8')
         for key, value in {'CATEGORY':e(item['category']),'TITLE':e(item['title']),'SUMMARY':e(item['summary']),'DATE':e(format_date_pt(item['publish_date'])),'DATE_ISO':e(item['publish_date']),'READING_TIME':e(item['reading_time']),'AUTHOR':e(item.get('author','VAL — Valor, Autoridade e Linguagem Koddahub')),'COVER':cover,'CONTENT':content,'RELATED':related}.items():
             body = body.replace('{{'+key+'}}', value)
         schema = {"@context":"https://schema.org","@type":"BlogPosting","headline":item['title'],"description":item['meta_description'],"datePublished":str(item['publish_date']),"author":{"@type":"Organization","name":"Koddahub"},"mainEntityOfPage":url}
         if item.get('modified_date'):
             schema['dateModified'] = str(item['modified_date'])
-        if item.get('cover'):
-            schema['image'] = site_url + item['cover']
-        page = shell(home, body, item['seo_title'], item['meta_description'], url, site_url, version, schema, True, item.get('cover'))
+        schema['image'] = site_url + cover_path
+        page = shell(home, body, item['seo_title'], item['meta_description'], url, site_url, version, schema, True, cover_path)
         target_dir = target/item['slug']; target_dir.mkdir(exist_ok=True)
         (target_dir/'index.html').write_text(page, encoding='utf-8')
     return [blog_url] + [blog_url + item['slug'] + '/' for item in entries]

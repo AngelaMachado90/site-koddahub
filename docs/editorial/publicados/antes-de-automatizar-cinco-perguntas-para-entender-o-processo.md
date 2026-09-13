@@ -8,8 +8,15 @@ reading_time: 2 minutos
 summary: Automatizar cedo demais pode acelerar um erro.
 planned_date: 13/09/2026
 publish_date: 2026-09-13
-status: scheduled
+status: published
 author: VAL — Valor, Autoridade e Linguagem Koddahub
+cover: /assets/images/blog/antes-de-automatizar-processo.webp
+cover_alt: Cinco cartões vazios ao longo de um caminho com bifurcação, antes de duas engrenagens de automação
+cover_width: 1672
+cover_height: 941
+image_source:
+  provider: OpenAI
+  type: imagem gerada para o Blog Koddahub
 ---
 
 # Antes de automatizar: cinco perguntas para entender o processo
