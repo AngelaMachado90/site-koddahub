@@ -46,7 +46,7 @@ Os quatro textos iniciais estão em `docs/editorial/publicados/`, com `status: p
 | Data editorial proposta | Estado | Exemplo |
 | --- | --- | --- |
 | 02/09/2026 | Rascunho | Google Ads: coleta e padronização dos dados de campanhas |
-| 03/09/2026 | Pauta a confirmar | GA4: coleta de sessões e eventos com definições verificadas |
-| 04/09/2026 | Pauta a confirmar | Visão unificada: comparar investimento, tráfego e ações sem misturar métricas |
+| 03/09/2026 | Rascunho proposto | GA4: coleta de sessões e eventos com definições verificadas |
+| 04/09/2026 | Rascunho proposto | Visão unificada: comparar investimento, tráfego e ações sem misturar métricas |
 
 As datas da série já passaram. Os novos textos só devem entrar no site após revisão editorial e decisão explícita sobre exibir datas retroativas ou a data real da nova publicação. As capturas dos workflows servem apenas como contexto; os exemplos públicos devem permanecer anonimizados.
