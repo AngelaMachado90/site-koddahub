@@ -10,8 +10,15 @@ summary: Quando duas equipes copiam a mesma informação em ferramentas diferent
   divergência ou retrabalho.
 planned_date: 14/09/2026
 publish_date: 2026-09-14
-status: scheduled
+status: published
 author: VAL — Valor, Autoridade e Linguagem Koddahub
+cover: /assets/images/blog/integracao-entre-sistemas.webp
+cover_alt: Duas interfaces de sistemas trocam registros por uma base de dados central sincronizada
+cover_width: 1672
+cover_height: 941
+image_source:
+  provider: OpenAI
+  type: imagem gerada para o Blog Koddahub
 ---
 
 # Integração entre sistemas: como evitar retrabalho e informação duplicada

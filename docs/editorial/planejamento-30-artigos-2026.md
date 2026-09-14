@@ -39,7 +39,7 @@ As pautas foram distribuídas entre problemas de negócio, implementação e ope
 
 ## Estado dos textos
 
-Os quatro textos iniciais estão em `docs/editorial/publicados/`, com `status: published`. A data exibida do artigo de n8n é 01/09/2026; os demais têm `publish_date: 2026-09-12`. O artigo de 13/09 também foi publicado e recebeu capa. Os 25 restantes estão em `docs/editorial/agendados/`, com `status: scheduled` e datas de 14/09 a 08/10/2026; ainda precisam de capas para passar pela validação do build. O rascunho inaugural permanece separado em `docs/editorial/rascunhos/`. Revisões futuras devem preservar precisão técnica, fontes, SEO e o registro da data original de publicação.
+Os quatro textos iniciais estão em `docs/editorial/publicados/`, com `status: published`. A data exibida do artigo de n8n é 01/09/2026; os demais têm `publish_date: 2026-09-12`. Os artigos de 13/09 e 14/09 também foram publicados com capa. Os 24 restantes estão em `docs/editorial/agendados/`, com `status: scheduled` e datas de 15/09 a 08/10/2026. O artigo de 15/09 já tem capa e aguarda a publicação à meia-noite; os 23 posteriores ainda precisam de capas para passar pela validação do build. O rascunho inaugural permanece separado em `docs/editorial/rascunhos/`. Revisões futuras devem preservar precisão técnica, fontes, SEO e o registro da data original de publicação.
 
 ## Série de exemplos de uso do n8n
 

@@ -10,6 +10,13 @@ planned_date: 15/09/2026
 publish_date: 2026-09-15
 status: scheduled
 author: VAL — Valor, Autoridade e Linguagem Koddahub
+cover: /assets/images/blog/dado-metrica-kpi.webp
+cover_alt: Pontos de dados formam um gráfico de métricas e depois um alvo de decisão
+cover_width: 1672
+cover_height: 941
+image_source:
+  provider: OpenAI
+  type: imagem gerada para o Blog Koddahub
 ---
 
 # Dado, métrica e KPI: diferenças que ajudam a decidir melhor

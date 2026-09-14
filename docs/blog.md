@@ -32,6 +32,10 @@ Markdown suporta parágrafos, H2, H3, listas simples, listas numeradas e
 negrito. Links editoriais sugeridos no rascunho não são publicados
 automaticamente. Não use HTML bruto como conteúdo editorial.
 
+A série [#DescomplicandoATI](editorial/serie-descomplicandoati.md) começou com
+um artigo sobre RPA. Ela é adicional às 30 pautas originais e segue a mesma
+exigência de capa e revisão factual.
+
 A home usa `public/blog/index.template.html`; o artigo usa
 `public/blog/article.template.html`; o renderizador está em `scripts/blog.py`.
 O cabeçalho, rodapé e chatbot são derivados do template institucional durante
@@ -55,14 +59,15 @@ de 09 a 12/09 foram publicados em 12/09/2026, sua data real de publicação.
 O artigo de 13/09 foi publicado com capa. Dois exemplos adicionais de n8n,
 com datas editoriais retroativas de 02/09 e 03/09, foram publicados de fato
 em 13/09; a data real está em `originally_published_date` no front matter.
-Os 25 artigos seguintes estão em
-`docs/editorial/agendados/` com `status: scheduled` e `publish_date` entre
-14/09 e 08/10/2026. Eles ainda precisam de capas antes de cada data: a trava
-do build impedirá a publicação até que arquivo e metadados estejam completos.
+O artigo de 14/09 também foi publicado com capa. Os 24 artigos seguintes estão
+em `docs/editorial/agendados/` com `status: scheduled` e `publish_date` entre
+15/09 e 08/10/2026. O texto de 15/09 já tem capa e aguarda a primeira execução
+à meia-noite; os 23 posteriores ainda precisam de capas. A trava do build
+impedirá cada publicação até que arquivo e metadados estejam completos.
 Não confunda `planned_date` com a data
 real: ela preserva o histórico do planejamento.
 
-O cron do usuário `kodda` executa `scripts/publish_due.py` às 09:00 no fuso
+O cron do usuário `kodda` executa `scripts/publish_due.py` à 00:00 no fuso
 `America/Sao_Paulo`. O script só age quando encontra artigo devido ainda ausente
 em `/home/kodda/public_html/blog/`. Ele executa o build, verifica o artigo
 no artefato, salva uma cópia de `blog/` e `sitemap.xml` em
