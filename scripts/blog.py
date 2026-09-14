@@ -181,11 +181,12 @@ def build_blog(dist, home, site_url, version, editorial=EDITORIAL):
     featured_item = entries[0] if entries else None
     featured = card_html(featured_item, featured=True) if featured_item else ""
     remaining = [item for item in entries if item is not featured_item]
+    more_heading = '<div class="blog-more-heading"><h2 id="blog-more-title">Outras publicações</h2></div>' if remaining else ''
     listing = ''.join(card_html(item, position=position) for position, item in enumerate(remaining, start=2)) if entries else '<div class="col-12"><div class="blog-empty"><p class="mb-2">Os primeiros artigos estão em preparação.</p><a href="/#processo">Conheça como trabalhamos <span aria-hidden="true">→</span></a></div></div>'
     count = f"{len(entries)} artigo{'s' if len(entries) != 1 else ''} publicado{'s' if len(entries) != 1 else ''}" if entries else "Novos textos em preparação"
     blog_url = site_url + '/blog/'
     blog_schema = {"@context":"https://schema.org","@type":"Blog","name":"Blog Koddahub","url":blog_url,"description":"Tecnologia aplicada a problemas reais."}
-    body = (PUBLIC/'blog/index.template.html').read_text(encoding='utf-8').replace('{{ARTICLES}}', listing).replace('{{FEATURED}}', featured).replace('{{COUNT}}', e(count)).replace('{{SECTION_TITLE}}', 'Artigos' if entries else 'Em breve')
+    body = (PUBLIC/'blog/index.template.html').read_text(encoding='utf-8').replace('{{ARTICLES}}', listing).replace('{{FEATURED}}', featured).replace('{{MORE_HEADING}}', more_heading).replace('{{COUNT}}', e(count)).replace('{{SECTION_TITLE}}', 'Artigos' if entries else 'Em breve')
     target = dist/'blog'; target.mkdir(exist_ok=True)
     (target/'index.html').write_text(shell(home, body, 'Blog Koddahub | Tecnologia aplicada a problemas reais', 'Conteúdos sobre automação, inteligência artificial, dados, desenvolvimento, qualidade, DevOps e tecnologia aplicada ao negócio.', blog_url, site_url, version, blog_schema), encoding='utf-8')
     for item in entries:
