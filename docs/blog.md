@@ -47,6 +47,8 @@ exigência de capa e revisão factual.
 
 A home usa `public/blog/index.template.html`; o artigo usa
 `public/blog/article.template.html`; o renderizador está em `scripts/blog.py`.
+O card em destaque é sempre o artigo com a data de publicação mais recente;
+em caso de empate, o slug define uma ordem estável. Não há slug fixo de destaque.
 O cabeçalho, rodapé e chatbot são derivados do template institucional durante
 o build. O CSS complementar está em `public/assets/css/blog.css`; Bootstrap
 5.3 continua a base do grid e dos componentes.

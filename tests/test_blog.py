@@ -94,15 +94,15 @@ Texto insuficiente.
         self.assertIn('src="/assets/images/blog/exemplo.jpg"', rendered)
         self.assertIn('alt=""', rendered)
 
-    def test_responsive_article_is_featured_with_its_cover(self):
+    def test_latest_article_is_featured_with_its_cover(self):
         with tempfile.TemporaryDirectory() as temporary:
             target = Path(temporary)
             home = (ROOT/'public/index.template.html').read_text(encoding='utf-8').replace('{{YEAR}}','2026').replace('{{ASSET_VERSION}}','test').replace('{{SITE_URL}}','https://koddahub.com.br').replace('{{CHAT_WEBHOOK_URL}}','')
             build_blog(target, home, 'https://koddahub.com.br', 'test', ROOT/'docs/editorial/publicados')
             listing = (target/'blog/index.html').read_text(encoding='utf-8')
             featured = listing.split('class="card blog-card blog-featured"', 1)[1].split('</article>', 1)[0]
-            self.assertIn('href="/blog/site-responsivo-como-oferecer-uma-boa-experiencia-em-cada-tela/"', featured)
-            self.assertIn('src="/assets/images/blog/site-responsivo.jpg"', featured)
+            self.assertIn('href="/blog/integracao-entre-sistemas-como-evitar-retrabalho-e-informacao-duplicada/"', featured)
+            self.assertIn('src="/assets/images/blog/integracao-entre-sistemas.webp"', featured)
             chatbot = (target/'blog/chatbot-no-atendimento-o-que-automatizar-sem-perder-o-contexto-da-conversa/index.html').read_text(encoding='utf-8')
             self.assertIn('src="/assets/images/blog/chatbot-automacao-contexto.webp"', chatbot)
             self.assertIn('property="og:image" content="https://koddahub.com.br/assets/images/blog/chatbot-automacao-contexto.webp"', chatbot)
