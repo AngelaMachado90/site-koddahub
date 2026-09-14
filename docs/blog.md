@@ -30,7 +30,10 @@ preencha `cover`, `cover_alt`, `cover_width` e `cover_height`. O alt deve
 descrever a imagem efetivamente usada, não apenas o conceito do prompt. O corpo
 Markdown suporta parágrafos, H2, H3, listas simples, listas numeradas e
 negrito. Links editoriais sugeridos no rascunho não são publicados
-automaticamente. Não use HTML bruto como conteúdo editorial.
+no corpo do artigo; quando apontam para outro artigo já publicado, alimentam
+a seção “Continue lendo”. Os demais links da seção são escolhidos primeiro
+pela mesma categoria e depois pela data. Links futuros ou inválidos não entram
+na página. Não use HTML bruto como conteúdo editorial.
 
 A partir de 15/09/2026, **15 minutos de leitura é o padrão editorial** para
 novos artigos. Escreva conteúdo que justifique esse tempo: o build exige

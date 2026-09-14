@@ -86,6 +86,24 @@ def source_links(body):
     return '<section aria-labelledby="fontes-artigo"><h2 id="fontes-artigo">Fontes</h2><ul>' + links + '</ul></section>'
 
 
+def related_articles(item, entries, limit=3):
+    """Prioriza links editoriais publicados; completa com temas próximos."""
+    by_slug = {entry['slug']: entry for entry in entries if entry is not item}
+    notes = item['body'].split('## Links internos sugeridos', 1)
+    selected = []
+    if len(notes) == 2:
+        for slug in re.findall(r'^- /blog/([a-z0-9-]+)/\s*$', notes[1], re.M):
+            if slug in by_slug and by_slug[slug] not in selected:
+                selected.append(by_slug[slug])
+    candidates = sorted(by_slug.values(), key=lambda entry: (entry['category'] != item['category'], -entry['publish_date'].toordinal(), entry['slug']))
+    for candidate in candidates:
+        if len(selected) >= limit:
+            break
+        if candidate not in selected:
+            selected.append(candidate)
+    return selected[:limit]
+
+
 def articles(editorial=EDITORIAL, today=None):
     today = today or date.today()
     found = []
@@ -191,7 +209,7 @@ def build_blog(dist, home, site_url, version, editorial=EDITORIAL):
     (target/'index.html').write_text(shell(home, body, 'Blog Koddahub | Tecnologia aplicada a problemas reais', 'Conteúdos sobre automação, inteligência artificial, dados, desenvolvimento, qualidade, DevOps e tecnologia aplicada ao negócio.', blog_url, site_url, version, blog_schema), encoding='utf-8')
     for item in entries:
         url = blog_url + item['slug'] + '/'
-        other_articles = [other for other in entries if other is not item][:3]
+        other_articles = related_articles(item, entries)
         related = '<ul class="blog-related-list">' + ''.join(f'<li><a href="/blog/{e(other["slug"])}/">{e(other["title"])} <span aria-hidden="true">→</span></a></li>' for other in other_articles) + '</ul>' if other_articles else '<p><a href="/blog/">Ver todos os artigos</a></p>'
         content = markdown(item['body'].split('## Links internos sugeridos')[0].split('## Referências')[0].split('## Imagem de capa')[0]) + source_links(item['body'])
         cover_path = str(item['cover'])

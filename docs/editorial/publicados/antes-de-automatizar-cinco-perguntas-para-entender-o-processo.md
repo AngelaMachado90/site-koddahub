@@ -1,7 +1,7 @@
 ---
 title: 'Antes de automatizar: cinco perguntas para entender o processo'
 seo_title: 'Antes de automatizar: cinco perguntas para entender o processo'
-meta_description: Automatizar cedo demais pode acelerar um erro.
+meta_description: 'Antes de automatizar, avalie entrada, regras, exceções, resultado esperado e responsáveis. Cinco perguntas para escolher um processo que vale automatizar.'
 slug: antes-de-automatizar-cinco-perguntas-para-entender-o-processo
 category: Automação
 reading_time: 2 minutos

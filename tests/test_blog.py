@@ -5,7 +5,7 @@ from datetime import date
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'scripts'))
-from blog import articles, build_blog, card_html, markdown, source_links
+from blog import articles, build_blog, card_html, markdown, related_articles, source_links
 from publish_due import due_articles
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -87,6 +87,14 @@ Texto insuficiente.
         self.assertIn('href="https://docs.n8n.io/"', rendered)
         self.assertNotIn('texto interno', rendered)
 
+    def test_related_articles_use_published_editorial_links(self):
+        current = {'slug': 'current', 'category': 'Automação', 'publish_date': date(2026, 9, 14),
+                   'body': '## Links internos sugeridos\n\n- /blog/guide/\n- /blog/future/\n- /blog/current/'}
+        guide = {'slug': 'guide', 'category': 'Dados', 'publish_date': date(2026, 9, 1), 'body': ''}
+        similar = {'slug': 'similar', 'category': 'Automação', 'publish_date': date(2026, 9, 2), 'body': ''}
+        selected = related_articles(current, [current, guide, similar], limit=2)
+        self.assertEqual([item['slug'] for item in selected], ['guide', 'similar'])
+
     def test_card_uses_article_cover_when_available(self):
         item = {"title": "Artigo com imagem", "slug": "artigo-com-imagem", "publish_date": date(2026, 9, 12), "category": "Atendimento", "summary": "Resumo com imagem.", "reading_time": "15 minutos", "cover": "/assets/images/blog/exemplo.jpg", "cover_width": 1880, "cover_height": 1255}
         rendered = card_html(item, position=2)
@@ -155,6 +163,7 @@ Texto de teste.
             self.assertIn('rel="canonical" href="https://koddahub.com.br/blog/exemplo-editorial/"', page)
             self.assertIn('name="description" content="Artigo de teste do blog."', page)
             self.assertIn('BlogPosting', page)
+            self.assertIn('"mainEntityOfPage": "https://koddahub.com.br/blog/exemplo-editorial/"', page)
             self.assertIn('<h1>Exemplo editorial</h1>', page)
 
     def test_public_article_without_cover_blocks_build(self):
