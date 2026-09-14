@@ -109,6 +109,9 @@ def articles(editorial=EDITORIAL, today=None):
         for key in ("title", "seo_title", "meta_description", "summary", "category", "reading_time"):
             if not meta.get(key):
                 raise ValueError(f"{key} ausente: {path}")
+        if published >= date(2026, 9, 15):
+            if meta['reading_time'] != '15 minutos' or len(match[2].split()) < 2250:
+                raise ValueError(f"Artigo fora do padrão de 15 minutos (mínimo de 2250 palavras): {path}")
         meta["publish_date"] = published
         meta["body"] = match[2]
         found.append(meta)

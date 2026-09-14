@@ -32,6 +32,15 @@ Markdown suporta parágrafos, H2, H3, listas simples, listas numeradas e
 negrito. Links editoriais sugeridos no rascunho não são publicados
 automaticamente. Não use HTML bruto como conteúdo editorial.
 
+A partir de 15/09/2026, **15 minutos de leitura é o padrão editorial** para
+novos artigos. Escreva conteúdo que justifique esse tempo: o build exige
+`reading_time: 15 minutos` e pelo menos 2.250 palavras no corpo para artigos
+com `publish_date` nessa data ou posterior. Essa contagem é uma proteção mínima,
+não substitui revisão de utilidade, clareza, fontes e redundância. Artigos mais
+antigos preservam o tempo real indicado até uma revisão de conteúdo; não altere
+apenas o rótulo. Todo artigo também precisa de capa definitiva antes de entrar
+no site.
+
 A série [#DescomplicandoATI](editorial/serie-descomplicandoati.md) começou com
 um artigo sobre RPA. Ela é adicional às 30 pautas originais e segue a mesma
 exigência de capa e revisão factual.
@@ -61,9 +70,10 @@ com datas editoriais retroativas de 02/09 e 03/09, foram publicados de fato
 em 13/09; a data real está em `originally_published_date` no front matter.
 O artigo de 14/09 também foi publicado com capa. Os 24 artigos seguintes estão
 em `docs/editorial/agendados/` com `status: scheduled` e `publish_date` entre
-15/09 e 08/10/2026. O texto de 15/09 já tem capa e aguarda a primeira execução
-à meia-noite; os 23 posteriores ainda precisam de capas. A trava do build
-impedirá cada publicação até que arquivo e metadados estejam completos.
+15/09 e 08/10/2026. O texto de 15/09 já tem capa e extensão para 15 minutos;
+aguarda a primeira execução à meia-noite. Os 23 posteriores ainda precisam de
+capas e ampliação editorial. A trava do build impedirá a publicação até que
+esses requisitos estejam completos.
 Não confunda `planned_date` com a data
 real: ela preserva o histórico do planejamento.
 

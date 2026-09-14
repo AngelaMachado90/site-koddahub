@@ -35,6 +35,31 @@ Conteúdo.
             self.assertEqual(articles(source, date(2026, 9, 12)), [])
             self.assertEqual([entry["slug"] for entry in articles(source, date(2026, 9, 13))], ["pauta-programada"])
 
+    def test_new_article_requires_fifteen_minutes_of_actual_content(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            source = Path(temporary)
+            article = source / 'short.md'
+            article.write_text('''---
+title: Pauta curta
+seo_title: Pauta curta
+meta_description: Exemplo.
+summary: Exemplo.
+category: Dados
+reading_time: 15 minutos
+slug: pauta-curta
+status: scheduled
+publish_date: 2026-09-15
+---
+# Pauta curta
+
+Texto insuficiente.
+''', encoding='utf-8')
+            self.assertEqual(articles(source, date(2026, 9, 14)), [])
+            with self.assertRaisesRegex(ValueError, 'mínimo de 2250 palavras'):
+                articles(source, date(2026, 9, 15))
+            article.write_text(article.read_text(encoding='utf-8').replace('Texto insuficiente.', ' '.join(['exemplo'] * 2250)), encoding='utf-8')
+            self.assertEqual(len(articles(source, date(2026, 9, 15))), 1)
+
     def test_numbered_list_keeps_items_and_wrapped_lines(self):
         rendered = markdown("1. **Primeira pergunta?** Texto\n2. **Segunda pergunta?** Linha\n   continua aqui.")
         self.assertIn('<ol>', rendered)
