@@ -60,7 +60,8 @@ Texto insuficiente.
             with self.assertRaisesRegex(ValueError, 'mínimo de 2250 palavras'):
                 articles(source, date(2026, 9, 15))
             article.write_text(article.read_text(encoding='utf-8').replace('Texto insuficiente.', ' '.join(['exemplo'] * 2250)), encoding='utf-8')
-            self.assertEqual(len(articles(source, date(2026, 9, 15))), 1)
+            with self.assertRaisesRegex(ValueError, 'sem cover'):
+                articles(source, date(2026, 9, 15))
 
     def test_numbered_list_keeps_items_and_wrapped_lines(self):
         rendered = markdown("1. **Primeira pergunta?** Texto\n2. **Segunda pergunta?** Linha\n   continua aqui.")
@@ -112,6 +113,18 @@ Texto insuficiente.
         similar = {'slug': 'similar', 'category': 'Automação', 'publish_date': date(2026, 9, 2), 'body': ''}
         selected = related_articles(current, [current, guide, similar], limit=2)
         self.assertEqual([item['slug'] for item in selected], ['guide', 'similar'])
+
+    def test_related_articles_rank_tag_affinity_before_category_and_date(self):
+        current = {'slug': 'current', 'category': 'Automação', 'tags': ['n8n', 'Google Ads'],
+                   'publish_date': date(2026, 9, 14), 'body': ''}
+        same_category = {'slug': 'same-category', 'category': 'Automação', 'tags': ['Processos', 'RPA'],
+                         'publish_date': date(2026, 9, 13), 'body': ''}
+        two_shared_tags = {'slug': 'two-shared-tags', 'category': 'Dados', 'tags': ['n8n', 'Google Ads'],
+                           'publish_date': date(2026, 8, 1), 'body': ''}
+        one_shared_tag = {'slug': 'one-shared-tag', 'category': 'Integração', 'tags': ['n8n', 'APIs'],
+                          'publish_date': date(2026, 9, 12), 'body': ''}
+        selected = related_articles(current, [current, same_category, one_shared_tag, two_shared_tags])
+        self.assertEqual([item['slug'] for item in selected], ['two-shared-tags', 'one-shared-tag', 'same-category'])
 
     def test_article_glossary_is_visible_and_available_to_kodda(self):
         entries = articles(ROOT/'docs/editorial', date(2026, 9, 15))

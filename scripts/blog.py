@@ -216,7 +216,7 @@ def blog_context_html(entries):
 
 
 def related_articles(item, entries, limit=3):
-    """Prioriza links editoriais publicados; completa com temas próximos."""
+    """Prioriza links editoriais; completa por tags, categoria e atualidade."""
     by_slug = {entry['slug']: entry for entry in entries if entry is not item}
     notes = item['body'].split('## Links internos sugeridos', 1)
     selected = []
@@ -224,7 +224,16 @@ def related_articles(item, entries, limit=3):
         for slug in re.findall(r'^- /blog/([a-z0-9-]+)/\s*$', notes[1], re.M):
             if slug in by_slug and by_slug[slug] not in selected:
                 selected.append(by_slug[slug])
-    candidates = sorted(by_slug.values(), key=lambda entry: (entry['category'] != item['category'], -entry['publish_date'].toordinal(), entry['slug']))
+    item_tags = set(item.get('tags') or [])
+    candidates = sorted(
+        by_slug.values(),
+        key=lambda entry: (
+            -len(item_tags.intersection(entry.get('tags') or [])),
+            entry['category'] != item['category'],
+            -entry['publish_date'].toordinal(),
+            entry['slug'],
+        ),
+    )
     for candidate in candidates:
         if len(selected) >= limit:
             break
@@ -285,6 +294,13 @@ def articles(editorial=EDITORIAL, today=None):
         if published >= date(2026, 9, 15):
             if meta['reading_time'] != '15 minutos' or len(match[2].split()) < 2250:
                 raise ValueError(f"Artigo fora do padrão de 15 minutos (mínimo de 2250 palavras): {path}")
+            for key in ('cover', 'cover_alt', 'cover_width', 'cover_height', 'cta_title', 'cta_text', 'cta_label'):
+                if not meta.get(key):
+                    raise ValueError(f"Artigo futuro sem {key}: {path}")
+            if not meta.get('glossary'):
+                raise ValueError(f"Artigo futuro sem glossário: {path}")
+            if not visuals:
+                raise ValueError(f"Artigo futuro sem recurso didático: {path}")
         meta["publish_date"] = published
         meta["body"] = match[2]
         found.append(meta)

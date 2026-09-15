@@ -40,9 +40,9 @@ pipeline, sequência de etapas, checklist e mockup de dashboard; números
 fictícios devem ser marcados como exemplo ilustrativo. Links editoriais
 sugeridos no rascunho não são publicados
 no corpo do artigo; quando apontam para outro artigo já publicado, alimentam
-a seção “Continue lendo”. Os demais links da seção são escolhidos primeiro
-pela mesma categoria e depois pela data. Links futuros ou inválidos não entram
-na página. Não use HTML bruto como conteúdo editorial.
+a seção “Continue lendo”. Os demais links da seção são ordenados pela quantidade
+de tags em comum, depois pela mesma categoria e pela data. Links futuros ou
+inválidos não entram na página. Não use HTML bruto como conteúdo editorial.
 
 Tabelas comparativas preservam `<table>`, cabeçalhos de coluna e cabeçalhos de
 linha. Em desktop, usam largura automática e podem ultrapassar de forma
@@ -87,6 +87,13 @@ Antes de mudar um texto de `review` para `scheduled`, valide o card em 390 px e
 busque duas ou três linhas sem reduzir a tipografia. Confirme também SEO, slug,
 categoria, tags, capa e alt text, glossário, visual, CTA, extensão real e data.
 Falha crítica mantém o artigo em `review`.
+
+Para artigos com publicação a partir de 15/09/2026, o build transforma esse
+gate em contrato verificável: exige capa e metadados, CTA contextual, glossário
+estruturado e pelo menos um recurso didático declarado e usado no corpo, além
+das regras de extensão e taxonomia. A referência canônica de decisão editorial
+é `redator-blog-koddahub/references/ux-editorial.md`; este documento define
+somente como o projeto representa e valida essas decisões.
 
 ## Taxonomia editorial
 

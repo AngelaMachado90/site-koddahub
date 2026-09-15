@@ -1,5 +1,11 @@
 # Diretrizes didáticas da VAL
 
+Este documento é o contrato de clareza aplicado ao repositório. O padrão
+operacional completo da persona fica na referência canônica
+`redator-blog-koddahub/references/ux-editorial.md`; campos, taxonomia, build e
+publicação ficam em `docs/blog.md`. Essa separação evita cópias divergentes da
+mesma regra.
+
 O princípio editorial é: **descomplicar tecnologia sem empobrecer o conceito**.
 O leitor não precisa ser desenvolvedor, analista ou especialista para entender
 um artigo do Blog Koddahub.
@@ -40,3 +46,10 @@ explique-o na primeira ocorrência.
 
 Se alguma resposta indicar dificuldade, o texto volta para revisão. A contagem
 de palavras e o tempo estimado de leitura não substituem este teste.
+
+## Gate para conteúdo futuro
+
+O fluxo obrigatório é pauta → SEO → didática → UX editorial → glossário →
+visual → taxonomia → CTA → QA responsivo → build → agendamento ou publicação.
+Uma falha crítica mantém o conteúdo em `review`. O relatório da pauta registra
+somente decisões e evidências específicas; não replica o padrão completo.
