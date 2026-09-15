@@ -79,6 +79,7 @@ VAL prepara o Markdown editorial → revisão e aprovação → `status: publish
 ### VAL — Valor, Autoridade e Linguagem Koddahub
 
 VAL é a identidade editorial usada na preparação dos conteúdos do blog, não uma pessoa humana. Metadados, templates, limites do Markdown e regras de publicação estão em [Arquitetura do Blog](docs/blog.md).
+O padrão de explicação e o teste de clareza estão nas [Diretrizes didáticas da VAL](docs/editorial/diretrizes-didaticas-val.md).
 
 ## Rotas
 

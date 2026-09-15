@@ -3,6 +3,8 @@
 A fonte editorial é `docs/editorial/**/*.md`. VAL — Valor, Autoridade e
 Linguagem Koddahub — prepara o rascunho, que passa por revisão e aprovação
 editorial antes de receber `status: published` e `publish_date` no front matter.
+Toda redação e revisão segue as
+[diretrizes didáticas da VAL](editorial/diretrizes-didaticas-val.md).
 VAL é identidade editorial, não pessoa física. O rascunho inaugural permanece
 em `docs/editorial/rascunhos/` com `status: draft`; a imagem original está em
 `docs/editorial/assets/`. Esses arquivos são versionados, mas não entram em
