@@ -2,7 +2,7 @@
 
 **Documento:** KDH-BLOG-002
 **Versão:** 1.0
-**Status:** Em revisão
+**Status:** Ativo
 **Última atualização:** 15/09/2026
 **Responsável:** Koddahub
 **Classificação:** Uso interno
@@ -46,7 +46,7 @@ A rota first-party é encaminhada ao workflow `KDH | Blog | Article Views`. O
 contrato aceita apenas POST JSON com no máximo 512 bytes após normalização:
 
 ```json
-{"article_slug":"slug-publicado","increment":true}
+{"slug":"slug-publicado","increment":true}
 ```
 
 A resposta pública contém somente `success`, `article_slug` e `views`. Slugs
@@ -60,16 +60,12 @@ lidos sem registrar uma linha por acesso.
 
 ## Estado operacional
 
-A migration `012-create-blog-article-views.sql` está aplicada. O workflow está
-importado e inativo porque a credencial existente `KoddaFocus Postgres` não
-autentica no PostgreSQL atual. Frontend, proxy e workflow não devem ser
-publicados enquanto o teste integrado não passar.
+A migration `012-create-blog-article-views.sql` está aplicada. O workflow
+`KDH | Blog | Article Views` está ativo com credencial PostgreSQL exclusiva e
+permissões restritas às tabelas do contador. A credencial compartilhada pelos
+demais workflows permanece separada.
 
-Depois de corrigir a credencial sem expor seu valor:
-
-1. ativar o workflow e reiniciar o runtime n8n;
-2. validar consulta, incremento, slug inválido e limite;
-3. testar `/api/blog/views` no domínio first-party;
-4. validar sessão, reload, nova sessão e falha tolerada;
-5. executar build, deploy e QA responsivo em 360, 390, 576, 768, 992, 1200 e
-   1440 px.
+Em 15/09/2026 foram validados consulta sem incremento, incremento atômico com
+total atualizado, consulta posterior preservando o total, slug desconhecido
+com HTTP 400 e payload malformado com rejeição HTTP. A suíte local também cobre
+sessão, reload, nova sessão, falha tolerada, Web Share e fallbacks.
