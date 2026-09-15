@@ -275,6 +275,10 @@ Texto de teste.
             self.assertIn('/assets/js/chat-fallback.js?v=test', listing)
             self.assertIn('/assets/js/site.js?v=test', listing)
             self.assertIn('src="/assets/images/logo/kodda-chat-avatar-128.webp"', listing)
+            self.assertIn('class="footer-brand kdh-brand-wordmark"', listing)
+            self.assertIn('class="kdh-brand-kodda"', listing)
+            self.assertIn('class="kdh-brand-hub"', listing)
+            self.assertIn('class="footer-link"', listing)
             self.assertEqual(listing.count('https://www.googletagmanager.com/gtag/js?id=G-3DNTXV2CYK'), 1)
             self.assertIn("gtag('config', 'G-3DNTXV2CYK')", listing)
             self.assertIn('<title>Exemplo editorial | Blog Koddahub</title>', page)
@@ -306,6 +310,14 @@ publish_date: 2026-01-01
             home = (ROOT/'public/index.template.html').read_text(encoding='utf-8').replace('{{YEAR}}','2026').replace('{{ASSET_VERSION}}','test').replace('{{SITE_URL}}','https://koddahub.com.br').replace('{{CHAT_WEBHOOK_URL}}','')
             with self.assertRaisesRegex(ValueError, 'Artigo sem capa'):
                 build_blog(source, home, 'https://koddahub.com.br', 'test', source)
+
+    def test_footer_typography_uses_design_system_tokens(self):
+        css = (ROOT/'public/assets/css/style.css').read_text(encoding='utf-8')
+        footer = css.split('.site-footer{', 1)[1].split('}', 1)[0]
+        self.assertIn('font-family:var(--kdh-font-sans)', footer)
+        self.assertIn('.site-footer p{margin:0;font-weight:var(--kdh-font-weight-regular)}', css)
+        self.assertIn('font-weight:var(--kdh-font-weight-extra-bold)', css)
+        self.assertIn('.footer-link{font-weight:var(--kdh-font-weight-bold)}', css)
 
 if __name__ == '__main__':
     unittest.main()

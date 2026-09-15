@@ -143,6 +143,12 @@ A família atual foi preservada: `Inter, ui-sans-serif, system-ui, -apple-system
 | Caption | 0,72–0,78rem, com contraste adequado |
 | Label | 0,72–0,88rem, peso 700 ou 800 |
 
+Header, navegação, conteúdo, botões, chatbot e footer usam a pilha única
+`--kdh-font-sans`, exposta ao Bootstrap por `--bs-body-font-family`. No footer,
+o wordmark reutiliza o mesmo componente do header em peso 800; links usam peso
+700 e o copyright peso 400. Tamanho, peso e cor estabelecem a hierarquia sem
+trocar a família tipográfica.
+
 ## 6. Espaçamento, raios e sombras
 
 A escala de espaçamento usa base de 4 px: 4, 8, 12, 16, 24, 32, 48 e 64 px,
@@ -164,7 +170,7 @@ Use `--kdh-radius-sm`, `md`, `lg`, `xl` e `pill`. Para elevação, use
 | Badge | Não comunicar estado somente por cor; manter texto descritivo |
 | Input | Bootstrap `.form-control`, borda neutra e focus ring roxo |
 | Navbar | Bootstrap responsivo; wordmark oficial no nome textual |
-| Footer | Neutro; wordmark oficial e links com contraste |
+| Footer | Neutro; mesma família da interface, wordmark oficial em peso 800, copyright em 400 e links em 700 |
 | Alert | Semântica Bootstrap e tokens de feedback, independentes da marca |
 | Link | Roxo funcional, sublinhado quando o contexto exigir distinção |
 | Focus State | Contorno e anel visíveis; nunca remover sem alternativa |
