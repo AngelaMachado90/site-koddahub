@@ -77,3 +77,4 @@
 .blog-related-list a:hover{border-color:var(--kdh-purple-300);background:var(--kdh-purple-50)}
 @media(max-width:767.98px){.blog-hero{padding:3.25rem 0}.blog-hero h1{max-width:18ch}.blog-hero-count{margin-top:.5rem}.blog-listing{padding-bottom:4.5rem}.blog-card-media{height:8rem}.blog-featured-art--cover{min-height:12rem}.blog-card-body{min-height:0}.blog-article-head{padding-top:.5rem}.blog-breadcrumb-wrap{padding-top:1.2rem}}
 @media(prefers-reduced-motion:reduce){.blog-card,.blog-card-cover{transition:none}.blog-card:hover{transform:none}.blog-card:hover .blog-card-cover{transform:none}}
+.blog-glossary{margin-top:3rem;padding:clamp(1.25rem,3vw,2rem);border:1px solid var(--kdh-purple-200);border-radius:var(--kdh-radius-lg);background:var(--kdh-purple-50)}.blog-glossary>h2{margin-bottom:1.25rem}.blog-glossary .accordion-item{border-color:var(--kdh-purple-200)}.blog-glossary .accordion-button{font-weight:800}.blog-glossary .glossary-ask-kodda{min-height:2.5rem}

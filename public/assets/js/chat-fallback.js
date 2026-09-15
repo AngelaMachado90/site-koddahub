@@ -33,9 +33,28 @@
     }
   ];
 
-  function createConversation() {
+  const normalize = (value) => String(value || "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().trim();
+
+  function createConversation(pageContext = {}) {
     let lead = null;
     let lastTopic = "solução digital";
+    let lastGlossary = null;
+    const glossary = Array.isArray(pageContext.glossary) ? pageContext.glossary : [];
+    const blogGlossary = Array.isArray(pageContext.blog_glossary) ? pageContext.blog_glossary : [];
+    const glossaryCatalog = [...glossary, ...blogGlossary];
+
+    function findGlossary(question) {
+      const value = normalize(question).replace(/^(o que (e|sao)|explique|me explique)\s+/, "").replace(/[?.!]+$/g, "").trim();
+      return glossary.find((item) => [item.term, ...(item.aliases || [])].some((term) => normalize(term) === value))
+        || blogGlossary.find((item) => [item.term, ...(item.aliases || [])].some((term) => normalize(term) === value));
+    }
+
+    function glossaryReply(item, expanded = false) {
+      lastGlossary = item;
+      lastTopic = item.term;
+      const related = (item.related || []).filter((term) => glossaryCatalog.some((candidate) => normalize(candidate.term) === normalize(term))).slice(0, 3);
+      return { kind: "glossary", intent: "GLOSSARY", term: item.term, text: item.definition, example: item.example, application: item.application, related, expanded };
+    }
 
     function rememberArticle(href) {
       const topic = topics.find((item) => item.href === href);
@@ -44,7 +63,7 @@
 
     function reply(question) {
       const value = String(question || "").trim();
-      const normalized = value.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+      const normalized = normalize(value);
       if (lead) {
         if (lead.step === "name") {
           if (!/^[\p{L}][\p{L}\s.'-]{1,79}$/u.test(value)) return { text: "Informe seu nome para continuar (pelo menos duas letras).", lead: true };
@@ -70,14 +89,20 @@
       }
       if (/(implement|implant|contrat|orcament|proposta|minha empresa|meu negocio|meu neg[oó]cio|preciso de ajuda|quero fazer)/.test(normalized)) {
         lead = { step: "name", topic: lastTopic };
-        return { text: `Ótimo! Podemos ajudar com ${lastTopic}. Para preparar seu contato com a equipe, preciso de três dados: nome, telefone e e-mail. Eles serão enviados somente se você confirmar a mensagem no WhatsApp. Qual é seu nome?`, lead: true };
+        return { intent: "COMMERCIAL_INTENT", text: `Ótimo! Podemos ajudar com ${lastTopic}. Para preparar seu contato com a equipe, preciso de três dados: nome, telefone e e-mail. Eles serão enviados somente se você confirmar a mensagem no WhatsApp. Qual é seu nome?`, lead: true };
       }
+      if (/^(explique mais|ver exemplo|exemplo pratico)$/.test(normalized) && lastGlossary) return glossaryReply(lastGlossary, true);
+      if (/diferenca entre dado e metrica/.test(normalized)) return { kind: "comparison", intent: "ARTICLE_QUESTION", text: "Dado é uma informação registrada. Métrica é uma medida calculada ou contada a partir de dados.", rows: [["Dado", "informação"], ["Métrica", "medida"]], related: ["Dado", "Métrica", "KPI"] };
+      if (/diferenca entre metrica e kpi/.test(normalized)) return { kind: "comparison", intent: "ARTICLE_QUESTION", text: "Métrica é qualquer medida definida. KPI é a métrica escolhida para acompanhar um objetivo importante.", rows: [["Métrica", "medida"], ["KPI", "métrica ligada a um objetivo"]], related: ["Dado", "Métrica", "KPI"] };
+      if (/zero.*(ausente|sem dado)|ausente.*zero/.test(normalized)) return { kind: "comparison", intent: "ARTICLE_QUESTION", text: "Não. Zero informa que nada ocorreu; dado ausente informa que não houve registro confiável.", rows: [["Zero", "nenhuma ocorrência"], ["Dado ausente", "informação não registrada"]], related: ["Valor zero", "Dado ausente"] };
+      const glossaryItem = findGlossary(value);
+      if (glossaryItem) return glossaryReply(glossaryItem);
       const topic = topics.find((item) => item.matches.some((word) => normalized.includes(word)));
       if (topic) {
         rememberArticle(topic.href);
-        return { text: topic.text, link: { href: topic.href, label: topic.label } };
+        return { intent: "RELATED_CONTENT", text: topic.text, link: { href: topic.href, label: topic.label } };
       }
-      return { text: "Posso indicar leituras sobre n8n, sites responsivos, Streamlit e chatbots. Se quiser implementar uma solução na sua empresa, diga 'quero implementar' ou fale com nossa equipe pelo WhatsApp abaixo." };
+      return { kind: "unknown", intent: "UNKNOWN", text: pageContext.page_type === "blog" ? "Não encontrei esse termo no conteúdo que você está lendo. Posso explicar outro conceito do artigo ou ajudar você a encontrar um conteúdo relacionado." : "Não encontrei esse termo nos conteúdos disponíveis. Tente perguntar de outra forma ou procure um artigo relacionado." };
     }
     return { reply, rememberArticle };
   }

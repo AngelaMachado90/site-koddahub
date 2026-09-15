@@ -42,9 +42,13 @@
   const MAX_MESSAGES = 50;
   const REQUEST_TIMEOUT = 20000;
   const HAS_REMOTE_AGENT = Boolean(CHAT_WEBHOOK_URL);
+  const PAGE_CONTEXT = (() => {
+    try { return JSON.parse(document.getElementById("kodda-page-context")?.textContent || "{}"); }
+    catch (_) { return {}; }
+  })();
   const WELCOME_MESSAGE = HAS_REMOTE_AGENT
-    ? "Olá! Sou a Kodda, assistente da KoddaHub. Como posso ajudar?"
-    : "Olá! Posso indicar conteúdos sobre n8n, sites responsivos, Streamlit e chatbots. Qual tema você procura? Para falar com nossa equipe, use o WhatsApp abaixo.";
+    ? "Olá! Sou a Kodda. Posso ajudar a explicar este conteúdo."
+    : PAGE_CONTEXT.page_type === "blog" ? "Olá! Posso explicar os conceitos deste artigo." : "Olá! Posso ajudar a descomplicar os conteúdos do Blog Koddahub.";
   const LEGACY_ERROR_MESSAGE = "Não consegui responder agora. Tente novamente em alguns instantes.";
   const ERROR_MESSAGE = "Não consegui responder agora. Sua pergunta continua no campo para tentar de novo. Você também pode falar com nossa equipe pelo WhatsApp abaixo.";
 
@@ -56,15 +60,16 @@
   const form = panel?.querySelector(".kodda-chat-form");
   const input = panel?.querySelector(".kodda-chat-input");
   const sendButton = panel?.querySelector(".kodda-chat-send");
+  const ctaContext = panel?.querySelector(".kodda-chat-cta-context");
   if (!trigger || !panel || !closeButton || !messagesElement || !form || !input || !sendButton) return;
   if (!HAS_REMOTE_AGENT) {
     document.querySelector(".kodda-chat")?.classList.add("kodda-chat-local");
-    if (description) description.textContent = "Respostas rápidas do blog";
+    if (description) description.textContent = PAGE_CONTEXT.page_type === "blog" ? "Explicando este artigo" : "Descomplicando tecnologia";
   }
 
   let isSending = false;
   let messages = loadMessages();
-  const localConversation = window.koddaChatFallback?.createConversation();
+  const localConversation = window.koddaChatFallback?.createConversation(PAGE_CONTEXT);
   const lastArticle = [...messages].reverse().find((message) => message.link?.href);
   if (lastArticle) localConversation?.rememberArticle(lastArticle.link.href);
 
@@ -121,13 +126,39 @@
     message.className = `kodda-message kodda-message-${role}`;
     if (options.typing) {
       message.classList.add("kodda-message-typing");
-      message.setAttribute("aria-label", "Kodda está digitando");
+      message.setAttribute("aria-label", "Kodda está explicando");
       for (let index = 0; index < 3; index += 1) message.append(document.createElement("span"));
     } else {
       const content = document.createElement("p");
       const time = document.createElement("time");
+      let extraDetail = null;
       const timestamp = options.timestamp ? new Date(options.timestamp) : new Date();
       content.textContent = text;
+      if (options.answer?.kind === "glossary") {
+        message.classList.add("kodda-chat-glossary-card");
+        const title = document.createElement("strong");
+        title.className = "kodda-chat-term";
+        title.textContent = options.answer.term;
+        message.prepend(title);
+        if (options.answer.expanded) {
+          const example = document.createElement("div");
+          example.className = "kodda-chat-example";
+          example.innerHTML = `<strong>Exemplo</strong><span></span><strong>Para que serve</strong><span></span>`;
+          example.children[1].textContent = options.answer.example;
+          example.children[3].textContent = options.answer.application;
+          extraDetail = example;
+        }
+      } else if (options.answer?.kind === "comparison") {
+        message.classList.add("kodda-chat-glossary-card");
+        const comparison = document.createElement("dl");
+        comparison.className = "kodda-chat-comparison";
+        (options.answer.rows || []).forEach(([term, meaning]) => {
+          const dt = document.createElement("dt"); dt.textContent = term;
+          const dd = document.createElement("dd"); dd.textContent = meaning;
+          comparison.append(dt, dd);
+        });
+        extraDetail = comparison;
+      }
       if (options.link) {
         const link = document.createElement("a");
         link.className = "kodda-message-link";
@@ -141,6 +172,11 @@
       } else {
         message.append(content, time);
       }
+      if (extraDetail) message.insertBefore(extraDetail, time);
+      const actions = options.answer?.kind === "glossary" && !options.answer.expanded
+        ? ["Ver exemplo", "Explique mais", ...(options.answer.related || [])]
+        : (options.answer?.related || []);
+      if (actions.length) message.insertBefore(quickReplies(actions), time);
       time.dateTime = timestamp.toISOString();
       time.textContent = formatTime(timestamp);
       if (options.persist !== false) {
@@ -153,10 +189,35 @@
     return message;
   }
 
+  function quickReplies(labels) {
+    const group = document.createElement("div");
+    group.className = "kodda-chat-quick-replies";
+    group.setAttribute("aria-label", "Sugestões de perguntas");
+    labels.slice(0, 5).forEach((label) => {
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = "btn btn-sm kodda-chat-quick-reply";
+      button.textContent = label;
+      button.addEventListener("click", () => { input.value = label; resizeInput(); sendMessage(); });
+      group.append(button);
+    });
+    return group;
+  }
+
+  function updateContextualCta(answer) {
+    if (!ctaContext || answer?.kind !== "glossary") return;
+    ctaContext.textContent = PAGE_CONTEXT.article_category === "Dados"
+      ? "Quer organizar os indicadores do seu negócio?"
+      : "Quer aplicar este conceito no seu negócio?";
+    ctaContext.hidden = false;
+  }
+
   function renderHistory() {
     messagesElement.textContent = "";
     if (!messages.length) {
       addMessage(WELCOME_MESSAGE, "assistant");
+      const suggestions = (PAGE_CONTEXT.glossary || []).slice(0, 3).map((item) => item.term);
+      if (suggestions.length) messagesElement.lastElementChild?.append(quickReplies(suggestions));
       return;
     }
     messages.forEach((message) => addMessage(message.text, message.role, { timestamp: message.timestamp, link: message.link, persist: false }));
@@ -201,7 +262,7 @@
       const response = await fetch(CHAT_WEBHOOK_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message, sessionId: getSessionId() }),
+        body: JSON.stringify({ message, sessionId: getSessionId(), context: { page_type: PAGE_CONTEXT.page_type || "site", page_url: location.href, article_slug: PAGE_CONTEXT.article_slug, article_title: PAGE_CONTEXT.article_title, article_category: PAGE_CONTEXT.article_category } }),
         signal: controller.signal
       });
       if (!response.ok) throw new Error(`HTTP ${response.status}`);
@@ -234,13 +295,21 @@
     try {
       const answer = HAS_REMOTE_AGENT ? await sendMessageToAgent(text) : localAnswer;
       typing?.remove();
-      addMessage(answer.text, "assistant", { link: answer.link, persist: !answer.lead });
+      updateContextualCta(answer);
+      addMessage(answer.text, "assistant", { link: answer.link, answer, persist: !answer.lead });
     } catch (error) {
       console.error("Falha ao enviar mensagem ao agente:", error);
       typing?.remove();
       input.value = text;
       resizeInput();
-      addMessage(ERROR_MESSAGE, "assistant", { persist: false });
+      const errorMessage = addMessage(ERROR_MESSAGE, "assistant", { persist: false });
+      errorMessage.classList.add("kodda-chat-error");
+      const retry = document.createElement("button");
+      retry.type = "button";
+      retry.className = "btn btn-sm kodda-chat-quick-reply mt-2";
+      retry.textContent = "Tentar novamente";
+      retry.addEventListener("click", () => { input.value = text; resizeInput(); input.focus(); });
+      errorMessage.append(retry);
     } finally {
       isSending = false;
       input.disabled = false;
@@ -260,6 +329,14 @@
       event.preventDefault();
       sendMessage();
     }
+  });
+  document.addEventListener("click", (event) => {
+    const button = event.target.closest?.(".glossary-ask-kodda");
+    if (!button) return;
+    openChat();
+    input.value = button.dataset.glossaryTerm || "";
+    resizeInput();
+    sendMessage();
   });
   document.addEventListener("keydown", (event) => {
     if (event.key === "Escape" && !panel.hidden && window.matchMedia("(min-width: 576px)").matches) closeChat();

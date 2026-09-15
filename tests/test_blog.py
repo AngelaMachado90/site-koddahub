@@ -5,7 +5,7 @@ from datetime import date
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'scripts'))
-from blog import articles, build_blog, card_html, markdown, related_articles, source_links
+from blog import articles, build_blog, card_html, glossary_html, markdown, page_context_html, related_articles, source_links
 from publish_due import due_articles
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -94,6 +94,16 @@ Texto insuficiente.
         similar = {'slug': 'similar', 'category': 'Automação', 'publish_date': date(2026, 9, 2), 'body': ''}
         selected = related_articles(current, [current, guide, similar], limit=2)
         self.assertEqual([item['slug'] for item in selected], ['guide', 'similar'])
+
+    def test_article_glossary_is_visible_and_available_to_kodda(self):
+        entries = articles(ROOT/'docs/editorial', date(2026, 9, 15))
+        item = next(entry for entry in entries if entry['slug'] == 'dado-metrica-e-kpi-diferencas-que-ajudam-a-decidir-melhor')
+        rendered = glossary_html(item['glossary'])
+        context = page_context_html(item, entries)
+        self.assertIn('Glossário rápido', rendered)
+        self.assertIn('data-glossary-term="KPI"', rendered)
+        self.assertIn('"article_slug": "dado-metrica-e-kpi-diferencas-que-ajudam-a-decidir-melhor"', context)
+        self.assertIn('"term": "Dado qualitativo"', context)
 
     def test_card_uses_article_cover_when_available(self):
         item = {"title": "Artigo com imagem", "slug": "artigo-com-imagem", "publish_date": date(2026, 9, 12), "category": "Atendimento", "summary": "Resumo com imagem.", "reading_time": "15 minutos", "cover": "/assets/images/blog/exemplo.jpg", "cover_width": 1880, "cover_height": 1255}

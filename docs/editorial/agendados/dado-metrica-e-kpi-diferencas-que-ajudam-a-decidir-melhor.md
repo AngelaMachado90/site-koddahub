@@ -9,6 +9,7 @@ summary: Esses três termos aparecem juntos em reuniões, mas cumprem papéis di
 planned_date: 15/09/2026
 publish_date: 2026-09-15
 status: scheduled
+modified_date: 2026-09-15
 author: VAL — Valor, Autoridade e Linguagem Koddahub
 cover: /assets/images/blog/dado-metrica-kpi.webp
 cover_alt: Pontos de dados formam um gráfico de métricas e depois um alvo de decisão
@@ -17,6 +18,55 @@ cover_height: 941
 image_source:
   provider: OpenAI
   type: imagem gerada para o Blog Koddahub
+glossary:
+  - term: Dado
+    aliases: [dados]
+    definition: Informação registrada sobre algo que aconteceu ou foi observado.
+    example: Um pedido recebido às 9h12 é um dado.
+    application: Serve como matéria-prima para contagens, comparações e análises.
+    related: [Dado quantitativo, Dado qualitativo, Métrica]
+  - term: Dado quantitativo
+    aliases: [dados quantitativos, quantitativo]
+    definition: Informação representada por uma quantidade ou medida.
+    example: 30 pedidos, R$ 1.200 em vendas ou 15 minutos de atendimento.
+    application: Pode ser contado, comparado ou usado em cálculos.
+    related: [Dado, Dado qualitativo, Métrica]
+  - term: Dado qualitativo
+    aliases: [dados qualitativos, qualitativo]
+    definition: Informação que descreve uma categoria ou característica.
+    example: Canal WhatsApp, origem Google ou status aguardando pagamento.
+    application: Ajuda a agrupar e compreender tipos de clientes, pedidos ou situações.
+    related: [Dado, Dado quantitativo, Métrica]
+  - term: Métrica
+    aliases: [metrica, métricas, metricas]
+    definition: Medida calculada ou contada a partir de dados segundo uma regra.
+    example: Quantidade de pedidos recebidos durante uma semana.
+    application: Ajuda a acompanhar volume, tempo, qualidade ou comportamento.
+    related: [Dado, KPI, Indicador]
+  - term: KPI
+    aliases: [indicador-chave, indicador chave]
+    definition: Métrica escolhida para acompanhar um objetivo importante.
+    example: A taxa de conversão pode ser um KPI quando o objetivo é aumentar vendas.
+    application: Ajuda a perceber se a organização avança em direção a um objetivo.
+    related: [Dado, Métrica, Indicador]
+  - term: Indicador
+    aliases: [indicadores]
+    definition: Medida usada para observar uma situação e apoiar uma decisão.
+    example: O tempo de resposta indica quanto um cliente espera pelo primeiro atendimento.
+    application: Torna mudanças e problemas mais visíveis para a equipe.
+    related: [Métrica, KPI]
+  - term: Valor zero
+    aliases: [zero, valor 0]
+    definition: Registro que informa que a quantidade medida foi nenhuma.
+    example: Zero pedidos significa que nenhum pedido foi registrado no período.
+    application: Permite distinguir ausência de ocorrência de uma falha na coleta.
+    related: [Dado ausente, Dado]
+  - term: Dado ausente
+    aliases: [dados ausentes, valor ausente, sem dado]
+    definition: Informação que não foi registrada ou não chegou à análise.
+    example: O sistema não recebeu a contagem de pedidos porque a integração falhou.
+    application: Sinaliza que não é seguro interpretar a lacuna como zero.
+    related: [Valor zero, Dado]
 ---
 
 # Dado, métrica e KPI: diferenças que ajudam a decidir melhor

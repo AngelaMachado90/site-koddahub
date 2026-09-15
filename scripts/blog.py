@@ -86,6 +86,41 @@ def source_links(body):
     return '<section aria-labelledby="fontes-artigo"><h2 id="fontes-artigo">Fontes</h2><ul>' + links + '</ul></section>'
 
 
+def glossary_html(items):
+    if not items:
+        return ''
+    cards = []
+    for index, item in enumerate(items):
+        panel = f'glossary-definition-{index}'
+        cards.append(f'''<div class="accordion-item"><h3 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#{panel}" aria-expanded="false" aria-controls="{panel}">{e(item['term'])}</button></h3><div id="{panel}" class="accordion-collapse collapse"><div class="accordion-body"><p>{e(item['definition'])}</p><p class="mb-3"><strong>Exemplo:</strong> {e(item['example'])}</p><button class="btn btn-sm btn-outline-primary glossary-ask-kodda" type="button" data-glossary-term="{e(item['term'])}">Perguntar ao Kodda</button></div></div></div>''')
+    return '<section class="blog-glossary" aria-labelledby="glossary-title"><p class="blog-overline mb-2">Consulta rápida</p><h2 id="glossary-title">Glossário rápido</h2><div class="accordion" id="articleGlossary">' + ''.join(cards) + '</div></section>'
+
+
+def page_context_html(item, entries):
+    general, seen = [], set()
+    for entry in entries:
+        for glossary_item in entry.get('glossary') or []:
+            key = glossary_item['term'].casefold()
+            if key not in seen:
+                seen.add(key)
+                general.append(glossary_item)
+    context = {'page_type': 'blog', 'article_slug': item['slug'], 'article_title': item['title'], 'article_category': item['category'], 'article_summary': item['summary'], 'glossary': item.get('glossary') or [], 'blog_glossary': general}
+    payload = json.dumps(context, ensure_ascii=False).replace('<', '\\u003c')
+    return f'<script type="application/json" id="kodda-page-context">{payload}</script>'
+
+
+def blog_context_html(entries):
+    general, seen = [], set()
+    for entry in entries:
+        for item in entry.get('glossary') or []:
+            key = item['term'].casefold()
+            if key not in seen:
+                seen.add(key)
+                general.append(item)
+    payload = json.dumps({'page_type': 'blog_index', 'blog_glossary': general}, ensure_ascii=False).replace('<', '\\u003c')
+    return f'<script type="application/json" id="kodda-page-context">{payload}</script>'
+
+
 def related_articles(item, entries, limit=3):
     """Prioriza links editoriais publicados; completa com temas próximos."""
     by_slug = {entry['slug']: entry for entry in entries if entry is not item}
@@ -127,6 +162,10 @@ def articles(editorial=EDITORIAL, today=None):
         for key in ("title", "seo_title", "meta_description", "summary", "category", "reading_time"):
             if not meta.get(key):
                 raise ValueError(f"{key} ausente: {path}")
+        for glossary_item in meta.get('glossary') or []:
+            for key in ('term', 'definition', 'example', 'application'):
+                if not glossary_item.get(key):
+                    raise ValueError(f"Glossário sem {key}: {path}")
         if published >= date(2026, 9, 15):
             if meta['reading_time'] != '15 minutos' or len(match[2].split()) < 2250:
                 raise ValueError(f"Artigo fora do padrão de 15 minutos (mínimo de 2250 palavras): {path}")
@@ -204,7 +243,7 @@ def build_blog(dist, home, site_url, version, editorial=EDITORIAL):
     count = f"{len(entries)} artigo{'s' if len(entries) != 1 else ''} publicado{'s' if len(entries) != 1 else ''}" if entries else "Novos textos em preparação"
     blog_url = site_url + '/blog/'
     blog_schema = {"@context":"https://schema.org","@type":"Blog","name":"Blog Koddahub","url":blog_url,"description":"Tecnologia aplicada a problemas reais."}
-    body = (PUBLIC/'blog/index.template.html').read_text(encoding='utf-8').replace('{{ARTICLES}}', listing).replace('{{FEATURED}}', featured).replace('{{MORE_HEADING}}', more_heading).replace('{{COUNT}}', e(count)).replace('{{SECTION_TITLE}}', 'Artigos' if entries else 'Em breve')
+    body = (PUBLIC/'blog/index.template.html').read_text(encoding='utf-8').replace('{{ARTICLES}}', listing).replace('{{FEATURED}}', featured).replace('{{MORE_HEADING}}', more_heading).replace('{{COUNT}}', e(count)).replace('{{SECTION_TITLE}}', 'Artigos' if entries else 'Em breve').replace('{{PAGE_CONTEXT}}', blog_context_html(entries))
     target = dist/'blog'; target.mkdir(exist_ok=True)
     (target/'index.html').write_text(shell(home, body, 'Blog Koddahub | Tecnologia aplicada a problemas reais', 'Conteúdos sobre automação, inteligência artificial, dados, desenvolvimento, qualidade, DevOps e tecnologia aplicada ao negócio.', blog_url, site_url, version, blog_schema), encoding='utf-8')
     for item in entries:
@@ -215,7 +254,7 @@ def build_blog(dist, home, site_url, version, editorial=EDITORIAL):
         cover_path = str(item['cover'])
         cover = f'<img class="blog-cover rounded my-4" src="{e(cover_path)}" width="{e(item["cover_width"])}" height="{e(item["cover_height"])}" alt="{e(item["cover_alt"])}">'
         body = (PUBLIC/'blog/article.template.html').read_text(encoding='utf-8')
-        for key, value in {'CATEGORY':e(item['category']),'TITLE':e(item['title']),'SUMMARY':e(item['summary']),'DATE':e(format_date_pt(item['publish_date'])),'DATE_ISO':e(item['publish_date']),'READING_TIME':e(item['reading_time']),'AUTHOR':e(item.get('author','VAL — Valor, Autoridade e Linguagem Koddahub')),'COVER':cover,'CONTENT':content,'RELATED':related}.items():
+        for key, value in {'CATEGORY':e(item['category']),'TITLE':e(item['title']),'SUMMARY':e(item['summary']),'DATE':e(format_date_pt(item['publish_date'])),'DATE_ISO':e(item['publish_date']),'READING_TIME':e(item['reading_time']),'AUTHOR':e(item.get('author','VAL — Valor, Autoridade e Linguagem Koddahub')),'COVER':cover,'CONTENT':content,'GLOSSARY':glossary_html(item.get('glossary')),'PAGE_CONTEXT':page_context_html(item, entries),'RELATED':related}.items():
             body = body.replace('{{'+key+'}}', value)
         schema = {"@context":"https://schema.org","@type":"BlogPosting","headline":item['title'],"description":item['meta_description'],"datePublished":str(item['publish_date']),"author":{"@type":"Organization","name":"Koddahub"},"mainEntityOfPage":url}
         if item.get('modified_date'):
