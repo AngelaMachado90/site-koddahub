@@ -46,7 +46,9 @@ no site.
 
 A série [#DescomplicandoATI](editorial/serie-descomplicandoati.md) começou com
 um artigo sobre RPA. Ela é adicional às 30 pautas originais e segue a mesma
-exigência de capa e revisão factual.
+exigência de capa e revisão factual. Seus artigos seguem o percurso “O que é?” →
+“Exemplo simples” → “Por que importa?” → “Como funciona?” → “Exemplo real” →
+“O que fazer com isso?”.
 
 A home usa `public/blog/index.template.html`; o artigo usa
 `public/blog/article.template.html`; o renderizador está em `scripts/blog.py`.

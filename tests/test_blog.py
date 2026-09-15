@@ -120,6 +120,10 @@ Texto insuficiente.
             n8n = (target/'blog/n8n-na-pratica-quando-faz-sentido-automatizar-um-processo-com-a-ferramenta/index.html').read_text(encoding='utf-8')
             self.assertIn('src="/assets/images/blog/n8n-workflow-automacao.webp"', n8n)
             self.assertIn('property="og:image" content="https://koddahub.com.br/assets/images/blog/n8n-workflow-automacao.webp"', n8n)
+            rpa = (target/'blog/descomplicando-a-ti-o-que-e-rpa/index.html').read_text(encoding='utf-8')
+            headings = ['O que é?', 'Exemplo simples', 'Por que importa?', 'Como funciona?', 'Exemplo real', 'O que fazer com isso?']
+            positions = [rpa.index(f'<h2>{heading}</h2>') for heading in headings]
+            self.assertEqual(positions, sorted(positions))
 
     def test_published_article_and_seo(self):
         with tempfile.TemporaryDirectory() as temporary:
