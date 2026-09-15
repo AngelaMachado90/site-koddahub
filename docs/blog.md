@@ -42,6 +42,12 @@ a seção “Continue lendo”. Os demais links da seção são escolhidos prime
 pela mesma categoria e depois pela data. Links futuros ou inválidos não entram
 na página. Não use HTML bruto como conteúdo editorial.
 
+Tabelas comparativas preservam `<table>`, cabeçalhos de coluna e cabeçalhos de
+linha. Em desktop, usam largura automática e podem ultrapassar de forma
+controlada a coluna de leitura. Abaixo de 768 px, cada linha assume composição
+de card sem duplicar o conteúdo. Termos curtos da primeira coluna não podem
+quebrar no meio; descrições longas quebram somente entre palavras.
+
 A partir de 15/09/2026, **15 minutos de leitura é o padrão editorial** para
 novos artigos. Escreva conteúdo que justifique esse tempo: o build exige
 `reading_time: 15 minutos` e pelo menos 2.250 palavras no corpo para artigos

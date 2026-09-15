@@ -6,7 +6,7 @@
 
 **Status:** Ativo
 
-**Última atualização:** 11/09/2026
+**Última atualização:** 15/09/2026
 
 **Responsável:** Koddahub
 
@@ -188,6 +188,20 @@ O texto “Tire suas dúvidas” é apresentado em um balão lateral discreto no
 o componente e reforça suavemente a sombra; foco por teclado acrescenta
 contorno e anel visíveis. Ao abrir o painel, a lógica JavaScript existente
 oculta o launcher; ao fechar, restaura o botão e devolve o foco.
+
+### Tabelas comparativas editoriais
+
+Use tabela semântica no desktop quando a comparação entre colunas for a ideia
+principal. Preserve `thead`, `tbody`, `scope="col"` e `scope="row"`. Adote
+`table-layout: auto`, reserve espaço suficiente para a coluna de conceitos e
+impeça quebra arbitrária de termos curtos. Descrições podem quebrar
+naturalmente entre palavras.
+
+Abaixo de 768 px, transforme visualmente cada linha em card quando três ou mais
+colunas comprimirem a leitura. O conteúdo e a tabela permanecem únicos no HTML;
+os rótulos auxiliares vêm de `data-label`. Título e badge usam flex com wrap: o
+badge muda de linha antes de apertar o título. A legenda fica fora da tabela,
+com cor secundária e espaçamento que preserve sua função de explicação.
 
 ## 8. Governança
 

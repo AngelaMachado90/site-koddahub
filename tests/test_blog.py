@@ -119,6 +119,19 @@ Texto insuficiente.
         self.assertIn('&lt;registro&gt;', rendered)
         self.assertNotIn('<registro>', rendered)
 
+    def test_comparison_table_has_responsive_semantic_contract(self):
+        visual = didactic_visual_html({
+            'type': 'table', 'title': 'Comparação', 'caption': 'Legenda.',
+            'alt': 'Comparação acessível.', 'data_kind': 'EXEMPLO ILUSTRATIVO',
+            'headers': ['Conceito', 'O que é', 'Exemplo'],
+            'rows': [['Métrica', 'Medida calculada', '90 pedidos']],
+        })
+        self.assertIn('<div class="blog-comparison">', visual)
+        self.assertIn('<table class="table blog-comparison__table">', visual)
+        self.assertIn('<th scope="col">Conceito</th>', visual)
+        self.assertIn('<th scope="row">Métrica</th>', visual)
+        self.assertIn('<td data-label="O que é">Medida calculada</td>', visual)
+
     def test_card_uses_article_cover_when_available(self):
         item = {"title": "Artigo com imagem", "slug": "artigo-com-imagem", "publish_date": date(2026, 9, 12), "category": "Atendimento", "summary": "Resumo com imagem.", "reading_time": "15 minutos", "cover": "/assets/images/blog/exemplo.jpg", "cover_width": 1880, "cover_height": 1255}
         rendered = card_html(item, position=2)

@@ -51,7 +51,8 @@ def didactic_visual_html(item):
             f'<th scope="row">{e(value)}</th>' if index == 0 else f'<td data-label="{e(headers[index])}">{e(value)}</td>'
             for index, value in enumerate(row)
         ) + '</tr>' for row in item.get("rows", []))
-        content = f'<div class="table-responsive"><table class="table blog-visual-table"><thead><tr>{head}</tr></thead><tbody>{rows}</tbody></table></div>'
+        columns = ''.join('<col>' for _ in headers)
+        content = f'<div class="blog-comparison"><table class="table blog-comparison__table"><colgroup>{columns}</colgroup><thead><tr>{head}</tr></thead><tbody>{rows}</tbody></table></div>'
     elif visual_type in {"comparison", "cards"}:
         cards = ''.join(f'<div class="blog-concept-card"><h3>{e(card["title"])}</h3><p>{e(card["text"])}</p></div>' for card in item.get("items", []))
         content = f'<div class="blog-concept-grid" role="group" aria-label="{alt}">{cards}</div>'
