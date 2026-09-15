@@ -1,9 +1,9 @@
 ---
-title: 'Descomplicando a TI: o que é RPA e quando usar?'
-seo_title: 'O que é RPA? Entenda a automação de tarefas | Koddahub'
+title: "O que é RPA?"
+seo_title: "O que é RPA? Entenda a automação de tarefas | Koddahub"
 meta_description: 'RPA é a automação de tarefas repetitivas em interfaces de sistemas. Entenda como funciona, veja um exemplo simples e saiba quando escolher outra abordagem.'
 slug: descomplicando-a-ti-o-que-e-rpa
-category: Descomplicando a TI
+category: "Automação"
 series: '#DescomplicandoATI'
 reading_time: 15 minutos
 modified_date: 2026-09-15
@@ -20,8 +20,64 @@ cover_height: 941
 image_source:
   provider: OpenAI
   type: imagem gerada para o Blog Koddahub
+cta_title: "Quer saber se uma tarefa combina com RPA?"
+cta_text: "A Koddahub ajuda a separar tarefas repetitivas de processos que ainda precisam ser simplificados."
+cta_label: "Avalie seu processo"
+tags: [RPA, Automação, Processos]
+glossary:
+- term: RPA
+  aliases:
+  - automação robótica de processos
+  definition: Tecnologia que repete ações humanas em telas seguindo regras definidas.
+  example: Um robô copia dados de pedidos de uma planilha para um sistema.
+  application: Ajuda em tarefas repetitivas quando não existe uma integração direta adequada.
+  related:
+  - Bot
+  - Automação
+  - Processo
+- term: Bot
+  aliases:
+  - robô de software
+  - robô
+  definition: Programa que executa ações automaticamente conforme instruções.
+  example: O bot abre um relatório, confere campos e salva o arquivo.
+  application: Executa partes previsíveis de um processo sem substituir decisões humanas complexas.
+  related:
+  - RPA
+  - Automação
+- term: Automação
+  aliases:
+  - automatizar
+  definition: Uso de regras e tecnologia para executar uma tarefa com menos intervenção manual.
+  example: Enviar uma confirmação após o recebimento de um formulário.
+  application: Reduz trabalho repetitivo quando entradas, regras e resultados são conhecidos.
+  related:
+  - RPA
+  - Processo
+- term: Processo
+  aliases:
+  - processos
+  definition: Sequência de atividades usada para chegar a um resultado.
+  example: Receber um pedido, validar o pagamento e separar o produto.
+  application: Mostra o que precisa ser entendido antes de escolher uma automação.
+  related:
+  - Automação
+  - RPA
+didactic_visuals:
+- id: rpa-manual-automatico
+  type: comparison
+  title: Tarefa manual e tarefa com RPA
+  caption: O RPA assume passos repetitivos e baseados em regras; exceções e decisões continuam precisando de tratamento
+    definido.
+  alt: Comparação entre uma pessoa repetindo ações em telas e um robô executando as mesmas regras.
+  data_kind: NÃO SE APLICA
+  items:
+  - title: Execução manual
+    text: A pessoa abre telas, copia campos e confere cada registro.
+  - title: Execução com RPA
+    text: O robô repete os passos previstos e encaminha exceções para uma pessoa.
 ---
-# Descomplicando a TI: o que é RPA e quando usar?
+# O que é RPA?
 
 **#DescomplicandoATI.** Sabe aquele termo da área de TI que você tem medo de perguntar para não parecer burro? Pode perguntar. Nesta série, a ideia é explicar a tecnologia sem pressupor que todo mundo já conhece as siglas. Começamos por RPA.
 
@@ -36,6 +92,7 @@ Na **RPA assistida**, uma pessoa inicia ou acompanha a automação enquanto trab
 
 “Não assistida” não quer dizer “sem responsável”. Alguém deve saber quando o fluxo falhou, qual pedido ficou pendente e como retomar com segurança. O nível de supervisão é uma decisão de operação, não uma promessa de autonomia total.
 
+[[visual:rpa-manual-automatico]]
 
 ## Exemplo simples
 

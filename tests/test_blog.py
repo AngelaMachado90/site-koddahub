@@ -5,7 +5,7 @@ from datetime import date
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'scripts'))
-from blog import articles, build_blog, card_html, didactic_visual_html, glossary_context, glossary_html, markdown, normalized_term, page_context_html, related_articles, source_links
+from blog import article_taxonomy_html, articles, build_blog, card_html, didactic_visual_html, glossary_context, glossary_html, markdown, normalized_term, page_context_html, related_articles, source_links
 from publish_due import due_articles
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -23,6 +23,7 @@ seo_title: Pauta programada
 meta_description: Texto programado.
 summary: Resumo.
 category: Automação
+tags: [Automação, Processos]
 reading_time: 2 minutos
 slug: pauta-programada
 status: scheduled
@@ -45,6 +46,7 @@ seo_title: Pauta curta
 meta_description: Exemplo.
 summary: Exemplo.
 category: Dados
+tags: [Dados, Analytics]
 reading_time: 15 minutos
 slug: pauta-curta
 status: scheduled
@@ -163,11 +165,28 @@ Texto insuficiente.
         self.assertIn('role="img" aria-label="Gráfico de tempos de resposta', rendered)
 
     def test_card_uses_article_cover_when_available(self):
-        item = {"title": "Artigo com imagem", "slug": "artigo-com-imagem", "publish_date": date(2026, 9, 12), "category": "Atendimento", "summary": "Resumo com imagem.", "reading_time": "15 minutos", "cover": "/assets/images/blog/exemplo.jpg", "cover_width": 1880, "cover_height": 1255}
+        item = {"title": "Artigo com imagem", "slug": "artigo-com-imagem", "publish_date": date(2026, 9, 12), "category": "Automação", "tags": ["Chatbots", "Atendimento"], "summary": "Resumo com imagem.", "reading_time": "15 minutos", "cover": "/assets/images/blog/exemplo.jpg", "cover_width": 1880, "cover_height": 1255}
         rendered = card_html(item, position=2)
         self.assertIn('blog-card-media--cover', rendered)
         self.assertIn('src="/assets/images/blog/exemplo.jpg"', rendered)
         self.assertIn('alt=""', rendered)
+        self.assertIn('data-category="automacao"', rendered)
+        self.assertIn('data-tags="chatbots,atendimento"', rendered)
+        self.assertIn('<span class="blog-tag">Chatbots</span>', rendered)
+
+    def test_scoped_articles_follow_controlled_taxonomy(self):
+        entries = articles(ROOT/'docs/editorial', date(2026, 9, 15))
+        self.assertEqual(len(entries), 10)
+        for item in entries:
+            self.assertGreaterEqual(len(item['tags']), 2)
+            self.assertLessEqual(len(item['tags']), 5)
+            self.assertLessEqual(len(item['title'].split()), 9)
+            self.assertTrue(item.get('glossary'))
+            self.assertTrue(item.get('didactic_visuals'))
+        taxonomy = article_taxonomy_html(entries[0])
+        self.assertIn('class="blog-category"', taxonomy)
+        visible_tags = [tag for tag in entries[0]['tags'] if tag != entries[0]['category']]
+        self.assertEqual(taxonomy.count('class="blog-tag"'), len(visible_tags))
 
     def test_latest_article_is_featured_with_its_cover(self):
         with tempfile.TemporaryDirectory() as temporary:
@@ -201,6 +220,7 @@ seo_title: Exemplo editorial | Blog Koddahub
 meta_description: Artigo de teste do blog.
 summary: Resumo verificável.
 category: Automação
+tags: [Automação, Processos]
 reading_time: 2 minutos
 slug: exemplo-editorial
 status: published
@@ -246,6 +266,7 @@ seo_title: Artigo sem capa
 meta_description: Exemplo.
 summary: Exemplo.
 category: Automação
+tags: [Automação, Processos]
 reading_time: 2 minutos
 slug: artigo-sem-capa
 status: published

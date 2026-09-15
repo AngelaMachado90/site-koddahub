@@ -1,9 +1,9 @@
 ---
-title: 'Chatbot no atendimento: o que automatizar sem perder o contexto da conversa'
-seo_title: 'Chatbot no atendimento: o que automatizar | Koddahub'
+title: "Até onde um chatbot deve automatizar?"
+seo_title: "Chatbot no atendimento: o que automatizar | Koddahub"
 meta_description: Entenda o que um chatbot pode responder, quando transferir para uma pessoa e como medir se a automação melhora o atendimento.
 slug: chatbot-no-atendimento-o-que-automatizar-sem-perder-o-contexto-da-conversa
-category: Atendimento
+category: "Automação"
 reading_time: 15 minutos
 summary: Um guia prático para decidir o que automatizar, preservar contexto na transferência para a equipe e medir se o chatbot melhora o atendimento.
 planned_date: 09/09/2026
@@ -17,9 +17,64 @@ cover_height: 941
 image_source:
   provider: OpenAI
   type: imagem gerada para o Blog Koddahub
+modified_date: 2026-09-15
+cta_title: "Quer melhorar o fluxo do seu chatbot?"
+cta_text: "A Koddahub ajuda a definir o que automatizar, quando transferir e quais dados devem acompanhar a conversa."
+cta_label: "Desenhe seu atendimento"
+tags: [Chatbots, Atendimento, Automação, UX/UI]
+glossary:
+- term: Chatbot
+  aliases:
+  - bot de atendimento
+  definition: Interface que conversa com pessoas e executa respostas ou ações previstas.
+  example: O bot informa o status de um pedido pelo código enviado no chat.
+  application: Resolve demandas simples e orienta o próximo passo no atendimento.
+  related:
+  - Intenção
+  - Transferência
+- term: Intenção
+  aliases:
+  - intenção da mensagem
+  definition: Objetivo que a pessoa tenta alcançar ao enviar uma mensagem.
+  example: Perguntar onde está um pedido ou solicitar troca.
+  application: Ajuda o chatbot a escolher um fluxo adequado.
+  related:
+  - Chatbot
+  - Contexto
+- term: Contexto
+  aliases:
+  - contexto da conversa
+  definition: Informações anteriores necessárias para compreender e continuar uma conversa.
+  example: Número do pedido, problema relatado e respostas já fornecidas.
+  application: Evita que a pessoa repita tudo quando o atendimento muda de canal ou responsável.
+  related:
+  - Transferência
+  - Intenção
+- term: Transferência
+  aliases:
+  - transbordo
+  - atendimento humano
+  definition: Passagem da conversa do chatbot para uma pessoa da equipe.
+  example: Uma contestação de cobrança é encaminhada com o histórico já preenchido.
+  application: Oferece saída segura para exceções e situações que exigem julgamento.
+  related:
+  - Chatbot
+  - Contexto
+didactic_visuals:
+- id: limites-chatbot
+  type: comparison
+  title: Bot para o previsível, pessoa para a exceção
+  caption: A automação ajuda em perguntas e regras claras; situações sensíveis ou ambíguas precisam de uma transferência
+    com contexto.
+  alt: Comparação entre perguntas simples atendidas por chatbot e situações complexas encaminhadas para uma pessoa.
+  data_kind: NÃO SE APLICA
+  items:
+  - title: Chatbot
+    text: Responde dúvidas frequentes, coleta dados essenciais e executa regras conhecidas.
+  - title: Pessoa
+    text: Assume exceções, negociações, temas sensíveis e decisões que exigem julgamento.
 ---
-
-# Chatbot no atendimento: o que automatizar sem perder o contexto da conversa
+# Até onde um chatbot deve automatizar?
 
 Uma resposta rápida não é, por si só, um bom atendimento. Um chatbot ajuda quando recebe perguntas repetidas, orienta a pessoa até a informação certa e registra dados mínimos para continuidade. Ele atrapalha quando tenta resolver exceções sem contexto ou impede o acesso a alguém da equipe.
 
@@ -34,6 +89,8 @@ Muitas conversas começam com uma pergunta curta: “qual o valor?”, “vocês
 Por isso, o chatbot não deve ser pensado como uma barreira entre o cliente e a equipe. Ele é uma camada de orientação. Sua função é reconhecer situações previsíveis, oferecer caminhos curtos e levar adiante o que foi informado. Quando a situação deixa de ser previsível, o fluxo precisa abrir espaço para uma conversa humana sem punição, demora desnecessária ou repetição.
 
 Há uma diferença importante entre **automatizar uma tarefa** e **automatizar uma relação**. Informar horário, localizar uma página, coletar um assunto ou confirmar o recebimento de uma mensagem são tarefas. Negociar uma exceção, acolher uma reclamação, avaliar uma necessidade específica ou assumir um compromisso em nome da empresa são situações que dependem de julgamento. Misturar essas duas coisas é uma fonte comum de frustração.
+
+[[visual:limites-chatbot]]
 
 ## Comece pelo caminho real de quem entra em contato
 

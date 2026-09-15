@@ -1,12 +1,12 @@
 ---
-title: 'Site responsivo: como oferecer uma boa experiência em cada tela'
-seo_title: 'Site responsivo: experiência em cada tela | Koddahub'
+title: "Seu site funciona em qualquer tela?"
+seo_title: "Site responsivo: experiência em cada tela | Koddahub"
 meta_description: Um site responsivo precisa preservar leitura, navegação e tarefas em cada tela. Veja o que validar no celular,
   tablet e desktop.
 slug: site-responsivo-como-oferecer-uma-boa-experiencia-em-cada-tela
-category: Desenvolvimento
+category: "Desenvolvimento"
 reading_time: 15 minutos
-modified_date: 2026-09-14
+modified_date: 2026-09-15
 summary: Um site responsivo precisa preservar leitura, navegação e tarefas em cada tela. Veja o que validar no celular, tablet
   e desktop.
 planned_date: 11/09/2026
@@ -21,9 +21,64 @@ image_source:
   provider: iStock
   photographer: milindri
   photo_id: 1061329208
+cta_title: "Seu site funciona bem no celular?"
+cta_text: "A Koddahub pode revisar tarefas, leitura e desempenho para encontrar o que dificulta a experiência em cada tela."
+cta_label: "Revise a experiência"
+tags: [Sites, Responsividade, UX/UI]
+glossary:
+- term: Responsividade
+  aliases:
+  - site responsivo
+  definition: Capacidade de uma interface adaptar conteúdo e ações ao espaço disponível.
+  example: Um formulário continua legível no celular sem rolagem lateral.
+  application: Preserva a tarefa da pessoa em telas e modos de uso diferentes.
+  related:
+  - Viewport
+  - Breakpoint
+  - Mobile first
+- term: Viewport
+  aliases:
+  - área visível
+  definition: Área da página disponível na tela do navegador.
+  example: No celular, a área visível é mais estreita que no notebook.
+  application: Ajuda o layout a considerar o espaço real disponível.
+  related:
+  - Responsividade
+  - Breakpoint
+- term: Breakpoint
+  aliases:
+  - ponto de quebra
+  definition: Largura em que o layout muda para continuar funcionando bem.
+  example: A navegação vira menu recolhido quando falta espaço.
+  application: Organiza adaptações necessárias sem criar uma página diferente para cada aparelho.
+  related:
+  - Responsividade
+  - Viewport
+- term: Mobile first
+  aliases:
+  - mobile-first
+  definition: Abordagem que começa pelo conteúdo essencial em telas menores.
+  example: Primeiro se organiza o formulário no celular e depois se amplia o layout.
+  application: Ajuda a priorizar tarefas e reduzir excessos desde o início.
+  related:
+  - Responsividade
+  - UX/UI
+didactic_visuals:
+- id: telas-responsivas
+  type: cards
+  title: A tarefa permanece; o layout se adapta
+  caption: Celular, tablet e desktop podem organizar elementos de formas diferentes sem esconder a ação principal.
+  alt: Três cards mostram o mesmo conteúdo organizado para celular, tablet e desktop.
+  data_kind: NÃO SE APLICA
+  items:
+  - title: Celular
+    text: Uma coluna, toque confortável e conteúdo prioritário primeiro.
+  - title: Tablet
+    text: Espaço intermediário com agrupamentos ajustados ao uso.
+  - title: Desktop
+    text: Mais área disponível sem linhas longas ou controles distantes.
 ---
-
-# Site responsivo: como oferecer uma boa experiência em cada tela
+# Seu site funciona em qualquer tela?
 
 Um site responsivo reorganiza conteúdo e ações para diferentes larguras de tela. Não basta reduzir elementos de uma página desenhada para computador. A pessoa no celular precisa conseguir ler, navegar e concluir a mesma tarefa principal sem ampliar a tela ou procurar um botão escondido.
 
@@ -32,6 +87,8 @@ Um site responsivo reorganiza conteúdo e ações para diferentes larguras de te
 Comece pela hierarquia. Em uma página de serviço, proposta, prova e contato devem continuar claros em uma coluna. Menus podem se recolher, mas o nome das opções e o acesso por teclado precisam permanecer compreensíveis. Imagens devem se adaptar à largura disponível sem cortar informação importante. Formulários precisam de rótulos visíveis e campos fáceis de usar pelo toque.
 
 Teste conteúdo real, inclusive títulos longos, mensagens de erro e zoom de texto. Uma tela de 390 pixels não representa todos os celulares; alterações de orientação, teclado virtual e preferências de acessibilidade também mudam o espaço disponível. A orientação da W3C para desenvolvimento acessível recomenda adaptar a apresentação a tamanhos de viewport e estados de zoom sem cortar conteúdo.
+
+[[visual:telas-responsivas]]
 
 ## Como validar
 

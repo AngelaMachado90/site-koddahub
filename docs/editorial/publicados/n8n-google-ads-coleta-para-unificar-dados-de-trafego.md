@@ -1,9 +1,9 @@
 ---
-title: 'n8n e Google Ads: como coletar dados de campanhas para uma visão única do tráfego'
-seo_title: 'n8n e Google Ads: coleta de dados para análise de tráfego | Koddahub'
+title: "Conectando Google Ads ao n8n"
+seo_title: "n8n e Google Ads: coleta para análise | Koddahub"
 meta_description: 'Exemplo de uso do n8n para receber dados do Google Ads, padronizar métricas e preparar uma base confiável para análise conjunta com GA4.'
 slug: n8n-google-ads-coleta-para-unificar-dados-de-trafego
-category: Automação
+category: "Dados"
 reading_time: 5 minutos
 summary: 'Um fluxo de coleta do Google Ads pode ser o primeiro passo para reunir investimento e desempenho em uma base comum, com validação e controle de duplicidade.'
 planned_date: 02/09/2026
@@ -18,9 +18,70 @@ cover_height: 941
 image_source:
   provider: OpenAI
   type: imagem gerada para o Blog Koddahub
+modified_date: 2026-09-15
+cta_title: "Quer unificar os dados das campanhas?"
+cta_text: "A Koddahub pode ajudar a definir chaves, métricas e validações para reunir mídia e comportamento em uma base confiável."
+cta_label: "Organize seus dados"
+tags: [n8n, Google Ads, Automação, Analytics]
+glossary:
+- term: Google Ads
+  aliases:
+  - Ads
+  definition: Plataforma do Google usada para criar e medir campanhas de anúncios.
+  example: Uma campanha de pesquisa recebe cliques de pessoas que buscaram um serviço.
+  application: Fornece dados de investimento, impressões, cliques e resultados configurados.
+  related:
+  - Campanha
+  - Métrica
+  - n8n
+- term: Normalização
+  aliases:
+  - normalizar dados
+  definition: Ajuste de nomes, formatos e tipos para dados diferentes seguirem o mesmo padrão.
+  example: Datas de fontes distintas passam a usar o formato ano, mês e dia.
+  application: Permite comparar e combinar registros com menos ambiguidade.
+  related:
+  - Dados
+  - Integração
+- term: Chave de deduplicação
+  aliases:
+  - chave única
+  - deduplicação
+  definition: Identificador usado para reconhecer um registro que já foi recebido.
+  example: Conta, campanha, grupo, anúncio e data formam a identidade de uma linha diária.
+  application: Evita contagem dupla quando o fluxo repete uma coleta.
+  related:
+  - Normalização
+  - n8n
+- term: n8n
+  aliases:
+  - workflow n8n
+  definition: Ferramenta de automação que conecta etapas, APIs e regras em workflows.
+  example: Um fluxo recebe dados do Google Ads, normaliza campos e grava no banco.
+  application: Orquestra a coleta e torna o caminho de cada dado explícito.
+  related:
+  - Google Ads
+  - Automação
+didactic_visuals:
+- id: fluxo-ads-n8n
+  type: pipeline
+  title: Da campanha à análise
+  caption: A coleta só se torna comparável depois que campos, datas e chaves passam por uma regra comum.
+  alt: Fluxo do Google Ads para n8n, normalização, banco de dados e análise.
+  data_kind: NÃO SE APLICA
+  items:
+  - label: Google Ads
+    detail: Campanhas e métricas
+  - label: n8n
+    detail: Coleta agendada
+  - label: Normalização
+    detail: Campos e chaves
+  - label: Banco
+    detail: Histórico sem duplicidade
+  - label: Análise
+    detail: Comparação com contexto
 ---
-
-# n8n e Google Ads: como coletar dados de campanhas para uma visão única do tráfego
+# Conectando Google Ads ao n8n
 
 Investimento, cliques e impressões aparecem no Google Ads. Sessões e ações no site aparecem no GA4. Quando cada equipe consulta uma tela diferente, a pergunta “o tráfego pago está ajudando o negócio?” demora mais a ser respondida. Um primeiro passo é criar uma coleta confiável dos dados de mídia, antes de tentar unir tudo em um painel.
 
@@ -31,6 +92,8 @@ Este é um **exemplo didático e anonimizado** de arquitetura. Ele não reproduz
 Suponha que a equipe queira acompanhar diariamente custo, cliques e impressões por campanha. A granularidade escolhida é uma linha por conta, campanha e dia. Essa decisão determina a consulta ao Google Ads, a chave de armazenamento e a forma de comparação posterior. Se o objetivo mudar para hora ou dispositivo, a estrutura precisa ser revista: adicionar dimensões pode multiplicar linhas e alterar o significado de totais.
 
 Também é preciso registrar a moeda da conta, o fuso horário usado na extração e a data a que cada número se refere. Sem esses campos, duas linhas com a mesma data podem representar períodos diferentes. Para custo, confira a unidade retornada pela API e converta apenas uma vez, com teste explícito.
+
+[[visual:fluxo-ads-n8n]]
 
 ## Um fluxo possível no n8n
 

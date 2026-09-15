@@ -1,9 +1,9 @@
 ---
-title: 'Dado, métrica e KPI: diferenças que ajudam a decidir melhor'
-seo_title: 'Dado, métrica e KPI: entenda a diferença | Koddahub'
+title: "Dado, métrica ou KPI?"
+seo_title: "Dado, métrica e KPI: entenda a diferença | Koddahub"
 meta_description: Entenda a diferença entre dado, métrica e KPI com exemplos simples e aprenda a criar indicadores confiáveis para decisões de negócio.
 slug: dado-metrica-e-kpi-diferencas-que-ajudam-a-decidir-melhor
-category: Dados
+category: "Dados"
 reading_time: 15 minutos
 summary: Entenda como registros viram métricas e quando uma métrica se torna um KPI capaz de orientar decisões.
 planned_date: 15/09/2026
@@ -11,10 +11,10 @@ publish_date: 2026-09-15
 status: scheduled
 modified_date: 2026-09-15
 author: VAL — Valor, Autoridade e Linguagem Koddahub
-cta_title: Quer organizar os dados e indicadores do seu negócio?
-cta_text: A Koddahub pode ajudar sua equipe a mapear fontes, definir métricas confiáveis e transformar indicadores em decisões compreensíveis.
+cta_title: "Quer organizar os dados e indicadores do seu negócio?"
+cta_text: "A Koddahub pode ajudar sua equipe a mapear fontes, definir métricas confiáveis e transformar indicadores em decisões compreensíveis."
 cta_url: https://wa.me/5541992272854?text=Ol%C3%A1%2C%20quero%20organizar%20os%20dados%20e%20indicadores%20do%20meu%20neg%C3%B3cio.
-cta_label: Falar com a Koddahub pelo WhatsApp
+cta_label: "Organize seus indicadores"
 cover: /assets/images/blog/dado-metrica-kpi.webp
 cover_alt: Pontos de dados formam um gráfico de métricas e depois um alvo de decisão
 cover_width: 1672
@@ -223,9 +223,9 @@ glossary:
     example: O sistema não recebeu a contagem de pedidos porque a integração falhou.
     application: Sinaliza que não é seguro interpretar a lacuna como zero.
     related: [Valor zero, Dado]
+tags: [Dados, Analytics, Processos]
 ---
-
-# Dado, métrica e KPI: diferenças que ajudam a decidir melhor
+# Dado, métrica ou KPI?
 
 Uma reunião pode começar com três números aparentemente contraditórios. O atendimento diz que recebeu 120 pedidos. O painel mostra 114 conversas. A direção comemora que o tempo médio de resposta caiu, enquanto a equipe relata mais reclamações. Antes de escolher qual gráfico está certo, é preciso perguntar o que cada número representa. Essa pergunta separa dado, métrica e KPI.
 

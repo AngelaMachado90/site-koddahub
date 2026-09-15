@@ -2,30 +2,40 @@
 
 ## Escopo e critério
 
-Inventário dos artigos elegíveis para publicação em 15/09/2026. A classificação
-considera clareza, didática, exemplos, glossário, recursos visuais, CTA e
-adequação mobile. `OK` indica que o artigo pode permanecer como está;
-`AJUSTE_LEVE` pede melhoria localizada; `REVISAO` exige evolução editorial;
-`PRIORITARIO` concentra a ação desta rodada.
+Inventário dos dez artigos publicados ou elegíveis em 15/09/2026. A revisão
+preservou slugs e datas reais, separou título editorial de SEO title e avaliou
+clareza, exemplos, glossário, visual didático, CTA, cards e leitura mobile.
+`AJUSTADO` identifica alteração desta rodada; `REVISADO` confirma consistência
+de um artigo já trabalhado anteriormente.
 
-## Resultado
+## Inventário editorial
 
-| Artigo | Classificação | Próxima ação |
-| --- | --- | --- |
-| Dado, métrica e KPI | PRIORITARIO | Revisado nesta rodada com cinco recursos didáticos, glossário e CTA contextual. |
-| Integração entre sistemas | AJUSTE_LEVE | Avaliar glossário curto sobre integração e fonte de verdade. |
-| Descomplicando a TI: o que é RPA? | AJUSTE_LEVE | Avaliar um fluxo visual de tarefa manual e automatizada. |
-| Antes de automatizar | AJUSTE_LEVE | Acrescentar síntese final às cinco perguntas. |
-| Chatbot no atendimento | OK | Manter e acompanhar dúvidas recebidas pela Kodda. |
-| Streamlit | REVISAO | Planejar exemplo visual de painel e glossário de termos de dados. |
-| Site responsivo | AJUSTE_LEVE | Acrescentar checklist visual por largura de tela. |
-| n8n na prática | AJUSTE_LEVE | Acrescentar diagrama simples de entrada, regra, saída e falha. |
-| n8n e Google Ads | REVISAO | Explicar visualmente coleta, normalização e armazenamento. |
-| n8n e GA4 | REVISAO | Diferenciar evento, dimensão e métrica com exemplos curtos. |
+| Artigo | Título anterior | Título novo | Categoria | Tags | UX | Glossário | Visuais |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| Integração entre sistemas | Integração entre sistemas: como evitar retrabalho e informação duplicada | Quando seus sistemas não conversam | Integração | Integração, APIs, Dados, Processos | AJUSTADO | 4 termos | Pipeline entre sistemas |
+| RPA | Descomplicando a TI: o que é RPA e quando usar? | O que é RPA? | Automação | RPA, Automação, Processos | AJUSTADO | 4 termos | Comparação manual/RPA |
+| Antes de automatizar | Antes de automatizar: cinco perguntas para entender o processo | Antes de automatizar, entenda o processo | Automação | Automação, Processos | AJUSTADO | 4 termos | Fluxo de quatro etapas |
+| Streamlit | Streamlit: quando usar para transformar dados em uma aplicação útil | Quando usar Streamlit? | Dados | Streamlit, Dados, Desenvolvimento | AJUSTADO | 4 termos | Pipeline de dados à aplicação |
+| Site responsivo | Site responsivo: como oferecer uma boa experiência em cada tela | Seu site funciona em qualquer tela? | Desenvolvimento | Sites, Responsividade, UX/UI | AJUSTADO | 4 termos | Cards por tipo de tela |
+| Chatbot | Chatbot no atendimento: o que automatizar sem perder o contexto da conversa | Até onde um chatbot deve automatizar? | Automação | Chatbots, Atendimento, Automação, UX/UI | AJUSTADO | 4 termos | Comparação bot/pessoa |
+| GA4 e n8n | n8n e GA4: como coletar dados de tráfego e eventos com critérios claros | Conectando GA4 ao n8n | Dados | n8n, GA4, Analytics, Automação | AJUSTADO | 4 termos | Pipeline GA4 ao dashboard |
+| Google Ads e n8n | n8n e Google Ads: como coletar dados de campanhas para uma visão única do tráfego | Conectando Google Ads ao n8n | Dados | n8n, Google Ads, Automação, Analytics | AJUSTADO | 4 termos | Pipeline da campanha à análise |
+| n8n | n8n na prática: quando faz sentido automatizar um processo com a ferramenta | Quando vale a pena usar n8n? | Automação | n8n, Automação, Processos, Integração | AJUSTADO | 4 termos | Estrutura mínima do workflow |
+| Dado, métrica e KPI | Dado, métrica e KPI: diferenças que ajudam a decidir melhor | Dado, métrica ou KPI? | Dados | Dados, Analytics, Processos | REVISADO | 10 termos | 12 recursos didáticos |
 
-## Decisão desta rodada
+## Decisões aplicadas
 
-Somente o artigo prioritário recebeu alteração editorial ampla. Os demais foram
-inventariados para ciclos posteriores, evitando mudanças simultâneas sem uma
-revisão visual e factual dedicada. O glossário estruturado continua sendo a
-fonte consumida pelo build e pelo contexto da Kodda; não foi criada uma cópia.
+- O H1 e os cards usam títulos humanos de quatro a sete palavras; `seo_title`,
+  meta description e conteúdo preservam a intenção de busca.
+- Os slugs publicados permaneceram intactos. Nenhum redirect foi necessário.
+- Cada artigo recebeu categoria controlada, de duas a quatro tags e CTA ligado
+  ao tema.
+- Os nove artigos sem apoio didático receberam um glossário estruturado e um
+  visual com título, legenda, alt text e classificação de dados.
+- O glossário do front matter continua como única fonte consumida pelo build e
+  pela Kodda.
+
+## Próximo passo
+
+Implementar filtros do Blog por categoria e tags usando `data-category` e
+`data-tags` já publicados nos cards.

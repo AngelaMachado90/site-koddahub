@@ -1,11 +1,11 @@
 ---
-title: 'Integração entre sistemas: como evitar retrabalho e informação duplicada'
-seo_title: 'Integração entre sistemas: evite dados duplicados | Koddahub'
+title: "Quando seus sistemas não conversam"
+seo_title: "Integração entre sistemas sem retrabalho | Koddahub"
 meta_description: 'Aprenda a definir a fonte de cada dado, evitar registros duplicados e tratar falhas em integrações entre CRM, site e outros sistemas.'
 slug: integracao-entre-sistemas-como-evitar-retrabalho-e-informacao-duplicada
-category: Integrações
+category: "Integração"
 reading_time: 15 minutos
-modified_date: 2026-09-14
+modified_date: 2026-09-15
 summary: Quando duas equipes copiam a mesma informação em ferramentas diferentes, o problema costuma aparecer como atraso,
   divergência ou retrabalho.
 planned_date: 14/09/2026
@@ -19,9 +19,68 @@ cover_height: 941
 image_source:
   provider: OpenAI
   type: imagem gerada para o Blog Koddahub
+cta_title: "Seus sistemas ainda dependem de copiar e colar?"
+cta_text: "A Koddahub pode ajudar a mapear fontes, contratos e falhas antes de conectar as ferramentas."
+cta_label: "Conheça nossa abordagem"
+tags: [Integração, APIs, Dados, Processos]
+glossary:
+- term: Integração
+  aliases:
+  - integrações
+  - integrar sistemas
+  definition: Conexão que permite a sistemas trocar informações de forma organizada.
+  example: Um pedido do site entra no sistema de atendimento sem precisar ser copiado.
+  application: Reduz digitação repetida e mantém dados coerentes entre ferramentas.
+  related:
+  - API
+  - Fonte de verdade
+- term: API
+  aliases:
+  - APIs
+  definition: Forma padronizada de um sistema pedir ou enviar dados a outro.
+  example: O site usa uma API para registrar um novo cliente no CRM.
+  application: Define como a troca acontece e quais respostas cada sistema deve fornecer.
+  related:
+  - Integração
+  - Contrato de dados
+- term: Fonte de verdade
+  aliases:
+  - sistema de origem
+  definition: Local definido como referência oficial para uma informação.
+  example: O CRM é a fonte oficial do telefone do cliente.
+  application: Evita que duas versões diferentes do mesmo dado disputem qual está correta.
+  related:
+  - Integração
+  - Dado
+- term: Idempotência
+  aliases:
+  - idempotente
+  - deduplicação
+  definition: Proteção para que repetir a mesma solicitação não duplique o resultado.
+  example: Reenviar um pedido com o mesmo código não cria outra venda.
+  application: Torna tentativas e reenvios mais seguros quando uma integração falha.
+  related:
+  - Integração
+  - API
+didactic_visuals:
+- id: fluxo-integracao
+  type: pipeline
+  title: Da origem ao destino sem copiar e colar
+  caption: A integração transporta o dado por um contrato conhecido; a cópia manual cria um caminho paralelo sujeito
+    a atraso e divergência.
+  alt: Fluxo do sistema de origem para uma API e depois para o sistema de destino, evitando cópia manual.
+  data_kind: NÃO SE APLICA
+  items:
+  - label: Sistema de origem
+    detail: Registra o dado oficial
+  - label: API
+    detail: Valida e transporta
+  - label: Sistema de destino
+    detail: Confirma o recebimento
+  warning_title: Evite o caminho paralelo.
+  warning_text: Planilhas e cópias manuais sem regra clara recriam a duplicidade.
 ---
-
-# Integração entre sistemas: como evitar retrabalho e informação duplicada
+# Quando seus sistemas não conversam
 
 Quando duas equipes copiam a mesma informação em ferramentas diferentes, o problema costuma aparecer como atraso, divergência ou retrabalho. Integrar sistemas pode reduzir isso, desde que fique claro qual sistema é responsável por cada dado.
 
@@ -30,6 +89,8 @@ Quando duas equipes copiam a mesma informação em ferramentas diferentes, o pro
 Imagine que um contato preenche um formulário e depois vira oportunidade comercial. Nome, telefone e etapa do relacionamento podem circular por várias ferramentas. Decida onde cada campo nasce, quem pode alterá-lo e qual atualização prevalece em caso de conflito. Sem essa definição, a integração apenas replica versões diferentes do mesmo registro.
 
 Depois, descreva o contrato: dados obrigatórios, formato, frequência, confirmação e resposta a falhas. Uma transferência repetida não deve criar duas oportunidades. Se uma ferramenta estiver indisponível, a equipe precisa saber se o evento será reenviado, revisado manualmente ou descartado por regra explícita.
+
+[[visual:fluxo-integracao]]
 
 ## Valide o fluxo completo
 

@@ -13,6 +13,20 @@ ROOT = Path(__file__).resolve().parents[1]
 EDITORIAL = ROOT / "docs/editorial"
 PUBLIC = ROOT / "public"
 GA4_MEASUREMENT_ID = "G-3DNTXV2CYK"
+CATEGORY_TAXONOMY = {
+    "Automação": "automacao",
+    "Dados": "dados",
+    "Desenvolvimento": "desenvolvimento",
+    "Integração": "integracao",
+}
+TAG_TAXONOMY = {
+    "Analytics": "analytics", "APIs": "apis", "Atendimento": "atendimento",
+    "Automação": "automacao", "Chatbots": "chatbots", "Dados": "dados",
+    "Desenvolvimento": "desenvolvimento", "GA4": "ga4", "Google Ads": "google-ads",
+    "Integração": "integracao", "n8n": "n8n", "Processos": "processos",
+    "Responsividade": "responsividade", "RPA": "rpa", "Sites": "sites",
+    "Streamlit": "streamlit", "UX/UI": "ux-ui",
+}
 
 
 def google_tag():
@@ -184,7 +198,7 @@ def page_context_html(item, entries):
             if key not in seen:
                 seen.add(key)
                 general.append(glossary_item)
-    context = {'page_type': 'blog', 'article_slug': item['slug'], 'article_title': item['title'], 'article_category': item['category'], 'article_summary': item['summary'], 'glossary': glossary_context(item.get('glossary')), 'didactic_visuals': item.get('didactic_visuals') or [], 'blog_glossary': glossary_context(general)}
+    context = {'page_type': 'blog', 'article_slug': item['slug'], 'article_title': item['title'], 'article_category': item['category'], 'article_tags': item.get('tags') or [], 'article_summary': item['summary'], 'glossary': glossary_context(item.get('glossary')), 'didactic_visuals': item.get('didactic_visuals') or [], 'blog_glossary': glossary_context(general)}
     payload = json.dumps(context, ensure_ascii=False).replace('<', '\\u003c')
     return f'<script type="application/json" id="kodda-page-context">{payload}</script>'
 
@@ -242,6 +256,13 @@ def articles(editorial=EDITORIAL, today=None):
         for key in ("title", "seo_title", "meta_description", "summary", "category", "reading_time"):
             if not meta.get(key):
                 raise ValueError(f"{key} ausente: {path}")
+        if meta['category'] not in CATEGORY_TAXONOMY:
+            raise ValueError(f"Categoria fora da taxonomia: {path}")
+        tags = meta.get('tags') or []
+        if not isinstance(tags, list) or not 2 <= len(tags) <= 5:
+            raise ValueError(f"Artigo precisa ter entre 2 e 5 tags: {path}")
+        if len(tags) != len(set(tags)) or any(tag not in TAG_TAXONOMY for tag in tags):
+            raise ValueError(f"Tags duplicadas ou fora da taxonomia: {path}")
         for glossary_item in meta.get('glossary') or []:
             for key in ('term', 'definition', 'example', 'application'):
                 if not glossary_item.get(key):
@@ -302,6 +323,12 @@ def card_html(item, featured=False, position=1):
     url = f'/blog/{e(item["slug"])}/'
     date_label = e(format_date_pt(item["publish_date"]))
     category = e(item["category"])
+    category_slug = CATEGORY_TAXONOMY[item['category']]
+    tag_slugs = [TAG_TAXONOMY[tag] for tag in item.get('tags') or []]
+    taxonomy_attrs = f'data-category="{e(category_slug)}" data-tags="{e(",".join(tag_slugs))}"'
+    distinct_tags = [tag for tag in item.get('tags') or [] if tag != item['category']]
+    visible_tags = ''.join(f'<span class="blog-tag">{e(tag)}</span>' for tag in distinct_tags[:2])
+    taxonomy = f'<div class="blog-card-taxonomy"><span class="blog-category">{category}</span>{visible_tags}</div>'
     summary = e(item["summary"])
     meta = f'<div class="blog-card-meta"><time datetime="{e(item["publish_date"])}">{date_label}</time><span aria-hidden="true">·</span><span>{e(item["reading_time"])} de leitura</span></div>'
     cover = item.get("cover")
@@ -311,10 +338,15 @@ def card_html(item, featured=False, position=1):
     if featured:
         art_class = "blog-featured-art blog-featured-art--cover h-100" if cover_image else "blog-featured-art h-100"
         art_column_class = "col-lg-5" if cover_image else "col-lg-5 d-none d-lg-block"
-        return f'''<article class="card blog-card blog-featured"><a class="blog-card-link" href="{url}" aria-label="Ler artigo: {title}"><div class="row g-0"><div class="col-lg-7"><div class="blog-card-body"><span class="blog-featured-label">Em destaque</span><span class="blog-category">{category}</span><h3 class="blog-card-title">{title}</h3><p class="blog-card-summary">{summary}</p>{meta}<span class="blog-read-link">Ler artigo <span aria-hidden="true">→</span></span></div></div><div class="{art_column_class}"><div class="{art_class}" aria-hidden="true">{cover_image}</div></div></div></a></article>'''
+        return f'''<article class="card blog-card blog-featured" {taxonomy_attrs}><a class="blog-card-link" href="{url}" aria-label="Ler artigo: {title}"><div class="row g-0"><div class="col-lg-7"><div class="blog-card-body"><span class="blog-featured-label">Em destaque</span>{taxonomy}<h3 class="blog-card-title">{title}</h3><p class="blog-card-summary">{summary}</p>{meta}<span class="blog-read-link">Ler artigo <span aria-hidden="true">→</span></span></div></div><div class="{art_column_class}"><div class="{art_class}" aria-hidden="true">{cover_image}</div></div></div></a></article>'''
     tone = position % 3
     media = f'<div class="blog-card-media blog-card-media--cover" aria-hidden="true">{cover_image}</div>' if cover_image else f'<div class="blog-card-media blog-tone-{tone}" aria-hidden="true"><span>{position:02d}</span></div>'
-    return f'''<div class="col-md-6 col-xl-4"><article class="card blog-card h-100"><a class="blog-card-link d-flex flex-column h-100" href="{url}" aria-label="Ler artigo: {title}">{media}<div class="blog-card-body d-flex flex-column flex-grow-1"><span class="blog-category">{category}</span><h3 class="blog-card-title">{title}</h3><p class="blog-card-summary">{summary}</p><div class="mt-auto">{meta}<span class="blog-read-link">Ler artigo <span aria-hidden="true">→</span></span></div></div></a></article></div>'''
+    return f'''<div class="col-md-6 col-xl-4"><article class="card blog-card h-100" {taxonomy_attrs}><a class="blog-card-link d-flex flex-column h-100" href="{url}" aria-label="Ler artigo: {title}">{media}<div class="blog-card-body d-flex flex-column flex-grow-1">{taxonomy}<h3 class="blog-card-title">{title}</h3><p class="blog-card-summary">{summary}</p><div class="mt-auto">{meta}<span class="blog-read-link">Ler artigo <span aria-hidden="true">→</span></span></div></div></a></article></div>'''
+
+
+def article_taxonomy_html(item):
+    tags = ''.join(f'<span class="blog-tag">{e(tag)}</span>' for tag in item.get('tags') or [] if tag != item['category'])
+    return f'<span class="blog-category">{e(item["category"])}</span>{tags}'
 
 
 def build_blog(dist, home, site_url, version, editorial=EDITORIAL):
@@ -353,9 +385,9 @@ def build_blog(dist, home, site_url, version, editorial=EDITORIAL):
         cta_url = str(item.get('cta_url', '/#processo'))
         is_whatsapp = urlparse(cta_url).hostname == 'wa.me'
         cta_icon = '<svg class="icon" aria-hidden="true"><use href="/assets/images/icons/icons.svg#whatsapp"></use></svg>' if is_whatsapp else ''
-        for key, value in {'CATEGORY':e(item['category']),'TITLE':e(item['title']),'SUMMARY':e(item['summary']),'DATE':e(format_date_pt(item['publish_date'])),'DATE_ISO':e(item['publish_date']),'READING_TIME':e(item['reading_time']),'AUTHOR':e(item.get('author','VAL — Valor, Autoridade e Linguagem Koddahub')),'COVER':cover,'CONTENT':content,'GLOSSARY':glossary_html(item.get('glossary')),'PAGE_CONTEXT':page_context_html(item, entries),'RELATED':related,'CTA_TITLE':e(item.get('cta_title','Quer aplicar tecnologia ao seu contexto?')),'CTA_TEXT':e(item.get('cta_text','Conheça a forma como a Koddahub entende o problema antes de propor uma solução.')),'CTA_URL':e(cta_url),'CTA_LABEL':e(item.get('cta_label','Como trabalhamos')),'CTA_CLASS':'btn-success' if is_whatsapp else 'btn-brand','CTA_ATTRS':' target="_blank" rel="noopener"' if is_whatsapp else '','CTA_ICON':cta_icon}.items():
+        for key, value in {'ARTICLE_TAXONOMY':article_taxonomy_html(item),'TITLE':e(item['title']),'SUMMARY':e(item['summary']),'DATE':e(format_date_pt(item['publish_date'])),'DATE_ISO':e(item['publish_date']),'READING_TIME':e(item['reading_time']),'AUTHOR':e(item.get('author','VAL — Valor, Autoridade e Linguagem Koddahub')),'COVER':cover,'CONTENT':content,'GLOSSARY':glossary_html(item.get('glossary')),'PAGE_CONTEXT':page_context_html(item, entries),'RELATED':related,'CTA_TITLE':e(item.get('cta_title','Quer aplicar tecnologia ao seu contexto?')),'CTA_TEXT':e(item.get('cta_text','Conheça a forma como a Koddahub entende o problema antes de propor uma solução.')),'CTA_URL':e(cta_url),'CTA_LABEL':e(item.get('cta_label','Como trabalhamos')),'CTA_CLASS':'btn-success' if is_whatsapp else 'btn-brand','CTA_ATTRS':' target="_blank" rel="noopener"' if is_whatsapp else '','CTA_ICON':cta_icon}.items():
             body = body.replace('{{'+key+'}}', value)
-        schema = {"@context":"https://schema.org","@type":"BlogPosting","headline":item['title'],"description":item['meta_description'],"datePublished":str(item['publish_date']),"author":{"@type":"Organization","name":"Koddahub"},"mainEntityOfPage":url}
+        schema = {"@context":"https://schema.org","@type":"BlogPosting","headline":item['title'],"description":item['meta_description'],"datePublished":str(item['publish_date']),"keywords":item.get('tags') or [],"author":{"@type":"Organization","name":"Koddahub"},"mainEntityOfPage":url}
         if item.get('modified_date'):
             schema['dateModified'] = str(item['modified_date'])
         schema['image'] = site_url + cover_path

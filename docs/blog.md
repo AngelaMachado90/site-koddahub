@@ -22,7 +22,7 @@ O status deve ser `draft`, `review`, `scheduled`, `published` ou `archived`.
 `scheduled` permite a inclusão no build do dia programado; os demais estados
 ficam fora do site. Um artigo
 publicado requer `title`, `seo_title`, `meta_description`, `summary`, `category`,
-`reading_time`, `slug` e `publish_date` ISO (AAAA-MM-DD). O slug deve ter
+`tags`, `reading_time`, `slug` e `publish_date` ISO (AAAA-MM-DD). O slug deve ter
 letras minúsculas, números e hífens. `cover`, `cover_alt`, `cover_width` e
 `cover_height` são obrigatórios para qualquer artigo elegível ao build; a capa
 deve apontar para arquivo existente em `/assets/images/`. Sem capa, o build
@@ -74,6 +74,48 @@ quando existe pelo menos mais um artigo.
 O cabeçalho, rodapé e chatbot são derivados do template institucional durante
 o build. O CSS complementar está em `public/assets/css/blog.css`; Bootstrap
 5.3 continua a base do grid e dos componentes.
+
+## Taxonomia editorial
+
+Categoria é o agrupamento editorial principal do artigo. Tag identifica um
+assunto específico que pode atravessar categorias. Cada artigo possui uma
+categoria e de duas a cinco tags controladas. O build rejeita nomes fora desta
+taxonomia, duplicações e listas fora desse intervalo.
+
+| Tipo | Nome de exibição | Slug técnico |
+| --- | --- | --- |
+| Categoria | Automação | `automacao` |
+| Categoria | Dados | `dados` |
+| Categoria | Desenvolvimento | `desenvolvimento` |
+| Categoria | Integração | `integracao` |
+| Tag | Analytics | `analytics` |
+| Tag | APIs | `apis` |
+| Tag | Atendimento | `atendimento` |
+| Tag | Automação | `automacao` |
+| Tag | Chatbots | `chatbots` |
+| Tag | Dados | `dados` |
+| Tag | Desenvolvimento | `desenvolvimento` |
+| Tag | GA4 | `ga4` |
+| Tag | Google Ads | `google-ads` |
+| Tag | Integração | `integracao` |
+| Tag | n8n | `n8n` |
+| Tag | Processos | `processos` |
+| Tag | Responsividade | `responsividade` |
+| Tag | RPA | `rpa` |
+| Tag | Sites | `sites` |
+| Tag | Streamlit | `streamlit` |
+| Tag | UX/UI | `ux-ui` |
+
+Os nomes de exibição preservam a grafia oficial acima; o front matter não usa
+variações como `GoogleAds`, `google-ads` ou `GOOGLE_ADS`. Uma nova tag só entra
+quando representa um conceito real, pode ser reutilizada, melhora a descoberta
+e não é sinônimo de uma existente. A alteração deve atualizar esta tabela e os
+mapas `CATEGORY_TAXONOMY` ou `TAG_TAXONOMY` em `scripts/blog.py`.
+
+Os cards publicam `data-category` e `data-tags` com slugs técnicos, enquanto a
+interface mostra a categoria e no máximo duas tags discretas. As páginas dos
+artigos exibem a taxonomia completa. Essa estrutura prepara filtros por
+categoria e tags sem depender do texto visível dos badges.
 
 Cada página tem title, description, canonical, Open Graph, Twitter card e
 JSON-LD. A home usa `Blog`; artigos usam `BlogPosting` com data verdadeira.

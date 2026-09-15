@@ -1,16 +1,16 @@
 ---
-title: 'Streamlit: quando usar para transformar dados em uma aplicação útil'
-seo_title: Streamlit para análise de dados | Koddahub
+title: "Quando usar Streamlit?"
+seo_title: "Quando usar Streamlit em aplicações de dados? | Koddahub"
 meta_description: Veja quando Streamlit ajuda a transformar análises em aplicações interativas e quais limites considerar
   antes do uso recorrente.
 slug: streamlit-quando-usar-para-transformar-dados-em-uma-aplicacao-util
-category: Dados
+category: "Dados"
 reading_time: 10 minutos
 summary: Entenda quando Streamlit é uma boa escolha, como desenhar um painel para uma decisão real e o que validar antes do uso recorrente.
 planned_date: 10/09/2026
 publish_date: 2026-09-12
 status: published
-modified_date: 2026-09-13
+modified_date: 2026-09-15
 author: VAL — Valor, Autoridade e Linguagem Koddahub
 cover: /assets/images/blog/streamlit-dashboard-pexels.jpg
 cover_alt: Monitor exibindo gráficos e indicadores, com duas pessoas trabalhando em um escritório ao fundo
@@ -21,9 +21,67 @@ image_source:
   photographer: Kampus Production
   photo_id: 8204311
   url: https://www.pexels.com/photo/computer-monitor-with-stock-exchange-figures-in-an-office-8204311/
+cta_title: "Quer transformar dados em uma aplicação útil?"
+cta_text: "A Koddahub pode ajudar a definir a decisão, organizar as fontes e validar um painel antes do uso recorrente."
+cta_label: "Planeje sua aplicação"
+tags: [Streamlit, Dados, Desenvolvimento]
+glossary:
+- term: Streamlit
+  aliases:
+  - aplicação Streamlit
+  definition: Biblioteca Python para criar aplicações interativas de dados.
+  example: Uma análise de vendas vira uma tela com filtros, indicadores e tabela.
+  application: Ajuda equipes a compartilhar análises e ferramentas internas com rapidez.
+  related:
+  - Python
+  - Cache
+  - Estado de sessão
+- term: Cache
+  aliases:
+  - cache de dados
+  definition: Cópia temporária de um resultado usada para evitar o mesmo trabalho repetidas vezes.
+  example: O painel reutiliza por cinco minutos uma consulta de vendas já calculada.
+  application: Reduz espera e chamadas desnecessárias quando a validade do dado está clara.
+  related:
+  - Streamlit
+  - Dados
+- term: Estado de sessão
+  aliases:
+  - session state
+  - st.session_state
+  definition: Memória temporária das escolhas feitas durante uma sessão da aplicação.
+  example: O painel mantém o filtro de período enquanto a pessoa navega.
+  application: Preserva interações entre as novas execuções da página.
+  related:
+  - Streamlit
+- term: Dashboard
+  aliases:
+  - painel
+  definition: Tela que organiza indicadores e detalhes para apoiar uma decisão.
+  example: Um painel reúne vendas, tendência e pedidos pendentes.
+  application: Torna informações importantes mais fáceis de acompanhar.
+  related:
+  - Dados
+  - Streamlit
+didactic_visuals:
+- id: fluxo-streamlit
+  type: pipeline
+  title: Como os dados viram uma aplicação
+  caption: Streamlit apresenta a lógica escrita em Python como uma interface interativa; a qualidade ainda depende
+    da fonte e da regra usadas.
+  alt: Fluxo de dados para código Python, Streamlit e uma aplicação interativa.
+  data_kind: NÃO SE APLICA
+  items:
+  - label: Dados
+    detail: Banco, planilha ou API
+  - label: Python
+    detail: Consulta e regras
+  - label: Streamlit
+    detail: Componentes e interação
+  - label: Aplicação
+    detail: Decisão e acompanhamento
 ---
-
-# Streamlit: quando usar para transformar dados em uma aplicação útil
+# Quando usar Streamlit?
 
 Toda semana, uma equipe exporta dados, ajusta filtros em uma planilha e envia uma imagem do gráfico para quem precisa decidir. Na reunião seguinte, alguém pergunta por outra região ou período e o processo recomeça. Um aplicativo em Streamlit pode transformar essa análise repetida em uma interface na qual a própria pessoa escolhe o recorte e entende o resultado. Isso não torna o dado correto por si só. O ganho aparece quando a pergunta, a fonte e a ação seguinte ficam claras.
 
@@ -42,6 +100,8 @@ Antes de criar o primeiro componente, escreva uma ficha simples:
 - **Ação:** investigar uma rota, corrigir um cadastro ou solicitar revisão dos dados.
 
 A escolha das métricas vem depois. Total de entregas, quantidade atrasada e taxa de atraso não são sinônimos. Uma região com dez atrasos em mil entregas pode pedir análise diferente de outra com oito em vinte. Mostre denominador e período ao lado da taxa para evitar interpretações apressadas.
+
+[[visual:fluxo-streamlit]]
 
 ## Desenhe a tela em uma ordem que ajude a ler
 
