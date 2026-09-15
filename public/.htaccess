@@ -1,0 +1,2 @@
+RewriteEngine On
+RewriteRule ^api/blog/views$ http://127.0.0.1:5678/webhook/kdh-blog-article-views [P,L]

@@ -171,6 +171,9 @@ Use `--kdh-radius-sm`, `md`, `lg`, `xl` e `pill`. Para elevação, use
 | Input | Bootstrap `.form-control`, borda neutra e focus ring roxo |
 | Navbar | Bootstrap responsivo; wordmark oficial no nome textual |
 | Footer | Neutro; mesma família da interface, wordmark oficial em peso 800, copyright em 400 e links em 700 |
+| Social Links | Links circulares de 44 px, borda neutra, hover com elevação e foco roxo visível; ocultar o grupo quando não houver URL oficial |
+| Article Share | Ações com rótulo, alvo mínimo de 44 px, quebra de linha no mobile e feedback de cópia por `aria-live` |
+| Article View Count | Metadado neutro com ícone e texto “visualizações”; reserva espaço no carregamento e some silenciosamente em falha |
 | Alert | Semântica Bootstrap e tokens de feedback, independentes da marca |
 | Link | Roxo funcional, sublinhado quando o contexto exigir distinção |
 | Focus State | Contorno e anel visíveis; nunca remover sem alternativa |

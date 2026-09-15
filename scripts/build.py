@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Gera a versao publica do site KoddaHub em dist/."""
 
+import json
 import os
 import shutil
 from datetime import datetime
@@ -8,12 +9,13 @@ from html import escape
 from pathlib import Path
 from urllib.parse import urlparse
 
-from blog import build_blog, google_tag
+from blog import build_blog, google_tag, social_links_html
 
 ROOT = Path(__file__).resolve().parents[1]
 PUBLIC = ROOT / "public"
 DIST = ROOT / "dist"
 TEMPLATE = PUBLIC / "index.template.html"
+SITE_CONFIG = ROOT / "config/site.json"
 
 
 def environment_url(name: str, default: str = "", *, required: bool = False) -> str:
@@ -40,6 +42,8 @@ def build() -> None:
     html = html.replace("{{ASSET_VERSION}}", version)
     html = html.replace("{{SITE_URL}}", site_url)
     html = html.replace("{{CHAT_WEBHOOK_URL}}", escape(chat_webhook_url, quote=True))
+    config = json.loads(SITE_CONFIG.read_text(encoding="utf-8"))
+    html = html.replace("{{SOCIAL_LINKS}}", social_links_html(config.get("social_links")))
     (DIST / "index.html").write_text(html, encoding="utf-8")
     urls = build_blog(DIST, html, site_url, version)
     (DIST / "version.txt").write_text(version, encoding="utf-8")

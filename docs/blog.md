@@ -146,6 +146,9 @@ Para validar: `python3 -m unittest discover -s tests -v`,
 `python3 scripts/build.py` e sirva `dist/` com `python3 -m http.server 8000 -d dist`.
 Verifique `/`, `/blog`, `/blog/`, artigo publicado e uma URL inexistente.
 
+Compartilhamento, redes configuráveis e o contador editorial estão documentados
+em [Compartilhamento e visualizações do Blog](blog-social-e-visualizacoes.md).
+
 ## Publicação agendada
 
 Os 30 textos do [planejamento editorial](editorial/planejamento-30-artigos-2026.md)

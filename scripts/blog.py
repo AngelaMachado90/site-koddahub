@@ -27,6 +27,10 @@ TAG_TAXONOMY = {
     "Responsividade": "responsividade", "RPA": "rpa", "Sites": "sites",
     "Streamlit": "streamlit", "UX/UI": "ux-ui",
 }
+SOCIAL_NETWORKS = {
+    "instagram": ("Instagram", "instagram.com"),
+    "linkedin": ("LinkedIn", "linkedin.com"),
+}
 
 
 def google_tag():
@@ -37,6 +41,34 @@ def google_tag():
 
 def e(value):
     return escape(str(value or ""), quote=True)
+
+
+def social_links_html(items):
+    links = []
+    for item in items or []:
+        network = str(item.get("network", "")).lower()
+        url = str(item.get("url", ""))
+        if network not in SOCIAL_NETWORKS:
+            raise ValueError(f"Rede social não suportada: {network}")
+        label, expected_host = SOCIAL_NETWORKS[network]
+        parsed = urlparse(url)
+        if parsed.scheme != "https" or not (parsed.hostname == expected_host or parsed.hostname.endswith("." + expected_host)):
+            raise ValueError(f"URL oficial inválida para {label}")
+        links.append(f'<a class="social-link" href="{e(url)}" target="_blank" rel="noopener noreferrer" aria-label="Koddahub no {label}"><svg class="icon" aria-hidden="true"><use href="/assets/images/icons/icons.svg#{network}"></use></svg></a>')
+    if not links:
+        return ""
+    return '<nav class="footer-social" aria-label="Redes sociais"><span>Siga a Koddahub</span><div>' + ''.join(links) + '</div></nav>'
+
+
+def article_share_html(item):
+    return f'''<section class="article-share" aria-labelledby="article-share-title" data-share-title="{e(item['title'])}" data-share-text="Olha este artigo da Koddahub: {e(item['title'])}">
+<p class="blog-overline mb-2">Compartilhar</p><h2 id="article-share-title">Compartilhe este artigo</h2>
+<div class="article-share-actions">
+<button class="btn btn-brand article-share-native" type="button" data-native-share hidden><svg class="icon" aria-hidden="true"><use href="/assets/images/icons/icons.svg#share"></use></svg>Compartilhar</button>
+<a class="btn btn-outline-success" data-share-url="https://wa.me/?text=Olha%20este%20artigo%20da%20Koddahub%3A%0A{{title}}%0A{{url}}" target="_blank" rel="noopener noreferrer" aria-label="Compartilhar artigo no WhatsApp"><svg class="icon" aria-hidden="true"><use href="/assets/images/icons/icons.svg#whatsapp"></use></svg>WhatsApp</a>
+<a class="btn btn-outline-primary" data-share-url="https://www.linkedin.com/sharing/share-offsite/?url={{url}}" target="_blank" rel="noopener noreferrer" aria-label="Compartilhar artigo no LinkedIn"><svg class="icon" aria-hidden="true"><use href="/assets/images/icons/icons.svg#linkedin"></use></svg>LinkedIn</a>
+<button class="btn btn-outline-secondary" type="button" data-copy-link><svg class="icon" aria-hidden="true"><use href="/assets/images/icons/icons.svg#copy"></use></svg>Copiar link</button>
+</div><p class="article-share-feedback" data-share-feedback role="status" aria-live="polite"></p></section>'''
 
 
 def normalized_term(value):
@@ -366,6 +398,7 @@ def article_taxonomy_html(item):
 
 
 def build_blog(dist, home, site_url, version, editorial=EDITORIAL):
+    home = home.replace('{{SOCIAL_LINKS}}', '')
     entries = articles(editorial)
     for item in entries:
         cover_path = str(item.get('cover') or '')
@@ -401,7 +434,7 @@ def build_blog(dist, home, site_url, version, editorial=EDITORIAL):
         cta_url = str(item.get('cta_url', '/#processo'))
         is_whatsapp = urlparse(cta_url).hostname == 'wa.me'
         cta_icon = '<svg class="icon" aria-hidden="true"><use href="/assets/images/icons/icons.svg#whatsapp"></use></svg>' if is_whatsapp else ''
-        for key, value in {'ARTICLE_TAXONOMY':article_taxonomy_html(item),'TITLE':e(item['title']),'SUMMARY':e(item['summary']),'DATE':e(format_date_pt(item['publish_date'])),'DATE_ISO':e(item['publish_date']),'READING_TIME':e(item['reading_time']),'AUTHOR':e(item.get('author','VAL — Valor, Autoridade e Linguagem Koddahub')),'COVER':cover,'CONTENT':content,'GLOSSARY':glossary_html(item.get('glossary')),'PAGE_CONTEXT':page_context_html(item, entries),'RELATED':related,'CTA_TITLE':e(item.get('cta_title','Quer aplicar tecnologia ao seu contexto?')),'CTA_TEXT':e(item.get('cta_text','Conheça a forma como a Koddahub entende o problema antes de propor uma solução.')),'CTA_URL':e(cta_url),'CTA_LABEL':e(item.get('cta_label','Como trabalhamos')),'CTA_CLASS':'btn-success' if is_whatsapp else 'btn-brand','CTA_ATTRS':' target="_blank" rel="noopener"' if is_whatsapp else '','CTA_ICON':cta_icon}.items():
+        for key, value in {'ARTICLE_TAXONOMY':article_taxonomy_html(item),'TITLE':e(item['title']),'SLUG':e(item['slug']),'SUMMARY':e(item['summary']),'DATE':e(format_date_pt(item['publish_date'])),'DATE_ISO':e(item['publish_date']),'READING_TIME':e(item['reading_time']),'AUTHOR':e(item.get('author','VAL — Valor, Autoridade e Linguagem Koddahub')),'COVER':cover,'CONTENT':content,'GLOSSARY':glossary_html(item.get('glossary')),'PAGE_CONTEXT':page_context_html(item, entries),'ARTICLE_SHARE':article_share_html(item),'RELATED':related,'CTA_TITLE':e(item.get('cta_title','Quer aplicar tecnologia ao seu contexto?')),'CTA_TEXT':e(item.get('cta_text','Conheça a forma como a Koddahub entende o problema antes de propor uma solução.')),'CTA_URL':e(cta_url),'CTA_LABEL':e(item.get('cta_label','Como trabalhamos')),'CTA_CLASS':'btn-success' if is_whatsapp else 'btn-brand','CTA_ATTRS':' target="_blank" rel="noopener"' if is_whatsapp else '','CTA_ICON':cta_icon}.items():
             body = body.replace('{{'+key+'}}', value)
         schema = {"@context":"https://schema.org","@type":"BlogPosting","headline":item['title'],"description":item['meta_description'],"datePublished":str(item['publish_date']),"keywords":item.get('tags') or [],"author":{"@type":"Organization","name":"Koddahub"},"mainEntityOfPage":url}
         if item.get('modified_date'):

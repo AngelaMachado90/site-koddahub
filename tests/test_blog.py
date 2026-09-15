@@ -5,7 +5,7 @@ from datetime import date
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'scripts'))
-from blog import article_taxonomy_html, articles, build_blog, card_html, didactic_visual_html, glossary_context, glossary_html, markdown, normalized_term, page_context_html, related_articles, source_links
+from blog import article_share_html, article_taxonomy_html, articles, build_blog, card_html, didactic_visual_html, glossary_context, glossary_html, markdown, normalized_term, page_context_html, related_articles, social_links_html, source_links
 from publish_due import due_articles
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -318,6 +318,22 @@ publish_date: 2026-01-01
         self.assertIn('.site-footer p{margin:0;font-weight:var(--kdh-font-weight-regular)}', css)
         self.assertIn('font-weight:var(--kdh-font-weight-extra-bold)', css)
         self.assertIn('.footer-link{font-weight:var(--kdh-font-weight-bold)}', css)
+
+    def test_social_links_render_only_confirmed_supported_urls(self):
+        self.assertEqual(social_links_html([]), '')
+        rendered = social_links_html([{'network': 'linkedin', 'url': 'https://www.linkedin.com/company/koddahub'}])
+        self.assertIn('aria-label="Koddahub no LinkedIn"', rendered)
+        self.assertIn('target="_blank" rel="noopener noreferrer"', rendered)
+        with self.assertRaisesRegex(ValueError, 'URL oficial inválida'):
+            social_links_html([{'network': 'linkedin', 'url': 'https://example.com/koddahub'}])
+
+    def test_article_share_has_accessible_fallback_actions(self):
+        rendered = article_share_html({'title': 'Artigo de exemplo'})
+        self.assertIn('data-native-share hidden', rendered)
+        self.assertIn('Compartilhar artigo no WhatsApp', rendered)
+        self.assertIn('linkedin.com/sharing/share-offsite', rendered)
+        self.assertIn('data-copy-link', rendered)
+        self.assertIn('role="status" aria-live="polite"', rendered)
 
 if __name__ == '__main__':
     unittest.main()
