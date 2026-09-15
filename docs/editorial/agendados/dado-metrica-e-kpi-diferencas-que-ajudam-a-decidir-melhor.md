@@ -11,6 +11,10 @@ publish_date: 2026-09-15
 status: scheduled
 modified_date: 2026-09-15
 author: VAL — Valor, Autoridade e Linguagem Koddahub
+cta_title: Quer organizar os dados e indicadores do seu negócio?
+cta_text: A Koddahub pode ajudar sua equipe a mapear fontes, definir métricas confiáveis e transformar indicadores em decisões compreensíveis.
+cta_url: https://wa.me/5541992272854?text=Ol%C3%A1%2C%20quero%20organizar%20os%20dados%20e%20indicadores%20do%20meu%20neg%C3%B3cio.
+cta_label: Falar com a Koddahub pelo WhatsApp
 cover: /assets/images/blog/dado-metrica-kpi.webp
 cover_alt: Pontos de dados formam um gráfico de métricas e depois um alvo de decisão
 cover_width: 1672
@@ -18,6 +22,57 @@ cover_height: 941
 image_source:
   provider: OpenAI
   type: imagem gerada para o Blog Koddahub
+didactic_visuals:
+  - id: conceito-ate-decisao
+    type: flow
+    title: Do registro à decisão
+    caption: Dados são registros. Quando organizados por uma regra, formam métricas. Uma métrica ligada a um objetivo pode ser escolhida como KPI e orientar uma decisão.
+    alt: Fluxo vertical em quatro etapas, de dado para métrica, KPI e decisão.
+    data_kind: NÃO SE APLICA
+    items:
+      - {label: Dado, detail: Registro de um fato}
+      - {label: Métrica, detail: Medida calculada}
+      - {label: KPI, detail: Métrica ligada a um objetivo}
+      - {label: Decisão, detail: Ação orientada pelo contexto}
+  - id: tipos-de-dado
+    type: comparison
+    title: Quantidade e contexto são dados
+    caption: Dados quantitativos permitem cálculos. Dados qualitativos ajudam a agrupar e compreender situações.
+    alt: Comparação entre 30 pedidos como dado quantitativo e canal WhatsApp como dado qualitativo.
+    data_kind: EXEMPLO ILUSTRATIVO
+    items:
+      - {title: Dado quantitativo, text: 30 pedidos. Expressa uma quantidade que pode ser contada e comparada.}
+      - {title: Dado qualitativo, text: Canal WhatsApp. Descreve uma categoria usada para agrupar atendimentos.}
+  - id: zero-dado-ausente
+    type: cards
+    title: Zero não é dado ausente
+    caption: Zero é um valor conhecido. Dado ausente indica que a informação não foi registrada ou não chegou à análise.
+    alt: Comparação entre zero pedidos, que confirma nenhuma ocorrência, e dado ausente, que impede saber quantos pedidos houve.
+    data_kind: NÃO SE APLICA
+    items:
+      - {title: Zero pedidos, text: Sabemos que nenhum pedido foi registrado no período.}
+      - {title: Dado ausente, text: Não conseguimos determinar quantos pedidos houve porque falta informação confiável.}
+  - id: pedidos-em-tres-dias
+    type: bar_chart
+    title: Registros diários formam uma métrica
+    caption: Exemplo ilustrativo com dados fictícios. As três contagens diárias somam a métrica de 90 pedidos em três dias.
+    alt: Gráfico de barras com 20 pedidos na segunda, 30 na terça e 40 na quarta, totalizando 90 pedidos.
+    data_kind: EXEMPLO ILUSTRATIVO — DADOS FICTÍCIOS
+    items:
+      - {label: Segunda, value: 20}
+      - {label: Terça, value: 30}
+      - {label: Quarta, value: 40}
+  - id: dado-metrica-kpi
+    type: table
+    title: Dado, métrica e KPI lado a lado
+    caption: A função muda de um registro isolado para uma medida e, depois, para o acompanhamento de um objetivo.
+    alt: Tabela que compara dado, métrica e KPI com definição e exemplo de cada conceito.
+    data_kind: EXEMPLO ILUSTRATIVO
+    headers: [Conceito, O que é, Exemplo]
+    rows:
+      - [Dado, Informação registrada, Um pedido recebido às 9h12]
+      - [Métrica, Medida calculada segundo uma regra, 90 pedidos em três dias]
+      - [KPI, Métrica escolhida para acompanhar um objetivo, Taxa de conversão quando o objetivo é aumentar vendas]
 glossary:
   - term: Dado
     aliases: [dados]
@@ -37,6 +92,18 @@ glossary:
     example: Canal WhatsApp, origem Google ou status aguardando pagamento.
     application: Ajuda a agrupar e compreender tipos de clientes, pedidos ou situações.
     related: [Dado, Dado quantitativo, Métrica]
+  - term: Dado temporal
+    aliases: [dados temporais, data, horário]
+    definition: Informação que registra quando um evento aconteceu.
+    example: Um pedido entrou às 9h12 e recebeu resposta às 9h20.
+    application: Permite calcular duração, agrupar períodos e acompanhar mudanças no tempo.
+    related: [Dado, Métrica]
+  - term: Deduplicação
+    aliases: [deduplicar, registros duplicados]
+    definition: Regra usada para reconhecer registros que representam o mesmo evento.
+    example: Relacionar formulário, conversa e CRM pelo mesmo identificador de solicitação.
+    application: Evita contar a mesma pessoa ou pedido mais de uma vez.
+    related: [Dado, Métrica]
   - term: Métrica
     aliases: [metrica, métricas, metricas]
     definition: Medida calculada ou contada a partir de dados segundo uma regra.
@@ -75,6 +142,8 @@ Uma reunião pode começar com três números aparentemente contraditórios. O a
 
 Os três termos descrevem etapas de uma mesma conversa sobre decisão. Nenhum deles é melhor por si só. Um registro confiável pode ser mais útil que um indicador sofisticado cujo cálculo ninguém entende. Este guia usa um atendimento hipotético para mostrar como sair de registros dispersos e chegar a uma medida que realmente ajuda a equipe a agir.
 
+[[visual:conceito-ate-decisao]]
+
 ## O que é um dado?
 
 Um dado é um registro sobre algo que aconteceu ou foi observado. Pode ser a hora em que uma solicitação entrou, o canal pelo qual chegou, o identificador do pedido, a hora da primeira resposta ou o estado final do atendimento. Também pode ser uma categoria atribuída por uma pessoa, como “dúvida sobre entrega”. Nesse caso, a classificação depende de uma regra que precisa ser conhecida.
@@ -83,7 +152,29 @@ O registro ainda não conta uma história completa. Uma linha com horário 09:12
 
 Considere uma solicitação enviada pelo formulário do site. Ela gera um evento no formulário, uma conversa no sistema de atendimento e talvez uma oportunidade no CRM. São três registros de uma mesma jornada, mas nem sempre representam três pessoas ou três pedidos. Se o objetivo for contar solicitações únicas, a equipe precisa de uma forma de relacionar os registros ou de uma regra explícita para deduplicá-los.
 
-Dados podem ser quantitativos, como valores e horários, ou categóricos, como canal e motivo. Essa distinção importa porque operações diferentes fazem sentido para cada tipo. Podemos calcular o intervalo entre dois horários; não faz sentido calcular a média entre os nomes de dois canais. Também precisamos distinguir valor ausente de valor zero: zero pedidos recebidos é uma informação diferente de não ter conseguido coletar os pedidos.
+### Dados quantitativos
+
+Dados quantitativos expressam quantidade ou medida. Trinta pedidos, R$ 1.200 em vendas e 15 minutos de atendimento são exemplos. Eles permitem somar, comparar, calcular taxas e observar mudanças ao longo do tempo.
+
+### Dados qualitativos
+
+Dados qualitativos descrevem uma categoria ou característica. Canal WhatsApp, origem Google e status aguardando pagamento são exemplos. Eles ajudam a agrupar registros e compreender o contexto, mas não devem ser tratados como números apenas porque aparecem em uma planilha.
+
+[[visual:tipos-de-dado]]
+
+### Dados temporais
+
+Datas e horários registram quando algo aconteceu. A entrada de um pedido às 9h12 e a primeira resposta às 9h20 permitem calcular oito minutos de espera. Para comparar períodos, a equipe também precisa definir fuso horário e regra de fechamento do dia.
+
+### Zero x dado ausente
+
+Zero pedidos é uma informação: a coleta funcionou e nenhuma ocorrência foi registrada. Dado ausente é uma lacuna: a integração pode ter falhado ou o campo pode não ter sido preenchido. Trocar uma lacuna por zero deixa o painel completo na aparência, mas muda o significado do resultado.
+
+[[visual:zero-dado-ausente]]
+
+### Duplicidade de registros
+
+Uma mesma jornada pode aparecer no formulário, no atendimento e no CRM. Contar cada linha como uma nova pessoa cria duplicidade. A deduplicação usa uma regra segura, como um identificador de solicitação, para reconhecer registros que representam o mesmo evento sem apagar ocorrências legítimas.
 
 ## O que é uma métrica?
 
@@ -95,6 +186,8 @@ Algumas métricas são contagens: pedidos recebidos, tarefas concluídas, erros 
 
 Uma métrica também pode combinar dados de fontes diferentes. Se vendas estão no sistema financeiro e contatos no CRM, a taxa de conversão depende de uma definição compartilhada de período e identidade. Não é seguro dividir dois totais apenas porque ambos aparecem no mesmo dashboard. Primeiro confirme se descrevem a mesma população.
 
+[[visual:pedidos-em-tres-dias]]
+
 ## O que faz uma métrica virar KPI?
 
 KPI vem de *Key Performance Indicator*, ou indicador-chave de desempenho. É uma medida selecionada para acompanhar um objetivo importante. A palavra-chave é “selecionada”: uma empresa pode medir centenas de coisas e escolher poucas para orientar uma decisão. O KPI não nasce de um tipo especial de fórmula; ele recebe esse papel quando está ligado a um resultado, tem responsável e será usado em uma rotina de análise.
@@ -104,6 +197,8 @@ Suponha que a prioridade do atendimento seja oferecer uma primeira resposta úti
 O mesmo número pode ser KPI para um time e métrica de contexto para outro. Tempo de resposta pode orientar a operação de suporte; para a equipe de produto, pode ser apenas um sinal entre vários sobre dúvidas dos clientes. Por isso, não existe uma lista universal de KPIs certos. Existe uma pergunta de negócio, uma decisão possível e uma medida adequada ao contexto.
 
 Um KPI não precisa estar sempre verde. Se a regra de apuração melhora e passa a incluir casos antes invisíveis, o resultado pode piorar no painel enquanto a informação fica mais honesta. Documente mudanças de cálculo e evite comparar séries diferentes como se fossem iguais.
+
+[[visual:dado-metrica-kpi]]
 
 ## Um exemplo completo: primeira resposta útil
 

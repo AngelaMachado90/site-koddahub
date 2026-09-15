@@ -29,7 +29,44 @@ def inline(value):
     return re.sub(r"\*\*(.+?)\*\*", r"<strong>\1</strong>", value)
 
 
-def markdown(value):
+def didactic_visual_html(item):
+    """Renderiza um recurso didático declarado no front matter editorial."""
+    visual_type = item.get("type")
+    title = e(item.get("title"))
+    caption = e(item.get("caption"))
+    alt = e(item.get("alt"))
+    data_kind = str(item.get("data_kind", "NÃO SE APLICA")).upper()
+    label = f'<span class="blog-visual-data">{e(data_kind)}</span>' if data_kind != "NÃO SE APLICA" else ""
+
+    if visual_type == "flow":
+        nodes = '<span class="blog-flow-arrow" aria-hidden="true">↓</span>'.join(
+            f'<div class="blog-flow-node"><strong>{e(node["label"])}</strong><span>{e(node.get("detail"))}</span></div>'
+            for node in item.get("items", [])
+        )
+        content = f'<div class="blog-flow" role="img" aria-label="{alt}">{nodes}</div>'
+    elif visual_type == "table":
+        headers = item.get("headers", [])
+        head = ''.join(f'<th scope="col">{e(value)}</th>' for value in headers)
+        rows = ''.join('<tr>' + ''.join(
+            f'<th scope="row">{e(value)}</th>' if index == 0 else f'<td data-label="{e(headers[index])}">{e(value)}</td>'
+            for index, value in enumerate(row)
+        ) + '</tr>' for row in item.get("rows", []))
+        content = f'<div class="table-responsive"><table class="table blog-visual-table"><thead><tr>{head}</tr></thead><tbody>{rows}</tbody></table></div>'
+    elif visual_type in {"comparison", "cards"}:
+        cards = ''.join(f'<div class="blog-concept-card"><h3>{e(card["title"])}</h3><p>{e(card["text"])}</p></div>' for card in item.get("items", []))
+        content = f'<div class="blog-concept-grid" role="group" aria-label="{alt}">{cards}</div>'
+    elif visual_type == "bar_chart":
+        values = [float(bar.get("value", 0)) for bar in item.get("items", [])]
+        maximum = max(values, default=1) or 1
+        bars = ''.join(f'<div class="blog-bar-item"><span class="blog-bar-value">{e(bar.get("value"))}</span><span class="blog-bar" style="--bar-size:{max(0, float(bar.get("value", 0))) / maximum * 100:.2f}%"></span><span class="blog-bar-name">{e(bar.get("label"))}</span></div>' for bar in item.get("items", []))
+        content = f'<div class="blog-bar-chart" role="img" aria-label="{alt}">{bars}</div>'
+    else:
+        raise ValueError(f"Tipo de recurso didático inválido: {visual_type}")
+    return f'<figure class="blog-visual blog-visual--{e(visual_type)}"><div class="blog-visual-heading"><h2>{title}</h2>{label}</div>{content}<figcaption>{caption}</figcaption></figure>'
+
+
+def markdown(value, components=None):
+    components = components or {}
     blocks, paragraph, items = [], [], []
     list_tag = None
 
@@ -54,6 +91,12 @@ def markdown(value):
         elif line.startswith("### "):
             flush()
             blocks.append("<h3>" + inline(line[4:]) + "</h3>")
+        elif re.fullmatch(r"\[\[visual:[a-z0-9-]+\]\]", line):
+            flush()
+            visual_id = line[9:-2]
+            if visual_id not in components:
+                raise ValueError(f"Recurso didático não declarado: {visual_id}")
+            blocks.append(components[visual_id])
         elif line.startswith("- ") or numbered:
             tag = "ol" if numbered else "ul"
             if paragraph or (list_tag and list_tag != tag):
@@ -104,7 +147,7 @@ def page_context_html(item, entries):
             if key not in seen:
                 seen.add(key)
                 general.append(glossary_item)
-    context = {'page_type': 'blog', 'article_slug': item['slug'], 'article_title': item['title'], 'article_category': item['category'], 'article_summary': item['summary'], 'glossary': item.get('glossary') or [], 'blog_glossary': general}
+    context = {'page_type': 'blog', 'article_slug': item['slug'], 'article_title': item['title'], 'article_category': item['category'], 'article_summary': item['summary'], 'glossary': item.get('glossary') or [], 'didactic_visuals': item.get('didactic_visuals') or [], 'blog_glossary': general}
     payload = json.dumps(context, ensure_ascii=False).replace('<', '\\u003c')
     return f'<script type="application/json" id="kodda-page-context">{payload}</script>'
 
@@ -166,6 +209,18 @@ def articles(editorial=EDITORIAL, today=None):
             for key in ('term', 'definition', 'example', 'application'):
                 if not glossary_item.get(key):
                     raise ValueError(f"Glossário sem {key}: {path}")
+        visuals = meta.get('didactic_visuals') or []
+        visual_ids = set()
+        for visual in visuals:
+            for key in ('id', 'type', 'title', 'caption', 'alt', 'data_kind'):
+                if not visual.get(key):
+                    raise ValueError(f"Recurso didático sem {key}: {path}")
+            if visual['id'] in visual_ids:
+                raise ValueError(f"ID de recurso didático duplicado: {path}")
+            visual_ids.add(visual['id'])
+        referenced_visuals = set(re.findall(r'\[\[visual:([a-z0-9-]+)\]\]', match[2]))
+        if referenced_visuals != visual_ids:
+            raise ValueError(f"Recursos didáticos declarados e usados não coincidem: {path}")
         if published >= date(2026, 9, 15):
             if meta['reading_time'] != '15 minutos' or len(match[2].split()) < 2250:
                 raise ValueError(f"Artigo fora do padrão de 15 minutos (mínimo de 2250 palavras): {path}")
@@ -250,11 +305,15 @@ def build_blog(dist, home, site_url, version, editorial=EDITORIAL):
         url = blog_url + item['slug'] + '/'
         other_articles = related_articles(item, entries)
         related = '<ul class="blog-related-list">' + ''.join(f'<li><a href="/blog/{e(other["slug"])}/">{e(other["title"])} <span aria-hidden="true">→</span></a></li>' for other in other_articles) + '</ul>' if other_articles else '<p><a href="/blog/">Ver todos os artigos</a></p>'
-        content = markdown(item['body'].split('## Links internos sugeridos')[0].split('## Referências')[0].split('## Imagem de capa')[0]) + source_links(item['body'])
+        components = {visual['id']: didactic_visual_html(visual) for visual in item.get('didactic_visuals') or []}
+        content = markdown(item['body'].split('## Links internos sugeridos')[0].split('## Referências')[0].split('## Imagem de capa')[0], components) + source_links(item['body'])
         cover_path = str(item['cover'])
         cover = f'<img class="blog-cover rounded my-4" src="{e(cover_path)}" width="{e(item["cover_width"])}" height="{e(item["cover_height"])}" alt="{e(item["cover_alt"])}">'
         body = (PUBLIC/'blog/article.template.html').read_text(encoding='utf-8')
-        for key, value in {'CATEGORY':e(item['category']),'TITLE':e(item['title']),'SUMMARY':e(item['summary']),'DATE':e(format_date_pt(item['publish_date'])),'DATE_ISO':e(item['publish_date']),'READING_TIME':e(item['reading_time']),'AUTHOR':e(item.get('author','VAL — Valor, Autoridade e Linguagem Koddahub')),'COVER':cover,'CONTENT':content,'GLOSSARY':glossary_html(item.get('glossary')),'PAGE_CONTEXT':page_context_html(item, entries),'RELATED':related}.items():
+        cta_url = str(item.get('cta_url', '/#processo'))
+        is_whatsapp = urlparse(cta_url).hostname == 'wa.me'
+        cta_icon = '<svg class="icon" aria-hidden="true"><use href="/assets/images/icons/icons.svg#whatsapp"></use></svg>' if is_whatsapp else ''
+        for key, value in {'CATEGORY':e(item['category']),'TITLE':e(item['title']),'SUMMARY':e(item['summary']),'DATE':e(format_date_pt(item['publish_date'])),'DATE_ISO':e(item['publish_date']),'READING_TIME':e(item['reading_time']),'AUTHOR':e(item.get('author','VAL — Valor, Autoridade e Linguagem Koddahub')),'COVER':cover,'CONTENT':content,'GLOSSARY':glossary_html(item.get('glossary')),'PAGE_CONTEXT':page_context_html(item, entries),'RELATED':related,'CTA_TITLE':e(item.get('cta_title','Quer aplicar tecnologia ao seu contexto?')),'CTA_TEXT':e(item.get('cta_text','Conheça a forma como a Koddahub entende o problema antes de propor uma solução.')),'CTA_URL':e(cta_url),'CTA_LABEL':e(item.get('cta_label','Como trabalhamos')),'CTA_CLASS':'btn-success' if is_whatsapp else 'btn-brand','CTA_ATTRS':' target="_blank" rel="noopener"' if is_whatsapp else '','CTA_ICON':cta_icon}.items():
             body = body.replace('{{'+key+'}}', value)
         schema = {"@context":"https://schema.org","@type":"BlogPosting","headline":item['title'],"description":item['meta_description'],"datePublished":str(item['publish_date']),"author":{"@type":"Organization","name":"Koddahub"},"mainEntityOfPage":url}
         if item.get('modified_date'):

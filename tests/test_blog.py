@@ -5,7 +5,7 @@ from datetime import date
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'scripts'))
-from blog import articles, build_blog, card_html, glossary_html, markdown, page_context_html, related_articles, source_links
+from blog import articles, build_blog, card_html, didactic_visual_html, glossary_html, markdown, page_context_html, related_articles, source_links
 from publish_due import due_articles
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -104,6 +104,20 @@ Texto insuficiente.
         self.assertIn('data-glossary-term="KPI"', rendered)
         self.assertIn('"article_slug": "dado-metrica-e-kpi-diferencas-que-ajudam-a-decidir-melhor"', context)
         self.assertIn('"term": "Dado qualitativo"', context)
+        self.assertIn('"id": "conceito-ate-decisao"', context)
+
+    def test_didactic_visual_is_semantic_and_escaped(self):
+        visual = didactic_visual_html({
+            'type': 'flow', 'title': 'Dado até decisão',
+            'caption': 'Explica a progressão.', 'alt': 'Dado segue para métrica.',
+            'data_kind': 'NÃO SE APLICA',
+            'items': [{'label': 'Dado', 'detail': '<registro>'}, {'label': 'Métrica', 'detail': 'Medida'}],
+        })
+        rendered = markdown('Antes.\n\n[[visual:fluxo]]\n\nDepois.', {'fluxo': visual})
+        self.assertIn('<figure class="blog-visual blog-visual--flow">', rendered)
+        self.assertIn('role="img" aria-label="Dado segue para métrica."', rendered)
+        self.assertIn('&lt;registro&gt;', rendered)
+        self.assertNotIn('<registro>', rendered)
 
     def test_card_uses_article_cover_when_available(self):
         item = {"title": "Artigo com imagem", "slug": "artigo-com-imagem", "publish_date": date(2026, 9, 12), "category": "Atendimento", "summary": "Resumo com imagem.", "reading_time": "15 minutos", "cover": "/assets/images/blog/exemplo.jpg", "cover_width": 1880, "cover_height": 1255}

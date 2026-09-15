@@ -10,8 +10,9 @@ em `docs/editorial/rascunhos/` com `status: draft`; a imagem original está em
 `docs/editorial/assets/`. Esses arquivos são versionados, mas não entram em
 `dist/` nem no site público enquanto o artigo estiver em revisão.
 
-O fluxo é: VAL → Markdown editorial → aprovação → `scripts/build.py` →
-`dist/blog/` → validação local → publicação em etapa separada. O build copia
+O fluxo de autoridade é: VAL → conteúdo → UX editorial → glossário → recursos
+visuais → QA → `scripts/build.py` → deploy → Kodda. Aprovação e publicação
+continuam condicionadas ao escopo autorizado. O build copia
 `public/` para `dist/`, renderiza a home institucional, lê os Markdown e gera
 `/blog/` e `/blog/<slug>/`. O sitemap inclui apenas as URLs geradas. Não edite
 `dist/` manualmente. A publicação produtiva não faz parte do build.
@@ -30,8 +31,12 @@ quando houver alteração editorial real. Antes da publicação, escolha a
 capa definitiva, otimize-a para web, coloque-a em `public/assets/images/` e
 preencha `cover`, `cover_alt`, `cover_width` e `cover_height`. O alt deve
 descrever a imagem efetivamente usada, não apenas o conceito do prompt. O corpo
-Markdown suporta parágrafos, H2, H3, listas simples, listas numeradas e
-negrito. Links editoriais sugeridos no rascunho não são publicados
+Markdown suporta parágrafos, H2, H3, listas simples, listas numeradas, negrito
+e marcadores `[[visual:id]]`. Cada marcador precisa corresponder a um item de
+`didactic_visuals` no front matter, com tipo, título, legenda, alt text e
+classificação dos dados. O build oferece fluxo, tabela responsiva, cards de
+comparação e gráfico de barras; números fictícios devem ser marcados como
+exemplo ilustrativo. Links editoriais sugeridos no rascunho não são publicados
 no corpo do artigo; quando apontam para outro artigo já publicado, alimentam
 a seção “Continue lendo”. Os demais links da seção são escolhidos primeiro
 pela mesma categoria e depois pela data. Links futuros ou inválidos não entram
