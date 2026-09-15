@@ -127,6 +127,17 @@ Texto insuficiente.
         self.assertIn('&lt;registro&gt;', rendered)
         self.assertNotIn('<registro>', rendered)
 
+    def test_step_badges_keep_accessible_brand_contrast_and_size(self):
+        css = (ROOT/'public/assets/css/blog.css').read_text(encoding='utf-8')
+        self.assertIn('.blog-flow-node .blog-step-number{', css)
+        rule = css.split('.blog-flow-node .blog-step-number{', 1)[1].split('}', 1)[0]
+        self.assertIn('width:3rem', rule)
+        self.assertIn('height:3rem', rule)
+        self.assertIn('background:var(--kdh-primary)', rule)
+        self.assertIn('color:var(--kdh-text-inverse)', rule)
+        self.assertIn('font-weight:800', rule)
+        self.assertIn('line-height:1', rule)
+
     def test_comparison_table_has_responsive_semantic_contract(self):
         visual = didactic_visual_html({
             'type': 'table', 'title': 'Comparação', 'caption': 'Legenda.',
