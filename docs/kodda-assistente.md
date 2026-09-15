@@ -51,3 +51,17 @@ Cada item de `glossary` exige `term`, `definition`, `example` e `application`.
 `aliases` melhora o reconhecimento de variações, e `related` alimenta no máximo
 três chips quando os termos também existem no catálogo publicado. O build
 interrompe se um campo obrigatório estiver ausente.
+
+O build acrescenta `normalized_term` e `normalized_aliases` ao contexto JSON,
+sem alterar `term`, que continua sendo a forma editorial exibida. A chave de
+busca usa minúsculas, remove acentos e pontuação irrelevante e comprime espaços.
+O frontend procura termos e aliases completos com limites de palavras, por isso
+aceita linguagem natural como “kpi o que é?” sem encontrar `api` dentro de uma
+palavra maior.
+
+O contrato para um backend ou workflow n8n segue a mesma ordem: validar a
+entrada → normalizar → detectar intenção → extrair termo ou alias → consultar
+o glossário → responder com o termo canônico → usar fallback. A normalização e
+os aliases precisam ocorrer antes do fallback. Logs de QA podem registrar
+`raw_input`, `normalized_input`, `matched_term` e `intent` para entradas de
+teste; produção não deve registrar conversa ou dados pessoais sem necessidade.

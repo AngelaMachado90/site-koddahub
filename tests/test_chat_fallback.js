@@ -1,6 +1,6 @@
 const test = require('node:test');
 const assert = require('node:assert/strict');
-const { reply, createConversation } = require('../public/assets/js/chat-fallback.js');
+const { reply, createConversation, normalize } = require('../public/assets/js/chat-fallback.js');
 
 const context = {
   page_type: 'blog',
@@ -54,6 +54,34 @@ test('explica termos do glossário do artigo antes de sugerir conteúdo', () => 
     assert.ok(answer.example);
     assert.ok(answer.application);
   }
+});
+
+test('normaliza caixa, espaços, pontuação e acentos antes do glossário', () => {
+  const cases = [
+    'KPI', 'kpi', 'Kpi', ' kpi ', 'kpi?', 'kpi o que é?',
+    'o que é kpi?', 'o que significa KPI?', 'me explica kpi'
+  ];
+  for (const rawInput of cases) {
+    const answer = createConversation(context).reply(rawInput);
+    assert.equal(answer.intent, 'GLOSSARY', rawInput);
+    assert.equal(answer.term, 'KPI', rawInput);
+    console.log(JSON.stringify({ raw_input: rawInput, normalized_input: normalize(rawInput), matched_term: answer.term, intent: answer.intent }));
+  }
+  assert.equal(normalize('  KPI... o que   é?! '), 'kpi o que e');
+});
+
+test('resolve aliases sem acento e preserva o termo editorial', () => {
+  for (const rawInput of ['MÉTRICA', 'métrica', 'metrica', 'O que é métrica?']) {
+    const answer = createConversation(context).reply(rawInput);
+    assert.equal(answer.intent, 'GLOSSARY', rawInput);
+    assert.equal(answer.term, 'Métrica', rawInput);
+  }
+});
+
+test('não usa substring indiscriminada no matching do glossário', () => {
+  const answer = createConversation(context).reply('kindly');
+  assert.equal(answer.intent, 'UNKNOWN');
+  assert.equal(answer.kind, 'unknown');
 });
 
 test('compara conceitos, aprofunda sob demanda e usa fallback contextual seguro', () => {

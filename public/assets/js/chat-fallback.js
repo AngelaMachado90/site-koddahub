@@ -33,7 +33,18 @@
     }
   ];
 
-  const normalize = (value) => String(value || "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().trim();
+  const normalize = (value) => String(value || "")
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, " ")
+    .trim()
+    .replace(/\s+/g, " ");
+
+  const phraseInMessage = (message, phrase) => {
+    if (!phrase) return false;
+    return (` ${message} `).includes(` ${phrase} `);
+  };
 
   function createConversation(pageContext = {}) {
     let lead = null;
@@ -44,9 +55,16 @@
     const glossaryCatalog = [...glossary, ...blogGlossary];
 
     function findGlossary(question) {
-      const value = normalize(question).replace(/^(o que (e|sao)|explique|me explique)\s+/, "").replace(/[?.!]+$/g, "").trim();
-      return glossary.find((item) => [item.term, ...(item.aliases || [])].some((term) => normalize(term) === value))
-        || blogGlossary.find((item) => [item.term, ...(item.aliases || [])].some((term) => normalize(term) === value));
+      const normalizedInput = normalize(question);
+      const findIn = (items) => {
+        const candidates = items.flatMap((item) => [item.term, item.normalized_term, ...(item.aliases || []), ...(item.normalized_aliases || [])]
+          .map(normalize)
+          .filter(Boolean)
+          .map((key) => ({ item, key })))
+          .sort((left, right) => right.key.length - left.key.length);
+        return candidates.find(({ key }) => normalizedInput === key || phraseInMessage(normalizedInput, key))?.item;
+      };
+      return findIn(glossary) || findIn(blogGlossary);
     }
 
     function glossaryReply(item, expanded = false) {
@@ -107,5 +125,5 @@
     return { reply, rememberArticle };
   }
 
-  return { createConversation, reply: createConversation().reply };
+  return { createConversation, normalize, reply: createConversation().reply };
 });

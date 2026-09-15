@@ -200,8 +200,8 @@ glossary:
     application: Ajuda a acompanhar volume, tempo, qualidade ou comportamento.
     related: [Dado, KPI, Indicador]
   - term: KPI
-    aliases: [indicador-chave, indicador chave]
-    definition: Métrica escolhida para acompanhar um objetivo importante.
+    aliases: [kpi, key performance indicator, indicador-chave, indicador chave de desempenho]
+    definition: KPI é uma métrica escolhida para acompanhar um objetivo importante.
     example: A taxa de conversão pode ser um KPI quando o objetivo é aumentar vendas.
     application: Ajuda a perceber se a organização avança em direção a um objetivo.
     related: [Dado, Métrica, Indicador]

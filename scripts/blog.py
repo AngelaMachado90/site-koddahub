@@ -1,6 +1,7 @@
 """Renderiza páginas estáticas do blog a partir de Markdown editorial."""
 import json
 import re
+import unicodedata
 from datetime import date
 from html import escape
 from pathlib import Path
@@ -22,6 +23,22 @@ def google_tag():
 
 def e(value):
     return escape(str(value or ""), quote=True)
+
+
+def normalized_term(value):
+    decomposed = unicodedata.normalize('NFD', str(value or ''))
+    plain = ''.join(character for character in decomposed if unicodedata.category(character) != 'Mn').lower()
+    return re.sub(r'\s+', ' ', re.sub(r'[^a-z0-9]+', ' ', plain)).strip()
+
+
+def glossary_context(items):
+    enriched = []
+    for item in items or []:
+        copy = dict(item)
+        copy['normalized_term'] = normalized_term(item['term'])
+        copy['normalized_aliases'] = list(dict.fromkeys(normalized_term(alias) for alias in item.get('aliases') or [] if normalized_term(alias)))
+        enriched.append(copy)
+    return enriched
 
 
 def inline(value):
@@ -163,11 +180,11 @@ def page_context_html(item, entries):
     general, seen = [], set()
     for entry in entries:
         for glossary_item in entry.get('glossary') or []:
-            key = glossary_item['term'].casefold()
+            key = normalized_term(glossary_item['term'])
             if key not in seen:
                 seen.add(key)
                 general.append(glossary_item)
-    context = {'page_type': 'blog', 'article_slug': item['slug'], 'article_title': item['title'], 'article_category': item['category'], 'article_summary': item['summary'], 'glossary': item.get('glossary') or [], 'didactic_visuals': item.get('didactic_visuals') or [], 'blog_glossary': general}
+    context = {'page_type': 'blog', 'article_slug': item['slug'], 'article_title': item['title'], 'article_category': item['category'], 'article_summary': item['summary'], 'glossary': glossary_context(item.get('glossary')), 'didactic_visuals': item.get('didactic_visuals') or [], 'blog_glossary': glossary_context(general)}
     payload = json.dumps(context, ensure_ascii=False).replace('<', '\\u003c')
     return f'<script type="application/json" id="kodda-page-context">{payload}</script>'
 
@@ -176,11 +193,11 @@ def blog_context_html(entries):
     general, seen = [], set()
     for entry in entries:
         for item in entry.get('glossary') or []:
-            key = item['term'].casefold()
+            key = normalized_term(item['term'])
             if key not in seen:
                 seen.add(key)
                 general.append(item)
-    payload = json.dumps({'page_type': 'blog_index', 'blog_glossary': general}, ensure_ascii=False).replace('<', '\\u003c')
+    payload = json.dumps({'page_type': 'blog_index', 'blog_glossary': glossary_context(general)}, ensure_ascii=False).replace('<', '\\u003c')
     return f'<script type="application/json" id="kodda-page-context">{payload}</script>'
 
 
@@ -229,6 +246,9 @@ def articles(editorial=EDITORIAL, today=None):
             for key in ('term', 'definition', 'example', 'application'):
                 if not glossary_item.get(key):
                     raise ValueError(f"Glossário sem {key}: {path}")
+        normalized_glossary = [normalized_term(item['term']) for item in meta.get('glossary') or []]
+        if len(normalized_glossary) != len(set(normalized_glossary)):
+            raise ValueError(f"Termos duplicados após normalização: {path}")
         visuals = meta.get('didactic_visuals') or []
         visual_ids = set()
         for visual in visuals:

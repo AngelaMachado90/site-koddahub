@@ -5,7 +5,7 @@ from datetime import date
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'scripts'))
-from blog import articles, build_blog, card_html, didactic_visual_html, glossary_html, markdown, page_context_html, related_articles, source_links
+from blog import articles, build_blog, card_html, didactic_visual_html, glossary_context, glossary_html, markdown, normalized_term, page_context_html, related_articles, source_links
 from publish_due import due_articles
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -105,6 +105,14 @@ Texto insuficiente.
         self.assertIn('"article_slug": "dado-metrica-e-kpi-diferencas-que-ajudam-a-decidir-melhor"', context)
         self.assertIn('"term": "Dado qualitativo"', context)
         self.assertIn('"id": "conceito-ate-decisao"', context)
+        self.assertIn('"normalized_term": "kpi"', context)
+
+    def test_glossary_context_normalizes_without_changing_editorial_term(self):
+        payload = glossary_context([{'term': 'Métrica', 'aliases': ['MÉTRICAS', 'metrica']}])
+        self.assertEqual(payload[0]['term'], 'Métrica')
+        self.assertEqual(payload[0]['normalized_term'], 'metrica')
+        self.assertEqual(payload[0]['normalized_aliases'], ['metricas', 'metrica'])
+        self.assertEqual(normalized_term('  KPI... o que é?! '), 'kpi o que e')
 
     def test_didactic_visual_is_semantic_and_escaped(self):
         visual = didactic_visual_html({
