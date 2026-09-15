@@ -1,11 +1,11 @@
 ---
 title: 'Dado, métrica e KPI: diferenças que ajudam a decidir melhor'
-seo_title: 'Dado, métrica e KPI: diferenças que ajudam a decidir melhor'
-meta_description: Esses três termos aparecem juntos em reuniões, mas cumprem papéis diferentes.
+seo_title: 'Dado, métrica e KPI: entenda a diferença | Koddahub'
+meta_description: Entenda a diferença entre dado, métrica e KPI com exemplos simples e aprenda a criar indicadores confiáveis para decisões de negócio.
 slug: dado-metrica-e-kpi-diferencas-que-ajudam-a-decidir-melhor
 category: Dados
 reading_time: 15 minutos
-summary: Esses três termos aparecem juntos em reuniões, mas cumprem papéis diferentes.
+summary: Entenda como registros viram métricas e quando uma métrica se torna um KPI capaz de orientar decisões.
 planned_date: 15/09/2026
 publish_date: 2026-09-15
 status: scheduled
