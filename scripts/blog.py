@@ -38,12 +38,14 @@ def didactic_visual_html(item):
     data_kind = str(item.get("data_kind", "NÃO SE APLICA")).upper()
     label = f'<span class="blog-visual-data">{e(data_kind)}</span>' if data_kind != "NÃO SE APLICA" else ""
 
-    if visual_type == "flow":
-        nodes = '<span class="blog-flow-arrow" aria-hidden="true">↓</span>'.join(
-            f'<div class="blog-flow-node"><strong>{e(node["label"])}</strong><span>{e(node.get("detail"))}</span></div>'
-            for node in item.get("items", [])
-        )
-        content = f'<div class="blog-flow" role="img" aria-label="{alt}">{nodes}</div>'
+    if visual_type in {"flow", "pipeline", "steps"}:
+        flow_nodes = []
+        for index, node in enumerate(item.get("items", []), 1):
+            number = f'<span class="blog-step-number">{e(index)}</span>' if visual_type == "steps" else ''
+            flow_nodes.append(f'<div class="blog-flow-node">{number}<strong>{e(node["label"])}</strong><span>{e(node.get("detail"))}</span></div>')
+        nodes = '<span class="blog-flow-arrow" aria-hidden="true">↓</span>'.join(flow_nodes)
+        warning = f'<p class="blog-flow-warning"><strong>{e(item["warning_title"])}</strong> {e(item["warning_text"])}</p>' if item.get('warning_title') else ''
+        content = f'<div class="blog-flow blog-flow--{e(visual_type)}" role="img" aria-label="{alt}">{nodes}</div>{warning}'
     elif visual_type == "table":
         headers = item.get("headers", [])
         head = ''.join(f'<th scope="col">{e(value)}</th>' for value in headers)
@@ -53,14 +55,31 @@ def didactic_visual_html(item):
         ) + '</tr>' for row in item.get("rows", []))
         columns = ''.join('<col>' for _ in headers)
         content = f'<div class="blog-comparison"><table class="table blog-comparison__table"><colgroup>{columns}</colgroup><thead><tr>{head}</tr></thead><tbody>{rows}</tbody></table></div>'
-    elif visual_type in {"comparison", "cards"}:
-        cards = ''.join(f'<div class="blog-concept-card"><h3>{e(card["title"])}</h3><p>{e(card["text"])}</p></div>' for card in item.get("items", []))
+    elif visual_type in {"comparison", "cards", "numbered_grid", "checklist"}:
+        card_items = []
+        for index, card in enumerate(item.get("items", []), 1):
+            number = f'<span class="blog-card-number">{e(index)}</span>' if visual_type == "numbered_grid" else ''
+            marker = '<span class="blog-card-x" aria-hidden="true">×</span>' if visual_type == "checklist" else ''
+            card_items.append(f'<div class="blog-concept-card">{number}{marker}<h3>{e(card["title"])}</h3><p>{e(card["text"])}</p></div>')
+        cards = ''.join(card_items)
         content = f'<div class="blog-concept-grid" role="group" aria-label="{alt}">{cards}</div>'
     elif visual_type == "bar_chart":
         values = [float(bar.get("value", 0)) for bar in item.get("items", [])]
         maximum = max(values, default=1) or 1
         bars = ''.join(f'<div class="blog-bar-item"><span class="blog-bar-value">{e(bar.get("value"))}</span><span class="blog-bar" style="--bar-size:{max(0, float(bar.get("value", 0))) / maximum * 100:.2f}%"></span><span class="blog-bar-name">{e(bar.get("label"))}</span></div>' for bar in item.get("items", []))
         content = f'<div class="blog-bar-chart" role="img" aria-label="{alt}">{bars}</div>'
+    elif visual_type == "timeline_compare":
+        timelines = ''.join(f'<div class="blog-timeline blog-timeline--{e(period.get("status"))}"><span class="blog-timeline-status">{e(period.get("status_label"))}</span><h3>{e(period["title"])}</h3><div class="blog-timeline-track" aria-hidden="true"><span style="--timeline-size:{e(period.get("size", 100))}%"></span></div><p>{e(period["text"])}</p></div>' for period in item.get('items', []))
+        content = f'<div class="blog-timeline-grid" role="img" aria-label="{alt}">{timelines}</div>'
+    elif visual_type == "dot_plot":
+        values = [float(value) for value in item.get('values', [])]
+        maximum = max(values, default=1) or 1
+        dots = ''.join(f'<span class="blog-dot" style="--dot-position:{value / maximum * 100:.2f}%"><span>{e(format(value, "g"))}</span></span>' for value in values)
+        summaries = ''.join(f'<div><span>{e(summary["label"])}</span><strong>{e(summary["value"])}</strong></div>' for summary in item.get('summaries', []))
+        content = f'<div class="blog-dot-plot" role="img" aria-label="{alt}"><div class="blog-dot-axis">{dots}</div><div class="blog-stat-grid">{summaries}</div></div>'
+    elif visual_type == "dashboard":
+        details = ''.join(f'<div class="blog-dashboard-detail"><span>{e(detail["label"])}</span><strong>{e(detail["value"])}</strong></div>' for detail in item.get('details', []))
+        content = f'<div class="blog-dashboard" role="img" aria-label="{alt}"><div class="blog-dashboard-kpi"><span>{e(item.get("kpi_label"))}</span><strong>{e(item.get("kpi_value"))}</strong><small>{e(item.get("kpi_change"))}</small></div><div class="blog-dashboard-trend"><span>Tendência</span><svg viewBox="0 0 320 80" aria-hidden="true" focusable="false"><polyline points="0,65 55,56 110,60 165,38 220,42 270,20 320,12"/></svg></div><div class="blog-dashboard-grid">{details}</div><p class="blog-dashboard-updated">Atualizado: {e(item.get("updated"))}</p></div>'
     else:
         raise ValueError(f"Tipo de recurso didático inválido: {visual_type}")
     return f'<figure class="blog-visual blog-visual--{e(visual_type)}"><div class="blog-visual-heading"><h2>{title}</h2>{label}</div>{content}<figcaption>{caption}</figcaption></figure>'

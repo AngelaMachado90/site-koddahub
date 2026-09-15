@@ -35,8 +35,10 @@ Markdown suporta parágrafos, H2, H3, listas simples, listas numeradas, negrito
 e marcadores `[[visual:id]]`. Cada marcador precisa corresponder a um item de
 `didactic_visuals` no front matter, com tipo, título, legenda, alt text e
 classificação dos dados. O build oferece fluxo, tabela responsiva, cards de
-comparação e gráfico de barras; números fictícios devem ser marcados como
-exemplo ilustrativo. Links editoriais sugeridos no rascunho não são publicados
+comparação, grid numerado, comparação temporal, gráficos de barras e pontos,
+pipeline, sequência de etapas, checklist e mockup de dashboard; números
+fictícios devem ser marcados como exemplo ilustrativo. Links editoriais
+sugeridos no rascunho não são publicados
 no corpo do artigo; quando apontam para outro artigo já publicado, alimentam
 a seção “Continue lendo”. Os demais links da seção são escolhidos primeiro
 pela mesma categoria e depois pela data. Links futuros ou inválidos não entram

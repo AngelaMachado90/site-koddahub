@@ -132,6 +132,17 @@ Texto insuficiente.
         self.assertIn('<th scope="row">Métrica</th>', visual)
         self.assertIn('<td data-label="O que é">Medida calculada</td>', visual)
 
+    def test_dense_article_renders_all_visual_learning_components(self):
+        entries = articles(ROOT/'docs/editorial', date(2026, 9, 15))
+        item = next(entry for entry in entries if entry['slug'] == 'dado-metrica-e-kpi-diferencas-que-ajudam-a-decidir-melhor')
+        components = {visual['id']: didactic_visual_html(visual) for visual in item['didactic_visuals']}
+        rendered = markdown(item['body'], components)
+        self.assertEqual(rendered.count('<figure class="blog-visual '), 12)
+        for visual_type in ('numbered_grid', 'timeline_compare', 'dot_plot', 'pipeline', 'dashboard', 'checklist', 'steps'):
+            self.assertIn(f'blog-visual--{visual_type}', rendered)
+        self.assertIn('EXEMPLO ILUSTRATIVO — DADOS FICTÍCIOS', rendered)
+        self.assertIn('role="img" aria-label="Gráfico de tempos de resposta', rendered)
+
     def test_card_uses_article_cover_when_available(self):
         item = {"title": "Artigo com imagem", "slug": "artigo-com-imagem", "publish_date": date(2026, 9, 12), "category": "Atendimento", "summary": "Resumo com imagem.", "reading_time": "15 minutos", "cover": "/assets/images/blog/exemplo.jpg", "cover_width": 1880, "cover_height": 1255}
         rendered = card_html(item, position=2)

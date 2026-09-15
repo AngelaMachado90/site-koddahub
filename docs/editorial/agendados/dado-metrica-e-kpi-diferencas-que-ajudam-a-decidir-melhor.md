@@ -73,6 +73,95 @@ didactic_visuals:
       - [Dado, Informação registrada, Um pedido recebido às 9h12]
       - [Métrica, Medida calculada segundo uma regra, 90 pedidos em três dias]
       - [KPI, Métrica escolhida para acompanhar um objetivo, Taxa de conversão quando o objetivo é aumentar vendas]
+  - id: ficha-indicador
+    type: numbered_grid
+    title: Anatomia de uma boa ficha de indicador
+    caption: Uma ficha simples deixa claro o que está sendo medido, de onde vêm os dados e qual decisão o indicador pode apoiar.
+    alt: "Infográfico com oito elementos de uma ficha de indicador: objetivo, pergunta, população, início e fim, unidade e período, fonte e atualização, responsável e ação esperada."
+    data_kind: NÃO SE APLICA
+    items:
+      - {title: Objetivo, text: Oferecer a primeira orientação útil em tempo adequado.}
+      - {title: Pergunta, text: "Qual parcela recebeu orientação dentro do prazo?"}
+      - {title: População, text: Solicitações únicas e elegíveis, sem testes nem spam.}
+      - {title: Início e fim, text: Do recebimento à primeira resposta classificada como útil.}
+      - {title: Unidade e período, text: Porcentagem semanal no fuso adotado pela operação.}
+      - {title: Fonte e atualização, text: Sistemas usados e horário de consolidação dos dados.}
+      - {title: Responsável, text: Equipe que valida definição, qualidade e mudanças.}
+      - {title: Ação esperada, text: Investigar atrasos, capacidade e etapas que bloqueiam a resposta.}
+  - id: periodos-equivalentes
+    type: timeline_compare
+    title: Compare períodos equivalentes
+    caption: Uma comparação só é útil quando os períodos representam condições comparáveis. Períodos parciais e completos podem levar a conclusões enganosas.
+    alt: Linha do tempo comparando setembro de 1 a 15 com agosto inteiro e, ao lado, setembro de 1 a 15 com agosto de 1 a 15.
+    data_kind: EXEMPLO ILUSTRATIVO
+    items:
+      - {status: wrong, status_label: EVITE, title: Setembro 1–15 × agosto inteiro, size: 50, text: Um período parcial não representa a mesma janela de observação.}
+      - {status: correct, status_label: PREFIRA, title: Setembro 1–15 × agosto 1–15, size: 50, text: Janelas equivalentes tornam a comparação mais compreensível.}
+  - id: media-mediana
+    type: dot_plot
+    title: A média pode contar apenas parte da história
+    caption: Neste exemplo ilustrativo, um atendimento muito demorado aumenta a média. A mediana ajuda a enxergar melhor o comportamento mais comum.
+    alt: Gráfico de tempos de resposta com cinco valores próximos e um valor extremo de 45 minutos, comparando média de 13,3 e mediana de 7,5 minutos.
+    data_kind: EXEMPLO ILUSTRATIVO — DADOS FICTÍCIOS
+    values: [5, 6, 7, 8, 9, 45]
+    summaries:
+      - {label: Média, value: 13,3 min}
+      - {label: Mediana, value: 7,5 min}
+  - id: qualidade-antes-kpi
+    type: pipeline
+    title: Um KPI começa antes do dashboard
+    caption: Antes de calcular indicadores, os dados precisam ser coletados, validados e tratados de forma consistente.
+    alt: Fluxo mostrando coleta, validação, deduplicação, transformação, métrica, KPI e decisão.
+    data_kind: NÃO SE APLICA
+    warning_title: Dados ruins →
+    warning_text: métrica pouco confiável → decisão arriscada.
+    items:
+      - {label: Coleta, detail: Registrar}
+      - {label: Validação, detail: Conferir}
+      - {label: Deduplicação, detail: Evitar contagem dupla}
+      - {label: Transformação, detail: Aplicar regras}
+      - {label: Métrica, detail: Calcular}
+      - {label: KPI, detail: Relacionar ao objetivo}
+      - {label: Decisão, detail: Agir com contexto}
+  - id: painel-decisao
+    type: dashboard
+    title: Um painel deve responder antes de impressionar
+    caption: O indicador principal vem primeiro. Tendência, volume, pendências e atualização ajudam a interpretar o número antes de tomar uma decisão.
+    alt: Mockup de dashboard com KPI principal de 82 por cento, tendência, volume, 14 pendências e data de atualização.
+    data_kind: EXEMPLO ILUSTRATIVO — DADOS FICTÍCIOS
+    kpi_label: KPI PRINCIPAL
+    kpi_value: 82%
+    kpi_change: ↑ 5 p.p. no período
+    details:
+      - {label: Volume, value: 120 solicitações}
+      - {label: Pendências, value: 14}
+    updated: 15/09/2026 08:00
+  - id: erros-indicadores
+    type: checklist
+    title: Seis sinais de um indicador mal escolhido
+    caption: Use a lista como revisão rápida antes de levar uma medida para a rotina de decisão.
+    alt: Seis cards com erros comuns na escolha de indicadores e uma explicação curta para cada erro.
+    data_kind: NÃO SE APLICA
+    items:
+      - {title: Medir apenas o que é fácil, text: A coleta disponível pode não representar o resultado importante.}
+      - {title: Confundir volume com desempenho, text: Mais ocorrências não significam necessariamente melhor resultado.}
+      - {title: Esconder o denominador, text: Uma taxa sem população definida permite leituras incompatíveis.}
+      - {title: Multiplicar KPIs, text: Quando tudo é principal, a prioridade desaparece.}
+      - {title: Transformar a meta em jogo, text: Uma cobrança isolada pode incentivar comportamento ruim.}
+      - {title: Inferir causalidade, text: Duas mudanças juntas não provam relação de causa e efeito.}
+  - id: roteiro-indicadores
+    type: steps
+    title: Comece pequeno, valide e só depois automatize
+    caption: Um indicador útil pode começar com uma pergunta clara e alguns casos reais. A automação vem depois que a definição estiver funcionando.
+    alt: Fluxo de seis etapas para começar um projeto de indicadores, da escolha da decisão até a automação.
+    data_kind: NÃO SE APLICA
+    items:
+      - {label: Escolha uma decisão, detail: Comece pelo uso}
+      - {label: Formule a pergunta, detail: Escreva em linguagem simples}
+      - {label: Identifique os dados, detail: Confira registros disponíveis}
+      - {label: Defina uma métrica, detail: Documente a regra}
+      - {label: Teste com casos reais, detail: Corrija ambiguidades}
+      - {label: Automatize depois, detail: Escale uma definição validada}
 glossary:
   - term: Dado
     aliases: [dados]
@@ -214,16 +303,9 @@ Na reunião semanal, o KPI precisa provocar investigação e decisão. Se piorou
 
 ## Como escrever uma ficha de indicador
 
-Uma ficha curta evita que cada pessoa faça uma interpretação diferente. Para o exemplo de atendimento, ela pode conter os seguintes campos:
+Uma ficha curta evita que cada pessoa faça uma interpretação diferente. O exemplo abaixo reúne definição, origem, período, responsabilidade e ação em uma única visão.
 
-1. **Objetivo:** oferecer a primeira orientação útil em tempo adequado.
-2. **Pergunta:** qual parcela das solicitações elegíveis recebeu essa orientação dentro do prazo definido?
-3. **População:** solicitações únicas recebidas nos canais incluídos, excluídos testes identificados e spam conforme regra documentada.
-4. **Início e fim:** horário de recebimento e horário da primeira resposta classificada como útil.
-5. **Unidade e período:** porcentagem por semana, no fuso adotado pela operação.
-6. **Fonte e atualização:** sistema de atendimento, formulário e eventual conciliação; informar quando os dados são consolidados.
-7. **Responsável:** pessoa ou equipe que valida a definição, a qualidade e as alterações na regra.
-8. **Ação esperada:** investigar atrasos, revisar capacidade ou remover uma etapa que impede a resposta.
+[[visual:ficha-indicador]]
 
 Não é necessário começar com um documento extenso. É necessário que outra pessoa consiga refazer o cálculo e explicar por que um caso entrou ou saiu. Se duas fontes produzem valores diferentes, anote a divergência e a regra de conciliação; não escolha o número mais favorável sem investigação.
 
@@ -233,11 +315,15 @@ Uma contagem diária pode oscilar bastante em operações pequenas. Uma média m
 
 Comparar apenas com o período anterior também pode enganar. Uma queda de volume após uma campanha terminar não prova que o atendimento melhorou. O gráfico deve mostrar o contexto suficiente para evitar uma conclusão precipitada. Isso pode incluir volume de entrada, quantidade de casos pendentes e mudanças de processo. Quanto mais fatores mudam juntos, maior a cautela ao atribuir causa.
 
+[[visual:periodos-equivalentes]]
+
 O fuso horário merece atenção especial quando ferramentas diferentes registram eventos em horários distintos. Um pedido feito perto da meia-noite pode aparecer em dias diferentes se o formulário e o CRM usam fusos diferentes. Converta para um padrão definido antes de agrupar e mantenha o horário original quando ele for importante para auditoria.
 
 ## Média, mediana e distribuição
 
 Uma média sozinha pode esconder uma fila desigual. Imagine cinco solicitações respondidas em 5, 6, 7, 8 e 94 minutos. A maioria recebeu resposta rápida, mas um caso ficou esperando muito. A média é 24 minutos; a mediana é 7. Nenhuma das duas está “errada”: elas respondem a perguntas diferentes. A média sente mais o peso da demora extrema, enquanto a mediana descreve o centro desses cinco casos.
+
+[[visual:media-mediana]]
 
 Por isso, escolha o resumo conforme a decisão. Para avaliar a experiência típica, a mediana pode ajudar. Para não deixar casos muito demorados invisíveis, acompanhe também faixas de espera, os casos mais antigos ou um percentil definido com critério. Em bases pequenas, um gráfico de pontos ou uma lista de exceções pode explicar mais que uma taxa arredondada.
 
@@ -247,6 +333,8 @@ Segmentar por canal, horário ou tipo de solicitação ajuda quando há uma hip�
 
 Nenhum KPI compensa uma coleta incompleta. Verifique se os identificadores são estáveis, se campos obrigatórios estão preenchidos, se o mesmo evento é registrado uma ou duas vezes e se a atualização ocorre no tempo esperado. Um painel de acompanhamento precisa avisar quando a fonte falhou ou está atrasada; mostrar o último valor como se fosse atual pode induzir uma decisão errada.
 
+[[visual:qualidade-antes-kpi]]
+
 Uma conferência simples compara uma amostra de registros do sistema de origem com o resultado do painel. Escolha casos normais e exceções: solicitações reabertas, transferidas, duplicadas e sem resposta. Calcule manualmente alguns exemplos com a definição escrita. Se a conta manual não bate, descubra se o problema está no registro, na transformação ou no filtro da visualização.
 
 Quando uma regra muda, registre a data e avalie se a série histórica será recalculada. Se não for possível recalcular, mostre a quebra de metodologia. A confiança em um indicador depende tanto da transparência sobre suas limitações quanto da aparência do gráfico.
@@ -254,6 +342,8 @@ Quando uma regra muda, registre a data e avalie se a série histórica será rec
 ## Como organizar um painel que ajuda a decidir
 
 Comece pela pergunta e pela ação, não pelo tipo de gráfico. Um painel de atendimento pode abrir com o resultado do período, a comparação apropriada e uma nota sobre atualização. Abaixo, apresente tendência, volume de entrada, pendências e distribuição por segmento útil. Por fim, ofereça o detalhe necessário para investigar casos, com acesso controlado quando houver dados pessoais.
+
+[[visual:painel-decisao]]
 
 Cada número deve trazer unidade e período. “12” pode significar 12 minutos, 12 casos ou 12%. Rótulos vagos fazem a equipe gastar tempo descobrindo o que está vendo. Uma nota curta explicando exclusões e mudanças de regra evita que a reunião vire uma disputa sobre definições.
 
@@ -263,21 +353,13 @@ Um painel não toma a decisão. Ele reduz o esforço para encontrar o problema, 
 
 ## Erros comuns na escolha de indicadores
 
-**Medir só o que é fácil de coletar.** Cliques, mensagens e visualizações podem ser úteis, mas talvez não representem a qualidade do resultado. Pergunte primeiro qual mudança a organização quer observar; depois procure uma aproximação mensurável e declare as limitações.
-
-**Confundir volume com desempenho.** Mais atendimentos concluídos pode refletir mais demanda, mudança na regra de encerramento ou melhora real. Relacione volume, capacidade, qualidade e contexto antes de comemorar ou alarmar.
-
-**Esconder o denominador.** Uma taxa sem população definida permite interpretações incompatíveis. Mostre a fórmula em linguagem comum e permita conferir quantos casos entraram na conta.
-
-**Multiplicar KPIs.** Quando tudo recebe o rótulo de “principal”, a prioridade desaparece. Mantenha um conjunto pequeno de medidas ligadas aos objetivos e use métricas auxiliares para explicar variações.
-
-**Transformar a meta em jogo.** Se a equipe for cobrada apenas pela velocidade, pode encerrar conversas cedo demais. Combine a medida principal com sinais de qualidade e revise incentivos que favoreçam o número em detrimento da pessoa atendida.
-
-**Inferir causalidade de uma coincidência.** Melhorar após uma mudança não prova que a mudança foi a causa. Observe tendências anteriores, outras alterações no período e, quando a decisão justificar, planeje uma avaliação mais cuidadosa.
+[[visual:erros-indicadores]]
 
 ## Um roteiro para começar sem um projeto gigante
 
 Escolha uma decisão recorrente que hoje depende de impressão ou de planilhas conflitantes. Escreva a pergunta em linguagem simples. Identifique os registros disponíveis e faça uma pequena amostra manual. Defina uma métrica que responda à pergunta, incluindo casos ausentes e exceções. Escolha quem revisará o cálculo e em qual reunião a informação será usada.
+
+[[visual:roteiro-indicadores]]
 
 No primeiro ciclo, não tente automatizar todo o fluxo. Compare a métrica calculada com casos reais, peça que duas pessoas interpretem a ficha e corrija ambiguidades. Só depois conecte fontes, atualize o painel automaticamente e escolha uma meta. Esse caminho protege a equipe de construir um relatório impecável para uma pergunta mal formulada.
 
