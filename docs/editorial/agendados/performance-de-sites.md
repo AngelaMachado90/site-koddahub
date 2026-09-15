@@ -1,18 +1,20 @@
 ---
-title: 'Performance de site: como priorizar melhorias percebidas pelas pessoas'
+title: "O que deixa um site mais rápido?"
 seo_title: 'Performance de site: como priorizar melhorias percebidas pelas pessoas'
 meta_description: Performance não é apenas uma nota de ferramenta.
-slug: performance-de-site-como-priorizar-melhorias-percebidas-pelas-pessoas
-category: Desenvolvimento
+slug: "performance-de-sites"
+category: "Desenvolvimento"
 reading_time: 2 minutos
 summary: Performance não é apenas uma nota de ferramenta.
 planned_date: 01/10/2026
 publish_date: 2026-10-01
-status: scheduled
+status: "review"
 author: VAL — Valor, Autoridade e Linguagem Koddahub
+tags: [Sites, Desenvolvimento, UX/UI]
+reviewed_at: 2026-09-15
+review_blockers: [conteúdo abaixo de 15 minutos, capa definitiva ausente, glossário pendente, recurso visual pendente, QA mobile final pendente]
 ---
-
-# Performance de site: como priorizar melhorias percebidas pelas pessoas
+# O que deixa um site mais rápido?
 
 Performance não é apenas uma nota de ferramenta. Uma pessoa percebe quando a página demora a mostrar o que veio buscar, quando um botão responde tarde ou quando o layout muda enquanto tenta tocar na tela.
 

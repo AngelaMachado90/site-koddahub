@@ -1,18 +1,20 @@
 ---
-title: Como identificar tarefas repetitivas que realmente vale automatizar
+title: "Quais tarefas vale automatizar?"
 seo_title: Como identificar tarefas repetitivas que realmente vale automatizar
 meta_description: Uma tarefa repetitiva não é automaticamente uma boa candidata à automação.
-slug: como-identificar-tarefas-repetitivas-que-realmente-vale-automatizar
-category: Automação
+slug: "tarefas-que-valem-automatizar"
+category: "Automação"
 reading_time: 2 minutos
 summary: Uma tarefa repetitiva não é automaticamente uma boa candidata à automação.
 planned_date: 20/09/2026
 publish_date: 2026-09-20
-status: scheduled
+status: "review"
 author: VAL — Valor, Autoridade e Linguagem Koddahub
+tags: [Automação, Processos]
+reviewed_at: 2026-09-15
+review_blockers: [conteúdo abaixo de 15 minutos, capa definitiva ausente, glossário pendente, recurso visual pendente, QA mobile final pendente]
 ---
-
-# Como identificar tarefas repetitivas que realmente vale automatizar
+# Quais tarefas vale automatizar?
 
 Uma tarefa repetitiva não é automaticamente uma boa candidata à automação. O ponto de partida é observar onde há esforço desnecessário e onde uma regra clara consegue produzir um resultado confiável.
 

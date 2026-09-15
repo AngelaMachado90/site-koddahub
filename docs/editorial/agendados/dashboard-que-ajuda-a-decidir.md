@@ -1,18 +1,20 @@
 ---
-title: 'Dashboard útil: quais decisões ele precisa ajudar a tomar?'
+title: "Seu dashboard ajuda a decidir?"
 seo_title: 'Dashboard útil: quais decisões ele precisa ajudar a tomar?'
 meta_description: Um dashboard útil não começa com gráficos.
-slug: dashboard-util-quais-decisoes-ele-precisa-ajudar-a-tomar
-category: Dados
+slug: "dashboard-que-ajuda-a-decidir"
+category: "Dados"
 reading_time: 2 minutos
 summary: Um dashboard útil não começa com gráficos.
 planned_date: 21/09/2026
 publish_date: 2026-09-21
-status: scheduled
+status: "review"
 author: VAL — Valor, Autoridade e Linguagem Koddahub
+tags: [Dados, Analytics]
+reviewed_at: 2026-09-15
+review_blockers: [conteúdo abaixo de 15 minutos, capa definitiva ausente, glossário pendente, recurso visual pendente, QA mobile final pendente]
 ---
-
-# Dashboard útil: quais decisões ele precisa ajudar a tomar?
+# Seu dashboard ajuda a decidir?
 
 Um dashboard útil não começa com gráficos. Começa com uma decisão que alguém precisa tomar e com a informação necessária para tomá-la.
 

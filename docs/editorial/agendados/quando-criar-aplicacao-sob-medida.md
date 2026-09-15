@@ -1,18 +1,20 @@
 ---
-title: Quando vale criar uma aplicação sob medida em vez de adaptar uma ferramenta
+title: "Quando criar uma aplicação sob medida?"
 seo_title: Quando vale criar uma aplicação sob medida em vez de adaptar uma ferramenta
 meta_description: Uma ferramenta pronta resolve muitos problemas comuns, mas pode exigir que o negócio adapte processos importantes.
-slug: quando-vale-criar-uma-aplicacao-sob-medida-em-vez-de-adaptar-uma-ferramenta
-category: Desenvolvimento
+slug: "quando-criar-aplicacao-sob-medida"
+category: "Desenvolvimento"
 reading_time: 2 minutos
 summary: Uma ferramenta pronta resolve muitos problemas comuns, mas pode exigir que o negócio adapte processos importantes.
 planned_date: 19/09/2026
 publish_date: 2026-09-19
-status: scheduled
+status: "review"
 author: VAL — Valor, Autoridade e Linguagem Koddahub
+tags: [Desenvolvimento, Processos]
+reviewed_at: 2026-09-15
+review_blockers: [conteúdo abaixo de 15 minutos, capa definitiva ausente, glossário pendente, recurso visual pendente, QA mobile final pendente]
 ---
-
-# Quando vale criar uma aplicação sob medida em vez de adaptar uma ferramenta
+# Quando criar uma aplicação sob medida?
 
 Uma ferramenta pronta resolve muitos problemas comuns, mas pode exigir que o negócio adapte processos importantes. Uma aplicação sob medida oferece liberdade maior e também transfere para a equipe a responsabilidade por manutenção, segurança e evolução.
 

@@ -1,20 +1,22 @@
 ---
-title: 'Testes automatizados: o que cobrir primeiro em um projeto pequeno'
+title: "O que testar primeiro?"
 seo_title: 'Testes automatizados: o que cobrir primeiro em um projeto pequeno'
 meta_description: Testes automatizados ajudam a perceber regressões, mas uma suíte extensa e frágil pode consumir mais tempo
   do que economiza.
-slug: testes-automatizados-o-que-cobrir-primeiro-em-um-projeto-pequeno
-category: Qualidade
+slug: "testes-automatizados-o-que-testar"
+category: "Desenvolvimento"
 reading_time: 2 minutos
 summary: Testes automatizados ajudam a perceber regressões, mas uma suíte extensa e frágil pode consumir mais tempo do que
   economiza.
 planned_date: 27/09/2026
 publish_date: 2026-09-27
-status: scheduled
+status: "review"
 author: VAL — Valor, Autoridade e Linguagem Koddahub
+tags: [Desenvolvimento, Processos]
+reviewed_at: 2026-09-15
+review_blockers: [conteúdo abaixo de 15 minutos, capa definitiva ausente, glossário pendente, recurso visual pendente, QA mobile final pendente]
 ---
-
-# Testes automatizados: o que cobrir primeiro em um projeto pequeno
+# O que testar primeiro?
 
 Testes automatizados ajudam a perceber regressões, mas uma suíte extensa e frágil pode consumir mais tempo do que economiza. Em um projeto pequeno, comece pelo comportamento cujo erro mais prejudica o usuário ou a operação.
 

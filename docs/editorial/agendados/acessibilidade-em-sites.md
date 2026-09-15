@@ -1,18 +1,20 @@
 ---
-title: 'Acessibilidade em sites: decisões simples que melhoram o uso para todos'
+title: "Acessibilidade melhora o site para todos"
 seo_title: 'Acessibilidade em sites: decisões simples que melhoram o uso para todos'
 meta_description: Acessibilidade não é um efeito colateral de um layout bonito.
-slug: acessibilidade-em-sites-decisoes-simples-que-melhoram-o-uso-para-todos
-category: Acessibilidade
+slug: "acessibilidade-em-sites"
+category: "Desenvolvimento"
 reading_time: 2 minutos
 summary: Acessibilidade não é um efeito colateral de um layout bonito.
 planned_date: 24/09/2026
 publish_date: 2026-09-24
-status: scheduled
+status: "review"
 author: VAL — Valor, Autoridade e Linguagem Koddahub
+tags: [Sites, UX/UI, Responsividade]
+reviewed_at: 2026-09-15
+review_blockers: [conteúdo abaixo de 15 minutos, capa definitiva ausente, glossário pendente, recurso visual pendente, QA mobile final pendente]
 ---
-
-# Acessibilidade em sites: decisões simples que melhoram o uso para todos
+# Acessibilidade melhora o site para todos
 
 Acessibilidade não é um efeito colateral de um layout bonito. Ela depende de estrutura, conteúdo e interação que funcionem para pessoas com formas diferentes de navegar.
 

@@ -1,18 +1,20 @@
 ---
-title: 'Do pedido à necessidade: como descobrir o problema antes de desenvolver'
+title: "Do pedido ao problema real"
 seo_title: 'Do pedido à necessidade: como descobrir o problema antes de desenvolver'
 meta_description: 'Pedidos de funcionalidade costumam chegar como solução: “precisamos de um botão” ou “queremos um painel”.'
-slug: do-pedido-a-necessidade-como-descobrir-o-problema-antes-de-desenvolver
-category: Produto
+slug: "do-pedido-ao-problema-real"
+category: "Desenvolvimento"
 reading_time: 2 minutos
 summary: 'Pedidos de funcionalidade costumam chegar como solução: “precisamos de um botão” ou “queremos um painel”.'
 planned_date: 18/09/2026
 publish_date: 2026-09-18
-status: scheduled
+status: "review"
 author: VAL — Valor, Autoridade e Linguagem Koddahub
+tags: [Desenvolvimento, Processos]
+reviewed_at: 2026-09-15
+review_blockers: [conteúdo abaixo de 15 minutos, capa definitiva ausente, glossário pendente, recurso visual pendente, QA mobile final pendente]
 ---
-
-# Do pedido à necessidade: como descobrir o problema antes de desenvolver
+# Do pedido ao problema real
 
 Pedidos de funcionalidade costumam chegar como solução: “precisamos de um botão” ou “queremos um painel”. A necessidade por trás deles pode ser outra. Descobri-la evita implementar algo correto na tela, mas inútil na operação.
 

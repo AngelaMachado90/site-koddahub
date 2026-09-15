@@ -11,35 +11,35 @@ Planejamento editorial da VAL — Valor, Autoridade e Linguagem Koddahub. As qua
 | 13/09/2026 | Automação | Antes de automatizar: cinco perguntas para entender o processo |
 | 14/09/2026 | Integrações | Integração entre sistemas: como evitar retrabalho e informação duplicada |
 | 15/09/2026 | Dados | Dado, métrica e KPI: diferenças que ajudam a decidir melhor |
-| 16/09/2026 | Qualidade | Qualidade de software começa antes dos testes |
-| 17/09/2026 | IA | IA ou regra de negócio: como escolher a abordagem adequada |
-| 18/09/2026 | Produto | Do pedido à necessidade: como descobrir o problema antes de desenvolver |
-| 19/09/2026 | Desenvolvimento | Quando vale criar uma aplicação sob medida em vez de adaptar uma ferramenta |
-| 20/09/2026 | Automação | Como identificar tarefas repetitivas que realmente vale automatizar |
-| 21/09/2026 | Dados | Dashboard útil: quais decisões ele precisa ajudar a tomar? |
-| 22/09/2026 | Atendimento | Fluxo de atendimento: onde o chatbot ajuda e onde uma pessoa precisa assumir |
-| 23/09/2026 | DevOps | Monitoramento e observabilidade: como perceber problemas antes do cliente |
-| 24/09/2026 | Acessibilidade | Acessibilidade em sites: decisões simples que melhoram o uso para todos |
-| 25/09/2026 | IA | Dados e validação humana: o que considerar antes de usar IA no trabalho |
-| 26/09/2026 | Governança | Quem cuida da automação depois que ela entra em produção? |
-| 27/09/2026 | Qualidade | Testes automatizados: o que cobrir primeiro em um projeto pequeno |
-| 28/09/2026 | Integrações | APIs na prática: o que verificar antes de conectar dois serviços |
-| 29/09/2026 | Produto | Critérios de aceite: como tornar uma demanda verificável |
-| 30/09/2026 | Dados | Qualidade dos dados: por que um painel bonito pode levar à decisão errada |
-| 01/10/2026 | Desenvolvimento | Performance de site: como priorizar melhorias percebidas pelas pessoas |
-| 02/10/2026 | Segurança | Automação com dados de clientes: cuidados desde o desenho do fluxo |
-| 03/10/2026 | Marketing intelligence | Campanhas e indicadores: como ligar mídia, site e resultado de negócio |
-| 04/10/2026 | DevOps | Backup existe; recuperação funciona? Como validar antes de precisar |
-| 05/10/2026 | Automação | n8n, script ou aplicação: critérios para escolher sem complicar |
-| 06/10/2026 | Qualidade | Como investigar um erro intermitente sem depender de tentativas aleatórias |
-| 07/10/2026 | IA | Como avaliar uma ideia de IA com um piloto pequeno e critérios claros |
-| 08/10/2026 | Governança | Tecnologia sustentável: quem mantém, mede e melhora depois da entrega? |
+| 16/09/2026 | Desenvolvimento | Qualidade começa antes dos testes |
+| 17/09/2026 | Automação | IA ou regra de negócio? |
+| 18/09/2026 | Desenvolvimento | Do pedido ao problema real |
+| 19/09/2026 | Desenvolvimento | Quando criar uma aplicação sob medida? |
+| 20/09/2026 | Automação | Quais tarefas vale automatizar? |
+| 21/09/2026 | Dados | Seu dashboard ajuda a decidir? |
+| 22/09/2026 | Automação | Onde o chatbot deve parar? |
+| 23/09/2026 | Desenvolvimento | Como perceber problemas antes do cliente? |
+| 24/09/2026 | Desenvolvimento | Acessibilidade melhora o site para todos |
+| 25/09/2026 | Dados | IA também precisa de validação humana |
+| 26/09/2026 | Automação | Quem cuida da automação depois? |
+| 27/09/2026 | Desenvolvimento | O que testar primeiro? |
+| 28/09/2026 | Integração | O que verificar antes de integrar APIs? |
+| 29/09/2026 | Desenvolvimento | Critérios de aceite evitam interpretações |
+| 30/09/2026 | Dados | Quando um painel leva à decisão errada |
+| 01/10/2026 | Desenvolvimento | O que deixa um site mais rápido? |
+| 02/10/2026 | Automação | Automação também precisa proteger dados |
+| 03/10/2026 | Dados | Mídia, site e resultado na mesma análise |
+| 04/10/2026 | Desenvolvimento | Seu backup funciona de verdade? |
+| 05/10/2026 | Automação | n8n, script ou aplicação? |
+| 06/10/2026 | Desenvolvimento | Como investigar erros intermitentes? |
+| 07/10/2026 | Automação | Como testar uma ideia de IA? |
+| 08/10/2026 | Desenvolvimento | Quem mantém a tecnologia depois? |
 
 As pautas foram distribuídas entre problemas de negócio, implementação e operação. Os temas próximos devem ter ângulos distintos para evitar repetição: por exemplo, 12/09 aborda adequação do n8n; 05/10 compara três abordagens. O artigo inaugural já existente, **“Bem-vindo ao Blog Koddahub”**, é um rascunho separado deste plano e não foi contado entre os 30 títulos.
 
 ## Estado dos textos
 
-Os quatro textos iniciais estão em `docs/editorial/publicados/`, com `status: published`. A data exibida do artigo de n8n é 01/09/2026; os demais têm `publish_date: 2026-09-12`. Os artigos de 13/09 e 14/09 também foram publicados com capa. Os 24 restantes estão em `docs/editorial/agendados/`, com `status: scheduled` e datas de 15/09 a 08/10/2026. O artigo de 15/09 já tem capa e aguarda a publicação à meia-noite; os 23 posteriores ainda precisam de capas para passar pela validação do build. O rascunho inaugural permanece separado em `docs/editorial/rascunhos/`. Revisões futuras devem preservar precisão técnica, fontes, SEO e o registro da data original de publicação.
+Os quatro textos iniciais estão em `docs/editorial/publicados/`, com `status: published`. A data exibida do artigo de n8n é 01/09/2026; os demais têm `publish_date: 2026-09-12`. Os artigos de 13/09 e 14/09 também foram publicados com capa. O artigo de 15/09 foi publicado. As 23 pautas de 16/09 a 08/10/2026 preservam suas datas no calendário, mas permanecem com `status: review`: ainda precisam de conteúdo para 15 minutos, capa definitiva, glossário, recurso visual e QA mobile antes de voltar a `scheduled`. O rascunho inaugural permanece separado em `docs/editorial/rascunhos/`. Revisões futuras devem preservar precisão técnica, fontes, SEO e o registro da data original de publicação.
 
 ## Série de exemplos de uso do n8n
 

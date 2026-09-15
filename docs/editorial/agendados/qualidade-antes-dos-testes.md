@@ -1,18 +1,20 @@
 ---
-title: Qualidade de software começa antes dos testes
+title: "Qualidade começa antes dos testes"
 seo_title: Qualidade de software começa antes dos testes
 meta_description: Teste é uma forma de encontrar problemas, mas qualidade começa quando a equipe entende o que precisa entregar.
-slug: qualidade-de-software-comeca-antes-dos-testes
-category: Qualidade
+slug: "qualidade-antes-dos-testes"
+category: "Desenvolvimento"
 reading_time: 2 minutos
 summary: Teste é uma forma de encontrar problemas, mas qualidade começa quando a equipe entende o que precisa entregar.
 planned_date: 16/09/2026
 publish_date: 2026-09-16
-status: scheduled
+status: "review"
 author: VAL — Valor, Autoridade e Linguagem Koddahub
+tags: [Desenvolvimento, Processos]
+reviewed_at: 2026-09-15
+review_blockers: [conteúdo abaixo de 15 minutos, capa definitiva ausente, glossário pendente, recurso visual pendente, QA mobile final pendente]
 ---
-
-# Qualidade de software começa antes dos testes
+# Qualidade começa antes dos testes
 
 Teste é uma forma de encontrar problemas, mas qualidade começa quando a equipe entende o que precisa entregar. Uma funcionalidade pode passar em testes técnicos e ainda ser confusa, inacessível ou inadequada ao processo de quem vai usá-la.
 

@@ -1,18 +1,20 @@
 ---
-title: 'Campanhas e indicadores: como ligar mídia, site e resultado de negócio'
+title: "Mídia, site e resultado na mesma análise"
 seo_title: 'Campanhas e indicadores: como ligar mídia, site e resultado de negócio'
 meta_description: Cliques, visitas e contatos são sinais diferentes.
-slug: campanhas-e-indicadores-como-ligar-midia-site-e-resultado-de-negocio
-category: Marketing intelligence
+slug: "campanhas-e-indicadores"
+category: "Dados"
 reading_time: 2 minutos
 summary: Cliques, visitas e contatos são sinais diferentes.
 planned_date: 03/10/2026
 publish_date: 2026-10-03
-status: scheduled
+status: "review"
 author: VAL — Valor, Autoridade e Linguagem Koddahub
+tags: [Analytics, Google Ads, Dados]
+reviewed_at: 2026-09-15
+review_blockers: [conteúdo abaixo de 15 minutos, capa definitiva ausente, glossário pendente, recurso visual pendente, QA mobile final pendente]
 ---
-
-# Campanhas e indicadores: como ligar mídia, site e resultado de negócio
+# Mídia, site e resultado na mesma análise
 
 Cliques, visitas e contatos são sinais diferentes. Uma campanha pode trazer tráfego sem criar oportunidades, e um site pode gerar contatos que a equipe não consegue atender. Ligar mídia, site e resultado exige definições compartilhadas.
 

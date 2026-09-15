@@ -1,20 +1,22 @@
 ---
-title: 'APIs na prática: o que verificar antes de conectar dois serviços'
+title: "O que verificar antes de integrar APIs?"
 seo_title: 'APIs na prática: o que verificar antes de conectar dois serviços'
 meta_description: Uma API permite que sistemas troquem informações, mas a conexão útil depende de contratos claros e tratamento
   de falhas.
-slug: apis-na-pratica-o-que-verificar-antes-de-conectar-dois-servicos
-category: Integrações
+slug: "integrar-apis"
+category: "Integração"
 reading_time: 2 minutos
 summary: Uma API permite que sistemas troquem informações, mas a conexão útil depende de contratos claros e tratamento de
   falhas.
 planned_date: 28/09/2026
 publish_date: 2026-09-28
-status: scheduled
+status: "review"
 author: VAL — Valor, Autoridade e Linguagem Koddahub
+tags: [APIs, Integração, Dados]
+reviewed_at: 2026-09-15
+review_blockers: [conteúdo abaixo de 15 minutos, capa definitiva ausente, glossário pendente, recurso visual pendente, QA mobile final pendente]
 ---
-
-# APIs na prática: o que verificar antes de conectar dois serviços
+# O que verificar antes de integrar APIs?
 
 Uma API permite que sistemas troquem informações, mas a conexão útil depende de contratos claros e tratamento de falhas. Antes de começar por uma chave de acesso, descubra o que cada lado espera receber e entregar.
 

@@ -1,18 +1,20 @@
 ---
-title: 'Dados e validação humana: o que considerar antes de usar IA no trabalho'
+title: "IA também precisa de validação humana"
 seo_title: 'Dados e validação humana: o que considerar antes de usar IA no trabalho'
 meta_description: Uma ideia de IA pode parecer convincente em uma demonstração com exemplos escolhidos.
-slug: dados-e-validacao-humana-o-que-considerar-antes-de-usar-ia-no-trabalho
-category: IA
+slug: "ia-e-validacao-humana"
+category: "Dados"
 reading_time: 2 minutos
 summary: Uma ideia de IA pode parecer convincente em uma demonstração com exemplos escolhidos.
 planned_date: 25/09/2026
 publish_date: 2026-09-25
-status: scheduled
+status: "review"
 author: VAL — Valor, Autoridade e Linguagem Koddahub
+tags: [Dados, Automação, Processos]
+reviewed_at: 2026-09-15
+review_blockers: [conteúdo abaixo de 15 minutos, capa definitiva ausente, glossário pendente, recurso visual pendente, QA mobile final pendente]
 ---
-
-# Dados e validação humana: o que considerar antes de usar IA no trabalho
+# IA também precisa de validação humana
 
 Uma ideia de IA pode parecer convincente em uma demonstração com exemplos escolhidos. No trabalho real, ela encontrará dados incompletos, pedidos ambíguos e situações que exigem julgamento. Antes de ligar uma saída automática a uma decisão de negócio, defina os limites.
 

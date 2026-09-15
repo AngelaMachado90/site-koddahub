@@ -84,6 +84,22 @@ Texto insuficiente.
             target.write_text("ok")
             self.assertEqual(due_articles(date(2026, 9, 14), scheduled, root), [])
 
+    def test_incomplete_future_articles_are_held_for_review(self):
+        scheduled = ROOT/'docs/editorial/agendados'
+        review_items = []
+        for path in scheduled.glob('*.md'):
+            content = path.read_text(encoding='utf-8')
+            metadata = __import__('yaml').safe_load(content.split('---\n', 2)[1])
+            if metadata.get('status') == 'review':
+                review_items.append(metadata)
+        self.assertEqual(len(review_items), 23)
+        for item in review_items:
+            self.assertGreaterEqual(len(item['title'].split()), 4)
+            self.assertLessEqual(len(item['title'].split()), 9)
+            self.assertGreaterEqual(len(item['tags']), 2)
+            self.assertTrue(item['review_blockers'])
+        self.assertEqual(due_articles(date(2026, 9, 16), scheduled, ROOT/'dist'), [])
+
     def test_sources_are_linked_without_editorial_notes(self):
         rendered = source_links("## Referências para revisão\n\nDocumentação: https://docs.n8n.io/ e texto interno.")
         self.assertIn('href="https://docs.n8n.io/"', rendered)

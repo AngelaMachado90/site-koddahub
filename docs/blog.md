@@ -75,6 +75,19 @@ O cabeçalho, rodapé e chatbot são derivados do template institucional durante
 o build. O CSS complementar está em `public/assets/css/blog.css`; Bootstrap
 5.3 continua a base do grid e dos componentes.
 
+## Título editorial, SEO e pré-agendamento
+
+`title`, `seo_title`, `slug` e `meta_description` têm funções diferentes. O
+título editorial é curto, humano e usado no H1 e nos cards; o SEO title pode
+explicitar a intenção de busca; o slug identifica a URL; a meta description
+resume o benefício. Como orientação, o título usa de quatro a nove palavras e
+cerca de 30 a 60 caracteres, mas clareza prevalece sobre a contagem.
+
+Antes de mudar um texto de `review` para `scheduled`, valide o card em 390 px e
+busque duas ou três linhas sem reduzir a tipografia. Confirme também SEO, slug,
+categoria, tags, capa e alt text, glossário, visual, CTA, extensão real e data.
+Falha crítica mantém o artigo em `review`.
+
 ## Taxonomia editorial
 
 Categoria é o agrupamento editorial principal do artigo. Tag identifica um

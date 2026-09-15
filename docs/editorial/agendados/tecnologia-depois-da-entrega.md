@@ -1,18 +1,20 @@
 ---
-title: 'Tecnologia sustentável: quem mantém, mede e melhora depois da entrega?'
+title: "Quem mantém a tecnologia depois?"
 seo_title: 'Tecnologia sustentável: quem mantém, mede e melhora depois da entrega?'
 meta_description: Uma entrega tecnológica cria uma rotina futura.
-slug: tecnologia-sustentavel-quem-mantem-mede-e-melhora-depois-da-entrega
-category: Governança
+slug: "tecnologia-depois-da-entrega"
+category: "Desenvolvimento"
 reading_time: 2 minutos
 summary: Uma entrega tecnológica cria uma rotina futura.
 planned_date: 08/10/2026
 publish_date: 2026-10-08
-status: scheduled
+status: "review"
 author: VAL — Valor, Autoridade e Linguagem Koddahub
+tags: [Desenvolvimento, Processos]
+reviewed_at: 2026-09-15
+review_blockers: [conteúdo abaixo de 15 minutos, capa definitiva ausente, glossário pendente, recurso visual pendente, QA mobile final pendente]
 ---
-
-# Tecnologia sustentável: quem mantém, mede e melhora depois da entrega?
+# Quem mantém a tecnologia depois?
 
 Uma entrega tecnológica cria uma rotina futura. Alguém precisará responder dúvidas, corrigir defeitos, atualizar integrações e decidir quando uma mudança vale o esforço. Sem essa capacidade, a solução pode perder valor mesmo que funcione no lançamento.
 

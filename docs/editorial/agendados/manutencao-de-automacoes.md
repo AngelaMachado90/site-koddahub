@@ -1,18 +1,20 @@
 ---
-title: Quem cuida da automação depois que ela entra em produção?
+title: "Quem cuida da automação depois?"
 seo_title: Quem cuida da automação depois que ela entra em produção?
 meta_description: Toda automação tem um dia seguinte.
-slug: quem-cuida-da-automacao-depois-que-ela-entra-em-producao
-category: Governança
+slug: "manutencao-de-automacoes"
+category: "Automação"
 reading_time: 2 minutos
 summary: Toda automação tem um dia seguinte.
 planned_date: 26/09/2026
 publish_date: 2026-09-26
-status: scheduled
+status: "review"
 author: VAL — Valor, Autoridade e Linguagem Koddahub
+tags: [Automação, Processos]
+reviewed_at: 2026-09-15
+review_blockers: [conteúdo abaixo de 15 minutos, capa definitiva ausente, glossário pendente, recurso visual pendente, QA mobile final pendente]
 ---
-
-# Quem cuida da automação depois que ela entra em produção?
+# Quem cuida da automação depois?
 
 Toda automação tem um dia seguinte. Credenciais expiram, sistemas mudam, dados inesperados chegam e alguém precisa descobrir por que um resultado não apareceu. Sem dono definido, o fluxo vira uma dependência invisível.
 

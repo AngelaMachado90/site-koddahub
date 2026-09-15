@@ -1,18 +1,20 @@
 ---
-title: 'Monitoramento e observabilidade: como perceber problemas antes do cliente'
+title: "Como perceber problemas antes do cliente?"
 seo_title: 'Monitoramento e observabilidade: como perceber problemas antes do cliente'
 meta_description: Um serviço pode estar ligado e ainda não cumprir o que as pessoas esperam.
-slug: monitoramento-e-observabilidade-como-perceber-problemas-antes-do-cliente
-category: DevOps
+slug: "monitoramento-antes-do-cliente"
+category: "Desenvolvimento"
 reading_time: 2 minutos
 summary: Um serviço pode estar ligado e ainda não cumprir o que as pessoas esperam.
 planned_date: 23/09/2026
 publish_date: 2026-09-23
-status: scheduled
+status: "review"
 author: VAL — Valor, Autoridade e Linguagem Koddahub
+tags: [Desenvolvimento, Processos]
+reviewed_at: 2026-09-15
+review_blockers: [conteúdo abaixo de 15 minutos, capa definitiva ausente, glossário pendente, recurso visual pendente, QA mobile final pendente]
 ---
-
-# Monitoramento e observabilidade: como perceber problemas antes do cliente
+# Como perceber problemas antes do cliente?
 
 Um serviço pode estar ligado e ainda não cumprir o que as pessoas esperam. Monitoramento mostra que algo mudou; observabilidade ajuda a investigar por que mudou.
 

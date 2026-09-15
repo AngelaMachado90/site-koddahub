@@ -1,18 +1,20 @@
 ---
-title: Como investigar um erro intermitente sem depender de tentativas aleatórias
+title: "Como investigar erros intermitentes?"
 seo_title: Como investigar um erro intermitente sem depender de tentativas aleatórias
 meta_description: Um erro que aparece “de vez em quando” desafia a equipe porque a próxima tentativa pode funcionar.
-slug: como-investigar-um-erro-intermitente-sem-depender-de-tentativas-aleatorias
-category: Qualidade
+slug: "erros-intermitentes"
+category: "Desenvolvimento"
 reading_time: 2 minutos
 summary: Um erro que aparece “de vez em quando” desafia a equipe porque a próxima tentativa pode funcionar.
 planned_date: 06/10/2026
 publish_date: 2026-10-06
-status: scheduled
+status: "review"
 author: VAL — Valor, Autoridade e Linguagem Koddahub
+tags: [Desenvolvimento, Dados, Processos]
+reviewed_at: 2026-09-15
+review_blockers: [conteúdo abaixo de 15 minutos, capa definitiva ausente, glossário pendente, recurso visual pendente, QA mobile final pendente]
 ---
-
-# Como investigar um erro intermitente sem depender de tentativas aleatórias
+# Como investigar erros intermitentes?
 
 Um erro que aparece “de vez em quando” desafia a equipe porque a próxima tentativa pode funcionar. Repetir manualmente até sumir não explica o problema; é preciso registrar contexto suficiente para comparar ocorrências.
 

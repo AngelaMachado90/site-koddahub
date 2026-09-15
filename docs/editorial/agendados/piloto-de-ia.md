@@ -1,18 +1,20 @@
 ---
-title: Como avaliar uma ideia de IA com um piloto pequeno e critérios claros
+title: "Como testar uma ideia de IA?"
 seo_title: Como avaliar uma ideia de IA com um piloto pequeno e critérios claros
 meta_description: Um piloto de IA serve para aprender se uma abordagem ajuda numa tarefa definida.
-slug: como-avaliar-uma-ideia-de-ia-com-um-piloto-pequeno-e-criterios-claros
-category: IA
+slug: "piloto-de-ia"
+category: "Automação"
 reading_time: 2 minutos
 summary: Um piloto de IA serve para aprender se uma abordagem ajuda numa tarefa definida.
 planned_date: 07/10/2026
 publish_date: 2026-10-07
-status: scheduled
+status: "review"
 author: VAL — Valor, Autoridade e Linguagem Koddahub
+tags: [Automação, Dados, Processos]
+reviewed_at: 2026-09-15
+review_blockers: [conteúdo abaixo de 15 minutos, capa definitiva ausente, glossário pendente, recurso visual pendente, QA mobile final pendente]
 ---
-
-# Como avaliar uma ideia de IA com um piloto pequeno e critérios claros
+# Como testar uma ideia de IA?
 
 Um piloto de IA serve para aprender se uma abordagem ajuda numa tarefa definida. Se ele não tem comparação, casos difíceis e limite de erro aceitável, a demonstração pode impressionar sem orientar decisão.
 

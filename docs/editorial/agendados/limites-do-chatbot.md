@@ -1,20 +1,22 @@
 ---
-title: 'Fluxo de atendimento: onde o chatbot ajuda e onde uma pessoa precisa assumir'
+title: "Onde o chatbot deve parar?"
 seo_title: 'Fluxo de atendimento: onde o chatbot ajuda e onde uma pessoa precisa assumir'
 meta_description: Um chatbot pode responder uma dúvida comum em segundos e ainda deixar uma pessoa frustrada se ela não consegue
   sair do roteiro.
-slug: fluxo-de-atendimento-onde-o-chatbot-ajuda-e-onde-uma-pessoa-precisa-assumir
-category: Atendimento
+slug: "limites-do-chatbot"
+category: "Automação"
 reading_time: 2 minutos
 summary: Um chatbot pode responder uma dúvida comum em segundos e ainda deixar uma pessoa frustrada se ela não consegue sair
   do roteiro.
 planned_date: 22/09/2026
 publish_date: 2026-09-22
-status: scheduled
+status: "review"
 author: VAL — Valor, Autoridade e Linguagem Koddahub
+tags: [Chatbots, Atendimento, UX/UI]
+reviewed_at: 2026-09-15
+review_blockers: [conteúdo abaixo de 15 minutos, capa definitiva ausente, glossário pendente, recurso visual pendente, QA mobile final pendente]
 ---
-
-# Fluxo de atendimento: onde o chatbot ajuda e onde uma pessoa precisa assumir
+# Onde o chatbot deve parar?
 
 Um chatbot pode responder uma dúvida comum em segundos e ainda deixar uma pessoa frustrada se ela não consegue sair do roteiro. Atendimento automatizado precisa prever desde o início o momento da transferência.
 

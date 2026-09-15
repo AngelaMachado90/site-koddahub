@@ -1,18 +1,20 @@
 ---
-title: Backup existe; recuperação funciona? Como validar antes de precisar
+title: "Seu backup funciona de verdade?"
 seo_title: Backup existe; recuperação funciona? Como validar antes de precisar
 meta_description: Ter um arquivo chamado “backup” não garante que o serviço possa voltar.
-slug: backup-existe-recuperacao-funciona-como-validar-antes-de-precisar
-category: DevOps
+slug: "como-validar-backups"
+category: "Desenvolvimento"
 reading_time: 2 minutos
 summary: Ter um arquivo chamado “backup” não garante que o serviço possa voltar.
 planned_date: 04/10/2026
 publish_date: 2026-10-04
-status: scheduled
+status: "review"
 author: VAL — Valor, Autoridade e Linguagem Koddahub
+tags: [Desenvolvimento, Dados, Processos]
+reviewed_at: 2026-09-15
+review_blockers: [conteúdo abaixo de 15 minutos, capa definitiva ausente, glossário pendente, recurso visual pendente, QA mobile final pendente]
 ---
-
-# Backup existe; recuperação funciona? Como validar antes de precisar
+# Seu backup funciona de verdade?
 
 Ter um arquivo chamado “backup” não garante que o serviço possa voltar. A pergunta relevante é se a equipe consegue recuperar dados e operação no prazo necessário, com evidência de que a cópia está íntegra.
 

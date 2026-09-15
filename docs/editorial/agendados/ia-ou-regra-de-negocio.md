@@ -1,18 +1,20 @@
 ---
-title: 'IA ou regra de negócio: como escolher a abordagem adequada'
+title: "IA ou regra de negócio?"
 seo_title: 'IA ou regra de negócio: como escolher a abordagem adequada'
 meta_description: Uma regra simples pode resolver um problema sem inteligência artificial.
-slug: ia-ou-regra-de-negocio-como-escolher-a-abordagem-adequada
-category: IA
+slug: "ia-ou-regra-de-negocio"
+category: "Automação"
 reading_time: 2 minutos
 summary: Uma regra simples pode resolver um problema sem inteligência artificial.
 planned_date: 17/09/2026
 publish_date: 2026-09-17
-status: scheduled
+status: "review"
 author: VAL — Valor, Autoridade e Linguagem Koddahub
+tags: [Automação, Processos, Dados]
+reviewed_at: 2026-09-15
+review_blockers: [conteúdo abaixo de 15 minutos, capa definitiva ausente, glossário pendente, recurso visual pendente, QA mobile final pendente]
 ---
-
-# IA ou regra de negócio: como escolher a abordagem adequada
+# IA ou regra de negócio?
 
 Uma regra simples pode resolver um problema sem inteligência artificial. Ao mesmo tempo, há tarefas em que interpretar texto ou classificar informação variável pode exigir uma abordagem probabilística. A escolha começa pelo comportamento esperado, não pelo nome da tecnologia.
 

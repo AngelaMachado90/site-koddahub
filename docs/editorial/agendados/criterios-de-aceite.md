@@ -1,18 +1,20 @@
 ---
-title: 'Critérios de aceite: como tornar uma demanda verificável'
+title: "Critérios de aceite evitam interpretações"
 seo_title: 'Critérios de aceite: como tornar uma demanda verificável'
 meta_description: Critérios de aceite traduzem uma necessidade em comportamentos que podem ser observados.
-slug: criterios-de-aceite-como-tornar-uma-demanda-verificavel
-category: Produto
+slug: "criterios-de-aceite"
+category: "Desenvolvimento"
 reading_time: 2 minutos
 summary: Critérios de aceite traduzem uma necessidade em comportamentos que podem ser observados.
 planned_date: 29/09/2026
 publish_date: 2026-09-29
-status: scheduled
+status: "review"
 author: VAL — Valor, Autoridade e Linguagem Koddahub
+tags: [Desenvolvimento, Processos]
+reviewed_at: 2026-09-15
+review_blockers: [conteúdo abaixo de 15 minutos, capa definitiva ausente, glossário pendente, recurso visual pendente, QA mobile final pendente]
 ---
-
-# Critérios de aceite: como tornar uma demanda verificável
+# Critérios de aceite evitam interpretações
 
 Critérios de aceite traduzem uma necessidade em comportamentos que podem ser observados. Eles não substituem conversa, mas reduzem a chance de cada pessoa imaginar um resultado diferente.
 

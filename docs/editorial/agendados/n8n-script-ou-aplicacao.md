@@ -1,18 +1,20 @@
 ---
-title: 'n8n, script ou aplicação: critérios para escolher sem complicar'
+title: "n8n, script ou aplicação?"
 seo_title: 'n8n, script ou aplicação: critérios para escolher sem complicar'
 meta_description: Duas tarefas parecidas podem pedir soluções muito diferentes.
-slug: n8n-script-ou-aplicacao-criterios-para-escolher-sem-complicar
-category: Automação
+slug: "n8n-script-ou-aplicacao"
+category: "Automação"
 reading_time: 2 minutos
 summary: Duas tarefas parecidas podem pedir soluções muito diferentes.
 planned_date: 05/10/2026
 publish_date: 2026-10-05
-status: scheduled
+status: "review"
 author: VAL — Valor, Autoridade e Linguagem Koddahub
+tags: [n8n, Automação, Desenvolvimento]
+reviewed_at: 2026-09-15
+review_blockers: [conteúdo abaixo de 15 minutos, capa definitiva ausente, glossário pendente, recurso visual pendente, QA mobile final pendente]
 ---
-
-# n8n, script ou aplicação: critérios para escolher sem complicar
+# n8n, script ou aplicação?
 
 Duas tarefas parecidas podem pedir soluções muito diferentes. Um fluxo visual, um script ou uma aplicação própria devem ser comparados pelo problema que resolvem e pela responsabilidade de mantê-los.
 

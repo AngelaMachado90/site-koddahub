@@ -1,18 +1,20 @@
 ---
-title: 'Qualidade dos dados: por que um painel bonito pode levar à decisão errada'
+title: "Quando um painel leva à decisão errada"
 seo_title: 'Qualidade dos dados: por que um painel bonito pode levar à decisão errada'
 meta_description: Um painel bonito pode transmitir segurança mesmo quando os dados por trás dele estão incompletos.
-slug: qualidade-dos-dados-por-que-um-painel-bonito-pode-levar-a-decisao-errada
-category: Dados
+slug: "qualidade-dos-dados-em-paineis"
+category: "Dados"
 reading_time: 2 minutos
 summary: Um painel bonito pode transmitir segurança mesmo quando os dados por trás dele estão incompletos.
 planned_date: 30/09/2026
 publish_date: 2026-09-30
-status: scheduled
+status: "review"
 author: VAL — Valor, Autoridade e Linguagem Koddahub
+tags: [Dados, Analytics]
+reviewed_at: 2026-09-15
+review_blockers: [conteúdo abaixo de 15 minutos, capa definitiva ausente, glossário pendente, recurso visual pendente, QA mobile final pendente]
 ---
-
-# Qualidade dos dados: por que um painel bonito pode levar à decisão errada
+# Quando um painel leva à decisão errada
 
 Um painel bonito pode transmitir segurança mesmo quando os dados por trás dele estão incompletos. Antes de discutir visualização, é preciso saber se os registros representam o processo que se quer entender.
 

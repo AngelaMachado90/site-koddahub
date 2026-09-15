@@ -1,18 +1,20 @@
 ---
-title: 'Automação com dados de clientes: cuidados desde o desenho do fluxo'
+title: "Automação também precisa proteger dados"
 seo_title: 'Automação com dados de clientes: cuidados desde o desenho do fluxo'
 meta_description: Uma automação pode copiar dados de clientes entre serviços sem que alguém perceba quantas cópias foram criadas.
-slug: automacao-com-dados-de-clientes-cuidados-desde-o-desenho-do-fluxo
-category: Segurança
+slug: "automacao-e-dados-de-clientes"
+category: "Automação"
 reading_time: 2 minutos
 summary: Uma automação pode copiar dados de clientes entre serviços sem que alguém perceba quantas cópias foram criadas.
 planned_date: 02/10/2026
 publish_date: 2026-10-02
-status: scheduled
+status: "review"
 author: VAL — Valor, Autoridade e Linguagem Koddahub
+tags: [Automação, Dados, Processos]
+reviewed_at: 2026-09-15
+review_blockers: [conteúdo abaixo de 15 minutos, capa definitiva ausente, glossário pendente, recurso visual pendente, QA mobile final pendente]
 ---
-
-# Automação com dados de clientes: cuidados desde o desenho do fluxo
+# Automação também precisa proteger dados
 
 Uma automação pode copiar dados de clientes entre serviços sem que alguém perceba quantas cópias foram criadas. Segurança e privacidade precisam entrar no desenho do fluxo, antes do primeiro conector.
 
