@@ -59,6 +59,11 @@ antigos preservam o tempo real indicado até uma revisão de conteúdo; não alt
 apenas o rótulo. Todo artigo também precisa de capa definitiva antes de entrar
 no site.
 
+Uma solicitação editorial explícita pode autorizar o formato sucinto de 10
+minutos. Nesse caso, registre `reading_time_exception` no front matter; o build
+exige `reading_time: 10 minutos` e pelo menos 1.500 palavras, preservando capa,
+glossário, recursos didáticos e os demais gates de publicação.
+
 A série [#DescomplicandoATI](editorial/serie-descomplicandoati.md) começou com
 um artigo sobre RPA. Ela é adicional às 30 pautas originais e segue a mesma
 exigência de capa e revisão factual. Seus artigos seguem o percurso “O que é?” →
@@ -118,6 +123,9 @@ taxonomia, duplicações e listas fora desse intervalo.
 | Tag | GA4 | `ga4` |
 | Tag | Google Ads | `google-ads` |
 | Tag | Integração | `integracao` |
+| Tag | Inteligência Artificial | `inteligencia-artificial` |
+| Tag | Pesquisa | `pesquisa` |
+| Tag | Produtividade | `produtividade` |
 | Tag | n8n | `n8n` |
 | Tag | Processos | `processos` |
 | Tag | Responsividade | `responsividade` |

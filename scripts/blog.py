@@ -24,6 +24,8 @@ TAG_TAXONOMY = {
     "Automação": "automacao", "Chatbots": "chatbots", "Dados": "dados",
     "Desenvolvimento": "desenvolvimento", "GA4": "ga4", "Google Ads": "google-ads",
     "Integração": "integracao", "n8n": "n8n", "Processos": "processos",
+    "Inteligência Artificial": "inteligencia-artificial", "Pesquisa": "pesquisa",
+    "Produtividade": "produtividade",
     "Responsividade": "responsividade", "RPA": "rpa", "Sites": "sites",
     "Streamlit": "streamlit", "UX/UI": "ux-ui",
 }
@@ -324,8 +326,11 @@ def articles(editorial=EDITORIAL, today=None):
         if referenced_visuals != visual_ids:
             raise ValueError(f"Recursos didáticos declarados e usados não coincidem: {path}")
         if published >= date(2026, 9, 15):
-            if meta['reading_time'] != '15 minutos' or len(match[2].split()) < 2250:
-                raise ValueError(f"Artigo fora do padrão de 15 minutos (mínimo de 2250 palavras): {path}")
+            short_read = meta.get('reading_time_exception') and meta['reading_time'] == '10 minutos'
+            minimum_words = 1500 if short_read else 2250
+            expected_time = '10 minutos' if short_read else '15 minutos'
+            if meta['reading_time'] != expected_time or len(match[2].split()) < minimum_words:
+                raise ValueError(f"Artigo fora do padrão de {expected_time} (mínimo de {minimum_words} palavras): {path}")
             for key in ('cover', 'cover_alt', 'cover_width', 'cover_height', 'cta_title', 'cta_text', 'cta_label'):
                 if not meta.get(key):
                     raise ValueError(f"Artigo futuro sem {key}: {path}")
