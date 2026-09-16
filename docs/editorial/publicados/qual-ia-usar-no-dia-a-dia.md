@@ -9,6 +9,7 @@ reading_time_exception: "Formato sucinto de 10 minutos solicitado para esta publ
 summary: "ChatGPT, Gemini, Claude, Copilot ou Perplexity? Veja onde cada assistente ajuda mais e escolha pela tarefa, pelas fontes e pelos dados envolvidos."
 planned_date: 16/09/2026
 publish_date: 2026-09-16
+modified_date: 2026-09-16
 status: published
 author: VAL — Valor, Autoridade e Linguagem Koddahub
 cover: /assets/images/blog/qual-ia-usar-no-dia-a-dia.webp
@@ -100,6 +101,17 @@ didactic_visuals:
     detail: Valide fatos, números e decisões
   - label: Padronize o uso
     detail: Registre limites e exemplos aprovados
+- id: chatgpt-em-uso
+  type: image
+  title: ChatGPT em uma estação de trabalho
+  caption: A interface ajuda a produzir, pesquisar e revisar, mas o resultado ainda precisa de conferência humana.
+  alt: Dois monitores em uma estação de trabalho exibem páginas do ChatGPT e da OpenAI.
+  data_kind: NÃO SE APLICA
+  src: /assets/images/blog/ia-chatgpt-pexels-melih-can.webp
+  width: 1600
+  height: 1067
+  credit: Melih Can
+  source_url: https://www.pexels.com/pt-br/foto/internet-conexao-ligacao-vinculo-16416871/
 ---
 # Qual IA usar no dia a dia?
 
@@ -140,6 +152,8 @@ O ChatGPT é um bom ponto de partida para quem quer conversar sobre uma ideia, c
 No dia a dia, você pode pedir um roteiro para uma reunião, transformar anotações em uma lista de ações, analisar um arquivo ou revisar um texto. O Canvas oferece um espaço próprio para editar escrita e código, enquanto projetos ajudam a reunir conversas, arquivos e instruções relacionadas.
 
 Ele também pode pesquisar na web e apresentar links quando a pergunta exige informação atual. Mesmo assim, abra as fontes e confirme se elas sustentam a afirmação usada.
+
+[[visual:chatgpt-em-uso]]
 
 **Use primeiro quando:** a tarefa passa por várias versões e você quer um assistente de uso geral para escrever, estruturar, analisar e revisar.
 

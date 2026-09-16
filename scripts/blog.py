@@ -145,6 +145,18 @@ def didactic_visual_html(item):
     elif visual_type == "dashboard":
         details = ''.join(f'<div class="blog-dashboard-detail"><span>{e(detail["label"])}</span><strong>{e(detail["value"])}</strong></div>' for detail in item.get('details', []))
         content = f'<div class="blog-dashboard" role="img" aria-label="{alt}"><div class="blog-dashboard-kpi"><span>{e(item.get("kpi_label"))}</span><strong>{e(item.get("kpi_value"))}</strong><small>{e(item.get("kpi_change"))}</small></div><div class="blog-dashboard-trend"><span>Tendência</span><svg viewBox="0 0 320 80" aria-hidden="true" focusable="false"><polyline points="0,65 55,56 110,60 165,38 220,42 270,20 320,12"/></svg></div><div class="blog-dashboard-grid">{details}</div><p class="blog-dashboard-updated">Atualizado: {e(item.get("updated"))}</p></div>'
+    elif visual_type == "image":
+        source_url = str(item.get("source_url", ""))
+        credit = e(item.get("credit"))
+        content = (
+            f'<img class="blog-editorial-image" src="{e(item.get("src"))}" '
+            f'width="{e(item.get("width"))}" height="{e(item.get("height"))}" '
+            f'alt="{alt}" loading="lazy" decoding="async">'
+        )
+        caption += (
+            f' <span class="blog-image-credit">Foto: <a href="{e(source_url)}" '
+            f'target="_blank" rel="noopener noreferrer">{credit}/Pexels</a>.</span>'
+        )
     else:
         raise ValueError(f"Tipo de recurso didático inválido: {visual_type}")
     return f'<figure class="blog-visual blog-visual--{e(visual_type)}"><div class="blog-visual-heading"><h2>{title}</h2>{label}</div>{content}<figcaption>{caption}</figcaption></figure>'
@@ -321,6 +333,15 @@ def articles(editorial=EDITORIAL, today=None):
                     raise ValueError(f"Recurso didático sem {key}: {path}")
             if visual['id'] in visual_ids:
                 raise ValueError(f"ID de recurso didático duplicado: {path}")
+            if visual['type'] == 'image':
+                for key in ('src', 'width', 'height', 'credit', 'source_url'):
+                    if not visual.get(key):
+                        raise ValueError(f"Imagem editorial sem {key}: {path}")
+                if not str(visual['src']).startswith('/assets/images/blog/'):
+                    raise ValueError(f"Imagem editorial fora do diretório do blog: {path}")
+                source = urlparse(str(visual['source_url']))
+                if source.scheme != 'https' or not source.netloc:
+                    raise ValueError(f"Fonte inválida de imagem editorial: {path}")
             visual_ids.add(visual['id'])
         referenced_visuals = set(re.findall(r'\[\[visual:([a-z0-9-]+)\]\]', match[2]))
         if referenced_visuals != visual_ids:

@@ -158,6 +158,21 @@ Texto insuficiente.
         self.assertIn('&lt;registro&gt;', rendered)
         self.assertNotIn('<registro>', rendered)
 
+    def test_editorial_image_has_accessible_metadata_and_source_credit(self):
+        visual = didactic_visual_html({
+            'type': 'image', 'title': 'ChatGPT em uso',
+            'caption': 'Exemplo de uso.', 'alt': 'Dois monitores exibindo o ChatGPT.',
+            'data_kind': 'NÃO SE APLICA',
+            'src': '/assets/images/blog/chatgpt.webp', 'width': 1600, 'height': 1067,
+            'credit': 'Melih Can', 'source_url': 'https://www.pexels.com/pt-br/foto/16416871/',
+        })
+        self.assertIn('class="blog-editorial-image"', visual)
+        self.assertIn('alt="Dois monitores exibindo o ChatGPT."', visual)
+        self.assertIn('width="1600" height="1067"', visual)
+        self.assertIn('loading="lazy" decoding="async"', visual)
+        self.assertIn('Melih Can/Pexels', visual)
+        self.assertIn('rel="noopener noreferrer"', visual)
+
     def test_step_badges_keep_accessible_brand_contrast_and_size(self):
         css = (ROOT/'public/assets/css/blog.css').read_text(encoding='utf-8')
         self.assertIn('.blog-flow-node .blog-step-number{', css)
