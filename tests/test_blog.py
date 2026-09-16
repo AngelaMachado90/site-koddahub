@@ -205,7 +205,7 @@ Texto insuficiente.
 
     def test_scoped_articles_follow_controlled_taxonomy(self):
         entries = articles(ROOT/'docs/editorial', date(2026, 9, 15))
-        self.assertEqual(len(entries), 10)
+        self.assertEqual(len(entries), 11)
         for item in entries:
             self.assertGreaterEqual(len(item['tags']), 2)
             self.assertLessEqual(len(item['tags']), 5)
