@@ -12,7 +12,7 @@ Planejamento editorial da VAL — Valor, Autoridade e Linguagem Koddahub. As qua
 | 14/09/2026 | Integrações | Integração entre sistemas: como evitar retrabalho e informação duplicada |
 | 15/09/2026 | Dados | Dado, métrica e KPI: diferenças que ajudam a decidir melhor |
 | 16/09/2026 | Desenvolvimento | Qualidade começa antes dos testes |
-| 17/09/2026 | Automação | IA ou regra de negócio? |
+| 17/09/2026 | Desenvolvimento | É seguro usar o Claude? |
 | 18/09/2026 | Desenvolvimento | Do pedido ao problema real |
 | 19/09/2026 | Desenvolvimento | Quando criar uma aplicação sob medida? |
 | 20/09/2026 | Automação | Quais tarefas vale automatizar? |
@@ -39,7 +39,7 @@ As pautas foram distribuídas entre problemas de negócio, implementação e ope
 
 ## Estado dos textos
 
-Os quatro textos iniciais estão em `docs/editorial/publicados/`, com `status: published`. A data exibida do artigo de n8n é 01/09/2026; os demais têm `publish_date: 2026-09-12`. Os artigos de 13/09 e 14/09 também foram publicados com capa. O artigo de 15/09 foi publicado. As 23 pautas de 16/09 a 08/10/2026 preservam suas datas no calendário, mas permanecem com `status: review`: ainda precisam de conteúdo para 15 minutos, capa definitiva, glossário, recurso visual e QA mobile antes de voltar a `scheduled`. O rascunho inaugural permanece separado em `docs/editorial/rascunhos/`. Revisões futuras devem preservar precisão técnica, fontes, SEO e o registro da data original de publicação.
+Os quatro textos iniciais estão em `docs/editorial/publicados/`, com `status: published`. A data exibida do artigo de n8n é 01/09/2026; os demais têm `publish_date: 2026-09-12`. Os artigos de 13/09 a 17/09 também foram publicados com capa. Em 17/09, a pauta planejada foi substituída pelo artigo sobre segurança no uso empresarial do Claude; o rascunho “IA ou regra de negócio?” continua em revisão e precisa de uma nova data antes de ser publicado. As demais pautas futuras permanecem com `status: review`: ainda precisam de conteúdo para 15 minutos, capa definitiva, glossário, recurso visual e QA mobile antes de voltar a `scheduled`. O rascunho inaugural permanece separado em `docs/editorial/rascunhos/`. Revisões futuras devem preservar precisão técnica, fontes, SEO e o registro da data original de publicação.
 
 ## Série de exemplos de uso do n8n
 
