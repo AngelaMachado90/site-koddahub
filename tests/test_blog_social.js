@@ -20,9 +20,10 @@ test('formats public views with pt-BR locale', () => {
 
 test('loads the total and keeps endpoint failure non-blocking', async () => {
   const value = { textContent: '' };
+  const label = { textContent: '' };
   const element = {
     dataset: { articleSlug: 'artigo-teste', endpoint: '/api/blog/views' }, hidden: false,
-    querySelector: () => value
+    querySelector: (selector) => selector === '.article-view-value' ? value : label
   };
   let request;
   const root = {
@@ -32,8 +33,9 @@ test('loads the total and keeps endpoint failure non-blocking', async () => {
   };
   await social.loadViews(root, element);
   assert.equal(request.url, '/api/blog/views');
-  assert.deepEqual(JSON.parse(request.options.body), { article_slug: 'artigo-teste', increment: true });
+  assert.deepEqual(JSON.parse(request.options.body), { slug: 'artigo-teste', increment: true });
   assert.equal(value.textContent, '1.234');
+  assert.equal(label.textContent, 'visualizações');
 
   root.fetch = async () => { throw new Error('offline'); };
   await social.loadViews(root, element);

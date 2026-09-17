@@ -69,3 +69,8 @@ Em 15/09/2026 foram validados consulta sem incremento, incremento atômico com
 total atualizado, consulta posterior preservando o total, slug desconhecido
 com HTTP 400 e payload malformado com rejeição HTTP. A suíte local também cobre
 sessão, reload, nova sessão, falha tolerada, Web Share e fallbacks.
+
+Em 17/09/2026 foi corrigido o cliente do blog para enviar o campo `slug`, como
+define o contrato do workflow. O artigo publicado no dia também foi incluído em
+`blog_articles`; uma publicação nova precisa entrar nesse cadastro ativo para o
+endpoint aceitar e contabilizar suas visualizações.

@@ -8,13 +8,13 @@
       <h1>{{TITLE}}</h1>
       <p class="blog-article-summary">{{SUMMARY}}</p>
       <div class="blog-article-meta"><time datetime="{{DATE_ISO}}">{{DATE}}</time><span aria-hidden="true">·</span><span>{{READING_TIME}} de leitura</span><span aria-hidden="true">·</span><span class="article-view-count" data-article-slug="{{SLUG}}" data-endpoint="/api/blog/views" aria-live="polite"><svg class="icon" aria-hidden="true"><use href="/assets/images/icons/icons.svg#eye"></use></svg><span class="article-view-value">—</span><span class="article-view-label">visualizações</span></span></div>
-      <p class="blog-author">Por {{AUTHOR}}</p>
+      <div class="blog-author"><img src="/assets/images/avatars/val-avatar.webp" width="48" height="48" alt="" loading="eager" decoding="async"><p><span>Por</span><strong>{{AUTHOR}}</strong></p></div>
     </header>
     {{COVER}}
+    {{ARTICLE_SHARE}}
     <div class="blog-prose">{{CONTENT}}</div>
     {{GLOSSARY}}
     {{PAGE_CONTEXT}}
-    {{ARTICLE_SHARE}}
     <div class="blog-cta"><p class="blog-overline mb-2">Próximo passo</p><h2>{{CTA_TITLE}}</h2><p>{{CTA_TEXT}}</p><a class="btn {{CTA_CLASS}}" href="{{CTA_URL}}"{{CTA_ATTRS}}>{{CTA_ICON}}{{CTA_LABEL}}</a></div>
     <section class="blog-related" aria-labelledby="related-title"><div class="d-flex flex-wrap align-items-end justify-content-between gap-3 mb-4"><h2 id="related-title">Continue lendo</h2><a href="/blog/">Ver todos os artigos <span aria-hidden="true">→</span></a></div>{{RELATED}}</section>
   </div>

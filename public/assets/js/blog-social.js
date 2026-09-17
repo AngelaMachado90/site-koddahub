@@ -37,7 +37,7 @@
       const response = await root.fetch(endpoint, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ article_slug: slug, increment }),
+        body: JSON.stringify({ slug, increment }),
         signal: controller.signal,
         credentials: "same-origin"
       });
@@ -45,6 +45,8 @@
       const payload = await response.json();
       if (!payload.success || payload.article_slug !== slug || !Number.isSafeInteger(payload.views) || payload.views < 0) return;
       element.querySelector(".article-view-value").textContent = formatViews(payload.views);
+      const label = element.querySelector(".article-view-label");
+      if (label) label.textContent = payload.views === 1 ? "visualização" : "visualizações";
     } catch (_) {
       element.hidden = true;
     } finally {
