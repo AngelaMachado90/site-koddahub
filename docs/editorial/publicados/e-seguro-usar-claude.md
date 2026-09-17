@@ -11,12 +11,12 @@ publish_date: 2026-09-17
 status: published
 author: VAL — Valor, Autoridade e Linguagem Koddahub
 cover: /assets/images/blog/e-seguro-usar-claude.webp
-cover_alt: Profissional avalia controles de privacidade enquanto um documento atravessa uma barreira de segurança antes de chegar a um assistente de inteligência artificial
-cover_width: 1672
-cover_height: 941
+cover_alt: Capa com a pergunta É seguro usar Claude, um notebook e símbolos de privacidade, segurança e uso responsável
+cover_width: 1600
+cover_height: 900
 image_source:
-  provider: OpenAI
-  type: imagem gerada para o Blog Koddahub
+  provider: Koddahub
+  type: capa editorial fornecida para o artigo
 primary_keyword: "é seguro usar o Claude"
 related_terms:
   - "Claude segurança de dados"
