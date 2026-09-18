@@ -239,8 +239,9 @@ Texto insuficiente.
             build_blog(target, home, 'https://koddahub.com.br', 'test', ROOT/'docs/editorial/publicados')
             listing = (target/'blog/index.html').read_text(encoding='utf-8')
             featured = listing.split('class="card blog-card blog-featured"', 1)[1].split('</article>', 1)[0]
-            self.assertIn('href="/blog/e-seguro-usar-claude/"', featured)
-            self.assertIn('src="/assets/images/blog/e-seguro-usar-claude-v2.webp"', featured)
+            latest = articles(ROOT/'docs/editorial/publicados')[0]
+            self.assertIn(f'href="/blog/{latest["slug"]}/"', featured)
+            self.assertIn(f'src="{latest["cover"]}"', featured)
             self.assertIn('<h2 id="blog-more-title">Outras publicações</h2>', listing)
             self.assertLess(listing.index('class="card blog-card blog-featured"'), listing.index('id="blog-more-title"'))
             self.assertLess(listing.index('id="blog-more-title"'), listing.index('<div class="row g-4">', listing.index('id="blog-more-title"')))

@@ -347,9 +347,13 @@ def articles(editorial=EDITORIAL, today=None):
         if referenced_visuals != visual_ids:
             raise ValueError(f"Recursos didáticos declarados e usados não coincidem: {path}")
         if published >= date(2026, 9, 15):
-            short_read = meta.get('reading_time_exception') and meta['reading_time'] == '10 minutos'
-            minimum_words = 1500 if short_read else 2250
-            expected_time = '10 minutos' if short_read else '15 minutos'
+            exception = meta.get('reading_time_exception')
+            if exception == 'briefing_5_minutes':
+                expected_time, minimum_words = '5 minutos', 900
+            elif exception:
+                expected_time, minimum_words = '10 minutos', 1500
+            else:
+                expected_time, minimum_words = '15 minutos', 2250
             if meta['reading_time'] != expected_time or len(match[2].split()) < minimum_words:
                 raise ValueError(f"Artigo fora do padrão de {expected_time} (mínimo de {minimum_words} palavras): {path}")
             for key in ('cover', 'cover_alt', 'cover_width', 'cover_height', 'cta_title', 'cta_text', 'cta_label'):

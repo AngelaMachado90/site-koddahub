@@ -64,6 +64,8 @@ minutos. Nesse caso, registre `reading_time_exception` no front matter; o build
 exige `reading_time: 10 minutos` e pelo menos 1.500 palavras, preservando capa,
 glossário, recursos didáticos e os demais gates de publicação.
 
+Uma pauta específica de cerca de cinco minutos pode usar `reading_time_exception: briefing_5_minutes`, `reading_time: 5 minutos` e pelo menos 900 palavras, com os mesmos requisitos de capa, glossário, recurso didático e revisão. Essa exceção exige autorização editorial explícita e não altera o padrão dos demais artigos.
+
 A série [#DescomplicandoATI](editorial/serie-descomplicandoati.md) começou com
 um artigo sobre RPA. Ela é adicional às 30 pautas originais e segue a mesma
 exigência de capa e revisão factual. Seus artigos seguem o percurso “O que é?” →
