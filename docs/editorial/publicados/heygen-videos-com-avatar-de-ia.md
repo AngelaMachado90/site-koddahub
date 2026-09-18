@@ -77,65 +77,105 @@ didactic_visuals:
     detail: Somente após as aprovações.
 ---
 # HeyGen: vale criar vídeos com avatar?
+
 Sua empresa precisa explicar o mesmo procedimento para novos funcionários todo mês. A pessoa responsável conhece o assunto, mas gravar uma nova versão sempre que o processo muda consome tempo. Um vídeo com avatar de inteligência artificial poderia ajudar?
+
 Essa é uma das propostas do HeyGen: criar vídeos a partir de um roteiro usando um apresentador digital. A ferramenta pode reduzir a necessidade de filmar cada versão, mas não escreve uma explicação correta sozinha, nem elimina a revisão antes da publicação.
+
 ## O que é o HeyGen?
+
 HeyGen é uma plataforma para produzir vídeos com recursos de inteligência artificial. Você pode escolher um avatar disponível na ferramenta ou, seguindo as condições de uso, criar uma representação digital de uma pessoa real. Depois, prepara o roteiro, ajusta cenas e voz e gera o vídeo.
-Avatar de IA é a representação visual que apresenta o conteúdo. Pense em um vídeo de boas-vindas: em vez de reunir equipamento, cenário e apresentador a cada atualização, a equipe altera o roteiro e produz uma nova versão para avaliação.
+
+Avatar de IA é a representação visual que apresenta o conteúdo. Em um vídeo de boas-vindas, a equipe pode atualizar o roteiro sem reunir apresentador e cenário novamente.
+
 Isso não torna o avatar equivalente à pessoa. Expressões, pronúncia e ritmo podem não transmitir exatamente a intenção original. O vídeo também não substitui uma demonstração real quando o público precisa ver um produto ou uma tarefa em execução.
+
 ## Como funciona um avatar da própria pessoa?
+
 Um digital twin, ou avatar digital pessoal, usa material de referência de uma pessoa para representar sua aparência em vídeos gerados. A criação começa com uma gravação adequada. Para avatares baseados em vídeo, o HeyGen também exige uma gravação de consentimento da própria pessoa retratada.
-Depois de criar o avatar, o trabalho editorial segue uma sequência:
-1. Definir a mensagem: o que o público precisa entender ou fazer.
-2. Escrever o roteiro: frases naturais para serem faladas, não apenas lidas.
-3. Montar o vídeo: escolher avatar, voz e cenas.
-4. Gerar uma versão de teste: observar imagem, áudio, pronúncia e ritmo.
-5. Revisar antes de publicar: corrigir erros e confirmar que a pessoa retratada aprova o uso.
+
+Com o avatar pronto, a equipe escreve o roteiro, gera uma versão de teste e confere áudio, imagem e autorização antes de publicar.
+
 A voz gerada a partir de uma referência é frequentemente chamada de clonagem de voz. Quando o sistema produz fala a partir de texto, o processo também pode envolver text-to-speech — conversão de texto em áudio. Essas possibilidades exigem cuidado adicional: ter acesso a uma gravação não equivale a ter autorização para reproduzir a voz de alguém em qualquer mensagem.
+
 [[visual:fluxo-video-responsavel]]
 
 ## Onde isso pode ajudar no dia a dia?
+
 ### Treinamento interno
-Uma equipe pode preparar um vídeo curto explicando como registrar pedidos ou encaminhar dúvidas. Quando o procedimento mudar, revisa o roteiro e produz outra versão. O ganho potencial está na facilidade de atualização; ele só se confirma se o vídeo permanecer correto e útil para quem aprende.
+
+A equipe pode explicar como registrar pedidos e atualizar o roteiro quando o procedimento mudar. O ganho só existe se o vídeo continuar correto e útil.
+
 ### Apresentação de produtos
-Um avatar pode introduzir um recurso e orientar o público para uma demonstração. Mas, se a promessa é mostrar como o produto funciona, inclua imagens reais da interface ou do objeto. Não deixe o apresentador digital ocupar o lugar da evidência.
+
+O avatar pode introduzir um recurso. Para demonstrar seu funcionamento, mostre também a interface ou o produto real.
+
 ### Conteúdo para redes sociais
-A ferramenta pode ajudar a testar aberturas e versões de uma mensagem. Ainda será necessário decidir o que vale dizer, conferir afirmações e adaptar duração, legendas e enquadramento ao canal.
+
+A ferramenta permite testar versões de uma mensagem. Revise afirmações, legendas, duração e enquadramento para cada canal.
+
 ### Conteúdo em outros idiomas
-O HeyGen oferece recursos de tradução de vídeo, inclusive opções de áudio traduzido e sincronização labial conforme o fluxo escolhido. Isso pode ampliar o alcance de um treinamento. Nomes próprios, termos técnicos e diferenças culturais, porém, precisam de revisão por alguém que conheça o idioma de destino.
+
+O HeyGen oferece tradução de vídeo, com áudio traduzido e, em certos fluxos, sincronização labial. Uma pessoa fluente deve revisar nomes, termos técnicos e contexto cultural.
+
 ## Quais são os limites e os cuidados?
-O primeiro cuidado é o consentimento. Uma pessoa pode autorizar determinado vídeo sem autorizar qualquer roteiro futuro com sua imagem ou voz. Registre quem pode criar versões, quais assuntos são permitidos e como a autorização pode ser revista. O HeyGen exige consentimento para a criação de avatares personalizados e afirma que não permite usar a identidade de outra pessoa sem permissão.
-O segundo é a transparência. Um vídeo sintético pode parecer uma gravação espontânea. Se isso puder confundir o público sobre quem falou ou como a mensagem foi produzida, identifique o uso do avatar. Nunca o utilize para atribuir a alguém uma fala que essa pessoa não aprovou.
-O terceiro é a proteção de dados. Vídeos de treinamento podem incluir nomes de clientes, telas internas ou informações de funcionários. Avalie o material antes do envio à plataforma e use apenas o necessário. A ANPD oferece orientações de segurança para pequenas organizações que tratam dados pessoais.
-Há também limites de operação. A geração depende da plataforma e de conexão para enviar material e receber o resultado. Recursos, limites e créditos variam conforme o plano; o custo efetivo pode depender do modelo e da complexidade escolhidos. Confira as condições atuais antes de montar um calendário de produção.
+
+Consentimento para um vídeo não autoriza qualquer roteiro futuro. Registre quem pode criar versões, sobre quais assuntos e como revogar a autorização. O HeyGen exige consentimento para avatares pessoais.
+
+Um vídeo sintético pode parecer uma gravação espontânea. Identifique o avatar quando houver risco de confusão e nunca atribua a alguém uma fala que não aprovou.
+
+Vídeos podem conter dados de clientes, funcionários ou telas internas. Envie apenas o necessário e siga as orientações de segurança da ANPD.
+
+A geração depende da plataforma e de conexão. Créditos e limites variam por plano e recurso; confira as condições atuais antes de planejar a produção.
+
 ## Para quem faz sentido — e para quem não faz?
+
 HeyGen merece um teste quando a equipe produz mensagens recorrentes, precisa atualizar roteiros com frequência e consegue revisar cada versão. Boas candidatas são instruções curtas, apresentações padronizadas e comunicações em que um apresentador digital torna a explicação mais clara.
+
 Uma gravação tradicional pode ser melhor quando a presença real da pessoa é parte da confiança que o vídeo precisa transmitir. Uma captura de tela narrada pode ser mais útil quando o objetivo é ensinar onde clicar. E um texto curto pode resolver melhor uma mudança simples de procedimento.
-A pergunta não é “como colocar um avatar em todos os vídeos?”. É “qual formato ajuda o público a entender e agir?”
+
+Escolha o formato que ajuda o público a entender e agir.
+
 ## Como avaliar antes de pagar?
+
 Escolha um roteiro real e curto. Evite testar apenas uma frase promocional: ela raramente revela problemas de pronúncia, clareza ou revisão.
+
 Faça uma versão com avatar e compare com a alternativa que sua equipe usaria normalmente. Peça a duas pessoas do público-alvo que assistam sem explicação prévia. Depois, verifique:
+
 - Elas entenderam a ação principal?
 - Alguma pronúncia ou expressão distraiu?
 - Quanto tempo levou para escrever, gerar e corrigir?
 - A pessoa representada aprovou o resultado?
 - O recurso usado cabe no plano e no orçamento pretendidos?
+
 O HeyGen anuncia uma modalidade gratuita para experimentação, com limites próprios. Consulte a página de preços na data do teste, pois recursos e condições podem mudar.
+
 ## A ferramenta resolve um problema de comunicação?
+
 HeyGen pode facilitar a produção de algumas versões de vídeo. O valor, porém, depende de um roteiro compreensível, da escolha correta do formato, do consentimento e da revisão humana.
+
 Comece com um vídeo que já seria útil mesmo sem avatar. Se a versão gerada melhorar a atualização ou a compreensão do conteúdo sem comprometer confiança e qualidade, você terá um motivo concreto para continuar.
+
 ## Perguntas frequentes
+
 ### Preciso criar um avatar com meu rosto?
+
 Não necessariamente. O Studio permite escolher um avatar disponível na plataforma. Se decidir criar um avatar próprio baseado em vídeo, será necessário seguir o processo de gravação e consentimento aplicável.
+
 ### Posso criar um avatar de um funcionário?
+
 Somente com a autorização adequada da pessoa retratada e regras claras sobre o uso de imagem e voz. O processo de consentimento do HeyGen requer a participação dessa pessoa.
-### O vídeo fica pronto para publicar assim que é gerado?
-Não deveria. Confira roteiro, pronúncia, imagens, legendas, dados apresentados e autorização de quem aparece ou é representado.
+
 ### O HeyGen traduz vídeos?
+
 A plataforma oferece tradução de vídeo, com opções que variam conforme o recurso utilizado. A tradução precisa ser conferida, especialmente em instruções, nomes de produtos e informações sensíveis.
+
 ### Vale assinar antes de testar?
+
 Primeiro produza uma amostra com um objetivo real, confira os limites do plano e estime quantas revisões serão necessárias. Uma demonstração bonita, por si só, não prova que o formato atende à sua rotina.
+
 ## Próximo passo
+
 Se sua equipe quer testar vídeos com IA, escolha uma comunicação recorrente e defina antes o público, o roteiro, a autorização de imagem e os critérios de revisão. A Koddahub pode ajudar a desenhar esse primeiro teste e comparar o formato com alternativas mais simples.
 
 ## Links internos sugeridos

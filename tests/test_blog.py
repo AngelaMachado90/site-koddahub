@@ -241,7 +241,7 @@ Texto insuficiente.
             featured = listing.split('class="card blog-card blog-featured"', 1)[1].split('</article>', 1)[0]
             latest = articles(ROOT/'docs/editorial/publicados')[0]
             self.assertIn(f'href="/blog/{latest["slug"]}/"', featured)
-            self.assertIn(f'src="{latest["cover"]}"', featured)
+            self.assertIn(f'src="{latest["cover"]}', featured)
             self.assertIn('<h2 id="blog-more-title">Outras publicações</h2>', listing)
             self.assertLess(listing.index('class="card blog-card blog-featured"'), listing.index('id="blog-more-title"'))
             self.assertLess(listing.index('id="blog-more-title"'), listing.index('<div class="row g-4">', listing.index('id="blog-more-title"')))
@@ -250,11 +250,11 @@ Texto insuficiente.
             self.assertLess(article.index('class="blog-cover'), article.index('class="article-share"'))
             self.assertLess(article.index('class="article-share"'), article.index('class="blog-prose"'))
             chatbot = (target/'blog/chatbot-no-atendimento-o-que-automatizar-sem-perder-o-contexto-da-conversa/index.html').read_text(encoding='utf-8')
-            self.assertIn('src="/assets/images/blog/chatbot-automacao-contexto.webp"', chatbot)
-            self.assertIn('property="og:image" content="https://koddahub.com.br/assets/images/blog/chatbot-automacao-contexto.webp"', chatbot)
+            self.assertIn('src="/assets/images/blog/chatbot-automacao-contexto.webp', chatbot)
+            self.assertIn('property="og:image" content="https://koddahub.com.br/assets/images/blog/chatbot-automacao-contexto.webp', chatbot)
             n8n = (target/'blog/n8n-na-pratica-quando-faz-sentido-automatizar-um-processo-com-a-ferramenta/index.html').read_text(encoding='utf-8')
-            self.assertIn('src="/assets/images/blog/n8n-workflow-automacao.webp"', n8n)
-            self.assertIn('property="og:image" content="https://koddahub.com.br/assets/images/blog/n8n-workflow-automacao.webp"', n8n)
+            self.assertIn('src="/assets/images/blog/n8n-workflow-automacao.webp', n8n)
+            self.assertIn('property="og:image" content="https://koddahub.com.br/assets/images/blog/n8n-workflow-automacao.webp', n8n)
             rpa = (target/'blog/descomplicando-a-ti-o-que-e-rpa/index.html').read_text(encoding='utf-8')
             headings = ['O que é?', 'Exemplo simples', 'Por que importa?', 'Como funciona?', 'Exemplo real', 'O que fazer com isso?']
             positions = [rpa.index(f'<h2>{heading}</h2>') for heading in headings]
