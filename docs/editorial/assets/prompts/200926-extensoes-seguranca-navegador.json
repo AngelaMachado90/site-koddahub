@@ -1,0 +1,25 @@
+{
+  "name": "capa_extensoes_seguranca_navegador_koddahub",
+  "format": "webp",
+  "aspect_ratio": "16:9",
+  "size": {
+    "width": 1672,
+    "height": 941
+  },
+  "intended_use": "capa do artigo do Blog Koddahub",
+  "prompt": "Crie uma ilustração editorial horizontal 16:9 para um artigo da Koddahub sobre escolha responsável de extensões de segurança para navegador. Mostre uma mulher adulta e profissional usando um notebook ou monitor em um ambiente de trabalho contemporâneo. Na tela, represente um navegador genérico com poucas extensões organizadas e sinais visuais discretos para gerenciador de senhas, privacidade, escudo e bloqueio de rastreamento. A composição deve comunicar seleção criteriosa, clareza e controle, não uma coleção excessiva de ferramentas. Use acabamento editorial corporativo premium e a paleta do Design System Koddahub, com azul-marinho, roxo, amarelo apenas em pequenos destaques e tons neutros. Mantenha os elementos importantes nos 60% centrais para suportar recortes responsivos. Não inclua título, palavras, letras, marcas, logotipos, interfaces reconhecíveis ou marca-d'água.",
+  "negative_prompt": [
+    "não usar hacker com capuz",
+    "não usar código verde",
+    "não representar invasão",
+    "não usar malware sensacionalista",
+    "não usar cadeado dominante",
+    "não exibir dezenas de extensões",
+    "não usar logotipos de navegadores ou extensões",
+    "não inserir texto legível",
+    "não usar interface real de produto",
+    "não criar atmosfera de medo"
+  ],
+  "alt_text_draft": "Mulher profissional analisa no navegador controles de senha, privacidade e bloqueio de rastreamento com poucas extensões organizadas",
+  "review_note": "O alt definitivo deve descrever a imagem efetivamente aprovada, não apenas este briefing."
+}
