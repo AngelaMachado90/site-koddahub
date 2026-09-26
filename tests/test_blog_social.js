@@ -42,6 +42,29 @@ test('loads the total and keeps endpoint failure non-blocking', async () => {
   assert.equal(element.hidden, true);
 });
 
+test('hides the counter when the endpoint rejects or returns an invalid payload', async () => {
+  const element = {
+    dataset: { articleSlug: 'artigo-teste', endpoint: '/api/blog/views' }, hidden: false,
+    querySelector: () => ({ textContent: '' })
+  };
+  const root = {
+    sessionStorage: storage(),
+    fetch: async () => ({ ok: false }),
+    setTimeout: () => 1, clearTimeout: () => {}, AbortController
+  };
+
+  await social.loadViews(root, element);
+  assert.equal(element.hidden, true);
+
+  element.hidden = false;
+  root.fetch = async () => ({
+    ok: true,
+    json: async () => ({ success: true, article_slug: 'outro-artigo', views: 10 })
+  });
+  await social.loadViews(root, element);
+  assert.equal(element.hidden, true);
+});
+
 test('Web Share uses canonical and fallback links remain valid', async () => {
   const native = { hidden: true, addEventListener: (name, callback) => { native.click = callback; } };
   const copy = { addEventListener: () => {} };

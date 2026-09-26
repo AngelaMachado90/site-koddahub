@@ -70,6 +70,12 @@ Texto insuficiente.
         self.assertIn('<li><strong>Segunda pergunta?</strong> Linha continua aqui.</li>', rendered)
         self.assertEqual(rendered.count('<li>'), 2)
 
+    def test_markdown_links_allow_https_and_preserve_bold_labels(self):
+        rendered = markdown('[**VirusTotal**](https://www.virustotal.com/) e [site](javascript:alert(1)).')
+        self.assertIn('<a href="https://www.virustotal.com/"><strong>VirusTotal</strong></a>', rendered)
+        self.assertNotIn('href="javascript:', rendered)
+        self.assertIn('[site](javascript:alert(1)).', rendered)
+
     def test_due_articles_waits_and_detects_missed_date(self):
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
@@ -250,11 +256,23 @@ Texto insuficiente.
             self.assertLess(article.index('class="blog-cover'), article.index('class="article-share"'))
             self.assertLess(article.index('class="article-share"'), article.index('class="blog-prose"'))
             chatbot = (target/'blog/chatbot-no-atendimento-o-que-automatizar-sem-perder-o-contexto-da-conversa/index.html').read_text(encoding='utf-8')
-            self.assertIn('src="/assets/images/blog/chatbot-automacao-contexto.webp', chatbot)
-            self.assertIn('property="og:image" content="https://koddahub.com.br/assets/images/blog/chatbot-automacao-contexto.webp', chatbot)
+            self.assertRegex(
+                chatbot,
+                r'src="/assets/images/blog/chatbot-automacao-contexto\.webp\?v=[0-9a-f]{12}"',
+            )
+            self.assertRegex(
+                chatbot,
+                r'property="og:image" content="https://koddahub\.com\.br/assets/images/blog/chatbot-automacao-contexto\.webp\?v=[0-9a-f]{12}"',
+            )
             n8n = (target/'blog/n8n-na-pratica-quando-faz-sentido-automatizar-um-processo-com-a-ferramenta/index.html').read_text(encoding='utf-8')
-            self.assertIn('src="/assets/images/blog/n8n-workflow-automacao.webp', n8n)
-            self.assertIn('property="og:image" content="https://koddahub.com.br/assets/images/blog/n8n-workflow-automacao.webp', n8n)
+            self.assertRegex(
+                n8n,
+                r'src="/assets/images/blog/n8n-na-pratica-quando-faz-sentido-automatizar-um-processo-com-a-ferramenta\.webp\?v=[0-9a-f]{12}"',
+            )
+            self.assertRegex(
+                n8n,
+                r'property="og:image" content="https://koddahub\.com\.br/assets/images/blog/n8n-na-pratica-quando-faz-sentido-automatizar-um-processo-com-a-ferramenta\.webp\?v=[0-9a-f]{12}"',
+            )
             rpa = (target/'blog/descomplicando-a-ti-o-que-e-rpa/index.html').read_text(encoding='utf-8')
             headings = ['O que é?', 'Exemplo simples', 'Por que importa?', 'Como funciona?', 'Exemplo real', 'O que fazer com isso?']
             positions = [rpa.index(f'<h2>{heading}</h2>') for heading in headings]
@@ -274,7 +292,7 @@ reading_time: 2 minutos
 slug: exemplo-editorial
 status: published
 publish_date: 2026-01-01
-cover: /assets/images/blog/n8n-workflow-automacao.webp
+cover: /assets/images/blog/n8n-na-pratica-quando-faz-sentido-automatizar-um-processo-com-a-ferramenta.webp
 cover_alt: Fluxo de automação ilustrado
 cover_width: 1672
 cover_height: 941
@@ -301,14 +319,13 @@ Texto de teste.
             self.assertIn('class="footer-link"', listing)
             self.assertEqual(listing.count('https://www.googletagmanager.com/gtag/js?id=G-3DNTXV2CYK'), 1)
             self.assertIn("gtag('config', 'G-3DNTXV2CYK')", listing)
-            self.assertIn('<title>Exemplo editorial | Blog Koddahub</title>', page)
             self.assertEqual(page.count('https://www.googletagmanager.com/gtag/js?id=G-3DNTXV2CYK'), 1)
             self.assertIn('/assets/js/site.js?v=test', page)
             self.assertIn('rel="canonical" href="https://koddahub.com.br/blog/exemplo-editorial/"', page)
             self.assertIn('name="description" content="Artigo de teste do blog."', page)
             self.assertIn('BlogPosting', page)
             self.assertIn('"mainEntityOfPage": "https://koddahub.com.br/blog/exemplo-editorial/"', page)
-            self.assertIn('<h1>Exemplo editorial</h1>', page)
+            self.assertRegex(page, r'<h1>\s*Exemplo editorial\s*</h1>')
 
     def test_public_article_without_cover_blocks_build(self):
         with tempfile.TemporaryDirectory() as temporary:

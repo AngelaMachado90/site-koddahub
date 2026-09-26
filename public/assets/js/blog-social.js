@@ -29,7 +29,10 @@
   async function loadViews(root, element) {
     const slug = element.dataset.articleSlug || "";
     const endpoint = element.dataset.endpoint || "";
-    if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug) || !endpoint) return;
+    if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug) || !endpoint) {
+      element.hidden = true;
+      return;
+    }
     const increment = shouldIncrement(root.sessionStorage, slug);
     const controller = new AbortController();
     const timeout = root.setTimeout(() => controller.abort(), VIEW_TIMEOUT_MS);
@@ -41,12 +44,19 @@
         signal: controller.signal,
         credentials: "same-origin"
       });
-      if (!response.ok) return;
+      if (!response.ok) {
+        element.hidden = true;
+        return;
+      }
       const payload = await response.json();
-      if (!payload.success || payload.article_slug !== slug || !Number.isSafeInteger(payload.views) || payload.views < 0) return;
+      if (!payload.success || payload.article_slug !== slug || !Number.isSafeInteger(payload.views) || payload.views < 0) {
+        element.hidden = true;
+        return;
+      }
       element.querySelector(".article-view-value").textContent = formatViews(payload.views);
       const label = element.querySelector(".article-view-label");
       if (label) label.textContent = payload.views === 1 ? "visualização" : "visualizações";
+      element.hidden = false;
     } catch (_) {
       element.hidden = true;
     } finally {

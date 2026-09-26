@@ -89,9 +89,21 @@ def glossary_context(items):
     return enriched
 
 
-def inline(value):
-    value = e(value)
+def strong(value):
     return re.sub(r"\*\*(.+?)\*\*", r"<strong>\1</strong>", value)
+
+
+def inline(value):
+    links = re.compile(r"\[([^\]]+)\]\((https://[^)\s]+)\)")
+    parts, position = [], 0
+    for match in links.finditer(value):
+        parts.append(strong(e(value[position:match.start()])))
+        label = strong(e(match.group(1)))
+        url = e(match.group(2))
+        parts.append(f'<a href="{url}">{label}</a>')
+        position = match.end()
+    parts.append(strong(e(value[position:])))
+    return "".join(parts)
 
 
 def didactic_visual_html(item):
@@ -371,6 +383,20 @@ def articles(editorial=EDITORIAL, today=None):
     return sorted(found, key=lambda a: (a["publish_date"], a["slug"]), reverse=True)
 
 
+
+def versioned_asset(path):
+    """Adiciona cache-busting baseado no conteúdo real do arquivo."""
+    import hashlib
+
+    asset_path = PUBLIC / str(path).lstrip('/')
+
+    if not asset_path.is_file():
+        raise ValueError(f"Asset inexistente para versionamento: {path}")
+
+    digest = hashlib.sha256(asset_path.read_bytes()).hexdigest()[:12]
+    return f"{path}?v={digest}"
+
+
 def shell(home, body, title, description, canonical, site_url, version, schema, article=False, image_path=None):
     header = re.search(r'<header class="site-header.*?</header>', home, re.S).group()
     footer = re.search(r'<footer class="site-footer.*?</footer>', home, re.S).group()
@@ -409,7 +435,7 @@ def card_html(item, featured=False, position=1):
     taxonomy = f'<div class="blog-card-taxonomy"><span class="blog-category">{category}</span>{visible_tags}</div>'
     summary = e(item["summary"])
     meta = f'<div class="blog-card-meta"><time datetime="{e(item["publish_date"])}">{date_label}</time><span aria-hidden="true">·</span><span>{e(item["reading_time"])} de leitura</span></div>'
-    cover = item.get("cover")
+    cover = item.get("_cover_url") or item.get("cover")
     cover_image = ''
     if cover:
         cover_image = f'<img class="blog-card-cover" src="{e(cover)}" width="{e(item.get("cover_width", ""))}" height="{e(item.get("cover_height", ""))}" alt="" loading="lazy" decoding="async">'
@@ -438,6 +464,7 @@ def build_blog(dist, home, site_url, version, editorial=EDITORIAL):
             raise ValueError(f"Caminho de capa inválido: {item['slug']}")
         if not (PUBLIC / cover_path.lstrip('/')).is_file():
             raise ValueError(f"Imagem de capa inexistente: {item['slug']}")
+        item['_cover_url'] = versioned_asset(cover_path)
         for key in ('cover_alt', 'cover_width', 'cover_height'):
             if not item.get(key):
                 raise ValueError(f"{key} obrigatório com cover: {item['slug']}")
@@ -459,7 +486,8 @@ def build_blog(dist, home, site_url, version, editorial=EDITORIAL):
         components = {visual['id']: didactic_visual_html(visual) for visual in item.get('didactic_visuals') or []}
         content = markdown(item['body'].split('## Links internos sugeridos')[0].split('## Referências')[0].split('## Imagem de capa')[0], components) + source_links(item['body'])
         cover_path = str(item['cover'])
-        cover = f'<img class="blog-cover rounded my-4" src="{e(cover_path)}" width="{e(item["cover_width"])}" height="{e(item["cover_height"])}" alt="{e(item["cover_alt"])}">'
+        cover_url = str(item['_cover_url'])
+        cover = f'<img class="blog-cover rounded my-4" src="{e(cover_url)}" width="{e(item["cover_width"])}" height="{e(item["cover_height"])}" alt="{e(item["cover_alt"])}">'
         body = (PUBLIC/'blog/article.template.html').read_text(encoding='utf-8')
         cta_url = str(item.get('cta_url', '/#processo'))
         is_whatsapp = urlparse(cta_url).hostname == 'wa.me'
@@ -469,8 +497,8 @@ def build_blog(dist, home, site_url, version, editorial=EDITORIAL):
         schema = {"@context":"https://schema.org","@type":"BlogPosting","headline":item['title'],"description":item['meta_description'],"datePublished":str(item['publish_date']),"keywords":item.get('tags') or [],"author":{"@type":"Organization","name":"Koddahub"},"mainEntityOfPage":url}
         if item.get('modified_date'):
             schema['dateModified'] = str(item['modified_date'])
-        schema['image'] = site_url + cover_path
-        page = shell(home, body, item['seo_title'], item['meta_description'], url, site_url, version, schema, True, cover_path)
+        schema['image'] = site_url + cover_url
+        page = shell(home, body, item['seo_title'], item['meta_description'], url, site_url, version, schema, True, cover_url)
         target_dir = target/item['slug']; target_dir.mkdir(exist_ok=True)
         (target_dir/'index.html').write_text(page, encoding='utf-8')
     return [blog_url] + [blog_url + item['slug'] + '/' for item in entries]

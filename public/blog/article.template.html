@@ -1,21 +1,493 @@
+<!--
+  ============================================================
+  BLOG — PÁGINA DE ARTIGO
+  ============================================================
+
+  Responsabilidade:
+  Estrutura principal da página individual de um artigo
+  do Blog KoddaHub.
+
+  A página é composta por:
+  1. Breadcrumb
+  2. Cabeçalho do artigo
+  3. Taxonomia
+  4. Título e resumo
+  5. Metadados
+  6. Autor
+  7. Imagem de capa
+  8. Compartilhamento
+  9. Conteúdo principal
+  10. Glossário
+  11. Contexto adicional
+  12. CTA
+  13. Artigos relacionados
+
+  Placeholders esperados:
+
+  TITLE
+    Título principal do artigo.
+
+  ARTICLE_TAXONOMY
+    Taxonomia do artigo, como categoria, tags ou tema.
+
+  SUMMARY
+    Resumo ou introdução curta do artigo.
+
+  DATE_ISO
+    Data em formato ISO para o atributo datetime do elemento <time>.
+    Exemplo: 2026-09-18
+
+  DATE
+    Data formatada para exibição ao usuário.
+    Exemplo: 18 de setembro de 2026
+
+  READING_TIME
+    Tempo estimado de leitura.
+    Exemplo: "6 min"
+
+  SLUG
+    Identificador textual único do artigo, utilizado neste template
+    para consultar e registrar visualizações.
+
+  AUTHOR
+    Nome do autor do artigo.
+
+  COVER
+    HTML responsável pela imagem/capa principal do artigo.
+
+  ARTICLE_SHARE
+    Bloco de compartilhamento do artigo.
+
+  CONTENT
+    Conteúdo editorial principal do artigo.
+
+  GLOSSARY
+    Glossário opcional relacionado ao conteúdo.
+
+  PAGE_CONTEXT
+    Conteúdo contextual complementar da página.
+
+  CTA_TITLE
+    Título do CTA final.
+
+  CTA_TEXT
+    Texto explicativo do CTA.
+
+  CTA_CLASS
+    Classe adicional responsável pela variação visual do botão.
+
+  CTA_URL
+    URL de destino do CTA.
+
+  CTA_ATTRS
+    Atributos HTML adicionais do link.
+    Pode incluir, por exemplo:
+    target, rel, data-* ou atributos de rastreamento.
+
+  CTA_ICON
+    Ícone opcional inserido dentro do botão.
+
+  CTA_LABEL
+    Texto visível do botão.
+
+  RELATED
+    HTML dos artigos relacionados.
+-->
+
+
+<!-- =========================================================
+     BREADCRUMB
+     Informa a posição atual do usuário dentro da estrutura
+     de navegação do Blog.
+     ========================================================= -->
 <div class="container-xl blog-breadcrumb-wrap">
-  <nav aria-label="Navegação estrutural"><ol class="breadcrumb mb-0"><li class="breadcrumb-item"><a href="/blog/">Blog</a></li><li class="breadcrumb-item active" aria-current="page">{{TITLE}}</li></ol></nav>
+
+  <nav aria-label="Navegação estrutural">
+
+    <ol class="breadcrumb mb-0">
+
+      <!-- Retorno para a página principal do Blog -->
+      <li class="breadcrumb-item">
+        <a href="/blog/">
+          Blog
+        </a>
+      </li>
+
+      <!--
+        Página atual.
+
+        aria-current="page" informa às tecnologias assistivas
+        que este item representa a página atualmente aberta.
+      -->
+      <li
+        class="breadcrumb-item active"
+        aria-current="page"
+      >
+        {{TITLE}}
+      </li>
+
+    </ol>
+
+  </nav>
+
 </div>
+
+
+<!-- =========================================================
+     ARTIGO
+     Elemento semântico que contém todo o conteúdo editorial
+     da publicação.
+     ========================================================= -->
 <article class="blog-article container-xl">
+
+  <!--
+    Wrapper responsável pela largura e experiência de leitura
+    do conteúdo editorial.
+  -->
   <div class="blog-reading">
+
+
+    <!-- =====================================================
+         CABEÇALHO DO ARTIGO
+         ===================================================== -->
     <header class="blog-article-head">
-      <div class="blog-article-taxonomy">{{ARTICLE_TAXONOMY}}</div>
-      <h1>{{TITLE}}</h1>
-      <p class="blog-article-summary">{{SUMMARY}}</p>
-      <div class="blog-article-meta"><time datetime="{{DATE_ISO}}">{{DATE}}</time><span aria-hidden="true">·</span><span>{{READING_TIME}} de leitura</span><span aria-hidden="true">·</span><span class="article-view-count" data-article-slug="{{SLUG}}" data-endpoint="/api/blog/views" aria-live="polite"><svg class="icon" aria-hidden="true"><use href="/assets/images/icons/icons.svg#eye"></use></svg><span class="article-view-value">—</span><span class="article-view-label">visualizações</span></span></div>
-      <div class="blog-author"><img src="/assets/images/avatars/val-avatar.webp" width="48" height="48" alt="" loading="eager" decoding="async"><p><span>Por</span><strong>{{AUTHOR}}</strong></p></div>
+
+
+      <!--
+        Categoria, tema, tags ou outros elementos de taxonomia.
+      -->
+      <div class="blog-article-taxonomy">
+        {{ARTICLE_TAXONOMY}}
+      </div>
+
+
+      <!-- Título principal da publicação -->
+      <h1>
+        {{TITLE}}
+      </h1>
+
+
+      <!--
+        Resumo editorial.
+        Deve apresentar rapidamente o assunto tratado no artigo.
+      -->
+      <p class="blog-article-summary">
+        {{SUMMARY}}
+      </p>
+
+
+      <!-- ===================================================
+           METADADOS DO ARTIGO
+
+           Exibe:
+           - data de publicação;
+           - tempo estimado de leitura;
+           - número de visualizações.
+           =================================================== -->
+      <div class="blog-article-meta">
+
+
+        <!--
+          Data semanticamente estruturada.
+
+          DATE_ISO:
+          utilizada por navegadores, buscadores e tecnologias
+          assistivas.
+
+          DATE:
+          versão formatada para leitura humana.
+        -->
+        <time datetime="{{DATE_ISO}}">
+          {{DATE}}
+        </time>
+
+
+        <!-- Separador puramente visual -->
+        <span aria-hidden="true">
+          ·
+        </span>
+
+
+        <!-- Tempo estimado de leitura -->
+        <span>
+          {{READING_TIME}} de leitura
+        </span>
+
+
+        <!-- Separador puramente visual -->
+        <span aria-hidden="true">
+          ·
+        </span>
+
+
+        <!--
+          CONTADOR DE VISUALIZAÇÕES
+
+          data-article-slug:
+          identifica qual artigo está sendo consultado.
+
+          data-endpoint:
+          endpoint utilizado pelo JavaScript responsável
+          pelo contador de visualizações.
+
+          aria-live="polite":
+          permite anunciar a atualização do contador sem
+          interromper abruptamente tecnologias assistivas.
+        -->
+        <span
+          class="article-view-count"
+          data-article-slug="{{SLUG}}"
+          data-endpoint="/api/blog/views"
+          aria-live="polite"
+        >
+
+          <!-- Ícone decorativo de visualizações -->
+          <svg
+            class="icon"
+            aria-hidden="true"
+          >
+            <use
+              href="/assets/images/icons/icons.svg#eye"
+            ></use>
+          </svg>
+
+
+          <!--
+            Valor inicial enquanto a quantidade real
+            ainda não foi carregada.
+          -->
+          <span class="article-view-value">
+            —
+          </span>
+
+
+          <!-- Descrição textual do contador -->
+          <span class="article-view-label">
+            visualizações
+          </span>
+
+        </span>
+
+      </div>
+
+
+      <!-- ===================================================
+           AUTOR
+           =================================================== -->
+      <div class="blog-author">
+
+        <!--
+          Avatar do autor.
+
+          alt vazio indica que a imagem é decorativa,
+          pois o nome do autor já está disponível em texto.
+
+          loading="eager":
+          solicita carregamento imediato da imagem.
+
+          decoding="async":
+          permite decodificação assíncrona sem bloquear
+          a renderização principal.
+        -->
+        <img
+          src="/assets/images/avatars/val-avatar.webp"
+          width="48"
+          height="48"
+          alt=""
+          loading="eager"
+          decoding="async"
+        >
+
+
+        <!-- Identificação textual do autor -->
+        <p>
+
+          <span>
+            Por
+          </span>
+
+          <strong>
+            {{AUTHOR}}
+          </strong>
+
+        </p>
+
+      </div>
+
     </header>
+
+
+    <!-- =====================================================
+         CAPA DO ARTIGO
+
+         Recebe a marcação HTML da imagem principal,
+         figure, picture, legenda ou estrutura equivalente.
+         ===================================================== -->
     {{COVER}}
+
+
+    <!-- =====================================================
+         COMPARTILHAMENTO
+
+         Bloco opcional com ações de compartilhamento
+         do artigo.
+         ===================================================== -->
     {{ARTICLE_SHARE}}
-    <div class="blog-prose">{{CONTENT}}</div>
+
+
+    <!-- =====================================================
+         CONTEÚDO PRINCIPAL
+
+         blog-prose controla a tipografia editorial do conteúdo:
+         títulos, parágrafos, listas, imagens, tabelas,
+         blockquotes, código e demais elementos.
+         ===================================================== -->
+    <div class="blog-prose">
+
+      {{CONTENT}}
+
+    </div>
+
+
+    <!-- =====================================================
+         GLOSSÁRIO
+
+         Bloco opcional utilizado quando o artigo possui
+         termos técnicos ou conceitos que mereçam explicação.
+         ===================================================== -->
     {{GLOSSARY}}
+
+
+    <!-- =====================================================
+         CONTEXTO DA PÁGINA
+
+         Conteúdo adicional relacionado ao artigo.
+
+         Pode receber, por exemplo:
+         - avisos;
+         - referências;
+         - contexto editorial;
+         - navegação contextual;
+         - informações complementares.
+         ===================================================== -->
     {{PAGE_CONTEXT}}
-    <div class="blog-cta"><p class="blog-overline mb-2">Próximo passo</p><h2>{{CTA_TITLE}}</h2><p>{{CTA_TEXT}}</p><a class="btn {{CTA_CLASS}}" href="{{CTA_URL}}"{{CTA_ATTRS}}>{{CTA_ICON}}{{CTA_LABEL}}</a></div>
-    <section class="blog-related" aria-labelledby="related-title"><div class="d-flex flex-wrap align-items-end justify-content-between gap-3 mb-4"><h2 id="related-title">Continue lendo</h2><a href="/blog/">Ver todos os artigos <span aria-hidden="true">→</span></a></div>{{RELATED}}</section>
+
+
+    <!-- =====================================================
+         CTA FINAL
+
+         Orienta o usuário para uma próxima ação após
+         a leitura do conteúdo.
+         ===================================================== -->
+    <div class="blog-cta">
+
+
+      <!-- Identificação visual da seção -->
+      <p class="blog-overline mb-2">
+        Próximo passo
+      </p>
+
+
+      <!-- Título dinâmico do CTA -->
+      <h2>
+        {{CTA_TITLE}}
+      </h2>
+
+
+      <!-- Texto de apoio -->
+      <p>
+        {{CTA_TEXT}}
+      </p>
+
+
+      <!--
+        Botão/link principal.
+
+        CTA_CLASS:
+        adiciona uma variante visual ao botão.
+
+        CTA_URL:
+        destino da ação.
+
+        CTA_ATTRS:
+        atributos adicionais são inseridos diretamente
+        após o href.
+
+        IMPORTANTE:
+        CTA_ATTRS deve ser gerado apenas por código
+        controlado/confiável para evitar injeção de atributos
+        HTML indevidos.
+      -->
+      <a
+        class="btn {{CTA_CLASS}}"
+        href="{{CTA_URL}}"
+        {{CTA_ATTRS}}
+      >
+
+        <!-- Ícone opcional -->
+        {{CTA_ICON}}
+
+        <!-- Texto do botão -->
+        {{CTA_LABEL}}
+
+      </a>
+
+    </div>
+
+
+    <!-- =====================================================
+         ARTIGOS RELACIONADOS
+         ===================================================== -->
+    <section
+      class="blog-related"
+      aria-labelledby="related-title"
+    >
+
+
+      <!-- Cabeçalho da seção -->
+      <div
+        class="
+          d-flex
+          flex-wrap
+          align-items-end
+          justify-content-between
+          gap-3
+          mb-4
+        "
+      >
+
+        <!--
+          O ID é referenciado pelo aria-labelledby da section,
+          fornecendo um nome acessível para a região.
+        -->
+        <h2 id="related-title">
+          Continue lendo
+        </h2>
+
+
+        <!-- Retorno para a listagem completa do Blog -->
+        <a href="/blog/">
+
+          Ver todos os artigos
+
+          <!-- Seta decorativa -->
+          <span aria-hidden="true">
+            →
+          </span>
+
+        </a>
+
+      </div>
+
+
+      <!--
+        Cards ou links de artigos relacionados
+        gerados dinamicamente.
+      -->
+      {{RELATED}}
+
+    </section>
+
   </div>
+
 </article>

@@ -1,24 +1,208 @@
+<!--
+  ============================================================
+  BLOG — PÁGINA DE LISTAGEM
+  ============================================================
+
+  Responsabilidade:
+  Estrutura principal da página do Blog KoddaHub.
+
+  A página é composta por:
+  1. Hero do blog
+  2. Contexto opcional da página
+  3. Cabeçalho da listagem
+  4. Artigo(s) em destaque
+  5. Título/separador de artigos adicionais
+  6. Grid de artigos
+
+  Placeholders esperados:
+  COUNT
+    Quantidade/resumo de artigos disponíveis.
+
+  PAGE_CONTEXT
+    Conteúdo contextual opcional inserido entre o hero e a listagem.
+    Pode representar categoria, busca, filtro ou outra informação
+    relacionada ao estado atual da página.
+
+  SECTION_TITLE
+    Título principal da seção de artigos.
+
+  FEATURED
+    HTML do artigo ou bloco de artigos em destaque.
+
+  MORE_HEADING
+    Cabeçalho opcional que separa o conteúdo em destaque dos
+    demais artigos.
+
+  ARTICLES
+    Cards dos artigos que compõem o grid principal.
+-->
+
+
+<!-- =========================================================
+     HERO DO BLOG
+     Apresenta a identidade editorial da página e o volume
+     de conteúdos disponíveis.
+     ========================================================= -->
 <section class="blog-hero" aria-labelledby="blog-title">
+
   <div class="container-xl position-relative">
+
     <div class="row align-items-center g-4">
+
+      <!--
+        Conteúdo principal do hero.
+        Em telas grandes ocupa 8 das 12 colunas do Bootstrap.
+      -->
       <div class="col-lg-8">
-        <p class="blog-eyebrow mb-3">Blog Koddahub</p>
-        <h1 id="blog-title">Tecnologia aplicada a <span>problemas reais.</span></h1>
-        <p class="blog-hero-lead mb-0">Automação, inteligência artificial, dados e engenharia explicados com contexto, critérios e exemplos úteis.</p>
+
+        <!-- Identificação da seção -->
+        <p class="blog-eyebrow mb-3">
+          Blog Koddahub
+        </p>
+
+        <!--
+          H1 principal da página.
+          O atributo id é referenciado pelo aria-labelledby
+          da <section>, melhorando a semântica e acessibilidade.
+        -->
+        <h1 id="blog-title">
+          Tecnologia aplicada a
+          <span>problemas reais.</span>
+        </h1>
+
+        <!-- Descrição editorial do blog -->
+        <p class="blog-hero-lead mb-0">
+          Automação, inteligência artificial, dados e engenharia
+          explicados com contexto, critérios e exemplos úteis.
+        </p>
+
       </div>
-      <div class="col-lg-4 text-lg-end"><p class="blog-hero-count mb-0">{{COUNT}}</p></div>
+
+
+      <!--
+        Indicador/resumo da quantidade de conteúdos.
+
+        O alinhamento passa para a direita em telas grandes
+        através de text-lg-end.
+      -->
+      <div class="col-lg-4 text-lg-end">
+
+        <p class="blog-hero-count mb-0">
+          {{COUNT}}
+        </p>
+
+      </div>
+
     </div>
+
   </div>
+
 </section>
+
+
+<!--
+  ============================================================
+  CONTEXTO DINÂMICO DA PÁGINA
+  ============================================================
+
+  Pode ser utilizado para informar o estado atual da listagem,
+  como:
+
+  - categoria selecionada;
+  - resultado de pesquisa;
+  - filtro aplicado;
+  - tag;
+  - mensagem contextual.
+
+  O conteúdo é gerado dinamicamente.
+-->
 {{PAGE_CONTEXT}}
-<section class="blog-listing" aria-labelledby="blog-list-title">
+
+
+<!-- =========================================================
+     LISTAGEM DE ARTIGOS
+     Contém apresentação da seção, destaque e grid dos posts.
+     ========================================================= -->
+<section
+  class="blog-listing"
+  aria-labelledby="blog-list-title"
+>
+
   <div class="container-xl">
-    <div class="blog-list-heading d-flex flex-column flex-md-row justify-content-between align-items-md-end gap-3">
-      <div><p class="blog-overline mb-2">Leitura para decidir melhor</p><h2 id="blog-list-title">{{SECTION_TITLE}}</h2></div>
-      <p class="blog-list-intro mb-0">Ideias e orientações práticas para levar tecnologia ao trabalho cotidiano.</p>
+
+
+    <!-- =====================================================
+         CABEÇALHO DA LISTAGEM
+         ===================================================== -->
+    <div
+      class="blog-list-heading
+             d-flex
+             flex-column
+             flex-md-row
+             justify-content-between
+             align-items-md-end
+             gap-3"
+    >
+
+      <div>
+
+        <!-- Texto auxiliar acima do título -->
+        <p class="blog-overline mb-2">
+          Leitura para decidir melhor
+        </p>
+
+        <!--
+          Título dinâmico da listagem.
+          Pode variar conforme página, categoria ou filtro.
+        -->
+        <h2 id="blog-list-title">
+          {{SECTION_TITLE}}
+        </h2>
+
+      </div>
+
+
+      <!-- Descrição complementar da listagem -->
+      <p class="blog-list-intro mb-0">
+        Ideias e orientações práticas para levar tecnologia
+        ao trabalho cotidiano.
+      </p>
+
     </div>
+
+
+    <!-- =====================================================
+         CONTEÚDO EM DESTAQUE
+
+         Recebe o HTML dos artigos destacados.
+         ===================================================== -->
     {{FEATURED}}
+
+
+    <!-- =====================================================
+         SEPARADOR / TÍTULO DOS DEMAIS ARTIGOS
+
+         Elemento opcional exibido antes do grid principal.
+         ===================================================== -->
     {{MORE_HEADING}}
-    <div class="row g-4">{{ARTICLES}}</div>
+
+
+    <!-- =====================================================
+         GRID DE ARTIGOS
+
+         Os cards individuais são injetados através de
+         ARTICLES.
+
+         row g-4:
+         - cria o grid Bootstrap;
+         - aplica espaçamento entre linhas e colunas.
+         ===================================================== -->
+    <div class="row g-4">
+
+      {{ARTICLES}}
+
+    </div>
+
   </div>
+
 </section>
