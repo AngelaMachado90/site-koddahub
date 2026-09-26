@@ -16,6 +16,14 @@ PUBLIC = ROOT / "public"
 DIST = ROOT / "dist"
 TEMPLATE = PUBLIC / "index.template.html"
 PORTAL_LOGIN_TEMPLATE = PUBLIC / "portal/login/index.template.html"
+PORTAL_DEMO_LOGIN_TEMPLATE = PUBLIC / "portal/demo/index.template.html"
+PORTAL_DEMO_APP_TEMPLATE = PUBLIC / "portal/demo/app.template.html"
+PORTAL_DEMO_PAGES = {
+    "dashboard": ("dashboard", "Dashboard | Portal KoddaHub"),
+    "chamados": ("chamados", "Meus chamados | Portal KoddaHub"),
+    "chamados/detalhe": ("ticket-detail", "Detalhe do chamado | Portal KoddaHub"),
+    "chamados/novo": ("new-ticket", "Abrir chamado | Portal KoddaHub"),
+}
 SITE_CONFIG = ROOT / "config/site.json"
 
 
@@ -54,6 +62,23 @@ def build() -> None:
     portal_dir = DIST / "portal/login"
     portal_dir.mkdir(parents=True, exist_ok=True)
     (portal_dir / "index.html").write_text(portal_html, encoding="utf-8")
+    demo_login_html = PORTAL_DEMO_LOGIN_TEMPLATE.read_text(encoding="utf-8")
+    demo_login_html = demo_login_html.replace("{{YEAR}}", str(datetime.now().year))
+    demo_login_html = demo_login_html.replace("{{ASSET_VERSION}}", version)
+    demo_login_dir = DIST / "portal/demo"
+    demo_login_dir.mkdir(parents=True, exist_ok=True)
+    (demo_login_dir / "index.html").write_text(demo_login_html, encoding="utf-8")
+    demo_app_template = PORTAL_DEMO_APP_TEMPLATE.read_text(encoding="utf-8")
+    portal_api_base_url = environment_url("PORTAL_API_BASE_URL", "http://127.0.0.1:8011", required=True).rstrip("/")
+    for route, (page, title) in PORTAL_DEMO_PAGES.items():
+        demo_html = demo_app_template.replace("{{YEAR}}", str(datetime.now().year))
+        demo_html = demo_html.replace("{{ASSET_VERSION}}", version)
+        demo_html = demo_html.replace("{{DEMO_PAGE}}", page)
+        demo_html = demo_html.replace("{{PAGE_TITLE}}", title)
+        demo_html = demo_html.replace("{{PORTAL_API_BASE_URL}}", escape(portal_api_base_url, quote=True))
+        demo_dir = DIST / "portal/demo" / route
+        demo_dir.mkdir(parents=True, exist_ok=True)
+        (demo_dir / "index.html").write_text(demo_html, encoding="utf-8")
     urls = build_blog(DIST, html, site_url, version)
     (DIST / "version.txt").write_text(version, encoding="utf-8")
     (DIST / "sitemap.xml").write_text(

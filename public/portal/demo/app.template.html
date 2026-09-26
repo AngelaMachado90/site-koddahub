@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{PAGE_TITLE}}</title>
+  <meta name="description" content="Ambiente demonstrativo do Portal KoddaHub com dados fictícios.">
+  <meta name="robots" content="noindex,nofollow">
+  <meta name="theme-color" content="#4c1d95">
+  <meta name="portal-api-base-url" content="{{PORTAL_API_BASE_URL}}">
+  <link rel="icon" type="image/webp" href="/assets/images/logo/koddahub-logo-128.webp">
+  <link rel="stylesheet" href="/assets/vendor/bootstrap/bootstrap.min.css?v={{ASSET_VERSION}}">
+  <link rel="stylesheet" href="/assets/css/koddahub-tokens.css?v={{ASSET_VERSION}}">
+  <link rel="stylesheet" href="/assets/css/style.css?v={{ASSET_VERSION}}">
+  <link rel="stylesheet" href="/assets/css/portal-demo.css?v={{ASSET_VERSION}}">
+</head>
+<body class="demo-app" data-demo-page="{{DEMO_PAGE}}">
+  <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+  <header class="demo-header">
+    <nav class="navbar navbar-expand-lg" aria-label="Navegação do Portal">
+      <div class="container-xl">
+        <a class="navbar-brand demo-brand" href="/portal/demo/dashboard/" aria-label="Portal KoddaHub — dashboard">
+          <img src="/assets/images/logo/koddahub-logo-128.webp" width="42" height="42" alt="">
+          <span>Portal KoddaHub</span>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#demoNavigation" aria-controls="demoNavigation" aria-expanded="false" aria-label="Abrir navegação">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="demoNavigation">
+          <div class="navbar-nav demo-nav mx-lg-auto">
+            <a class="nav-link" data-demo-nav="dashboard" href="/portal/demo/dashboard/">Dashboard</a>
+            <a class="nav-link" data-demo-nav="chamados" href="/portal/demo/chamados/">Meus chamados</a>
+            <a class="nav-link" data-demo-nav="new-ticket" href="/portal/demo/chamados/novo/">Abrir chamado</a>
+          </div>
+          <div class="demo-user-nav mt-3 mt-lg-0">
+            <span><strong>Marina Costa</strong><small>Empresa Demonstração</small></span>
+            <a href="/portal/demo/">Sair da demonstração</a>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>
+  <main class="demo-main" id="conteudo">
+    <div class="container-xl">
+      <aside class="demo-notice" aria-label="Aviso sobre os dados">
+        <strong>Ambiente HML sem autenticação produtiva</strong>
+        <span>A identidade é controlada pelo servidor e os dados são persistidos no PostgreSQL HML.</span>
+      </aside>
+      <div id="demoPageContent"></div>
+    </div>
+  </main>
+  <footer class="demo-footer">
+    <div class="container-xl d-flex flex-column flex-sm-row justify-content-between gap-2">
+      <p>© {{YEAR}} KoddaHub</p>
+      <p>Ambiente HML · Autenticação real pendente</p>
+    </div>
+  </footer>
+  <script src="/assets/vendor/bootstrap/bootstrap.bundle.min.js?v={{ASSET_VERSION}}"></script>
+  <script src="/assets/js/portal-api.js?v={{ASSET_VERSION}}"></script>
+  <script src="/assets/js/portal-functional.js?v={{ASSET_VERSION}}"></script>
+</body>
+</html>
