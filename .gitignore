@@ -1,3 +1,6 @@
 dist/
 __pycache__/
 .env
+
+# Logs locais de execução/evidências
+/logs/

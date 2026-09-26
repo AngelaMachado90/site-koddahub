@@ -15,6 +15,7 @@ ROOT = Path(__file__).resolve().parents[1]
 PUBLIC = ROOT / "public"
 DIST = ROOT / "dist"
 TEMPLATE = PUBLIC / "index.template.html"
+PORTAL_LOGIN_TEMPLATE = PUBLIC / "portal/login/index.template.html"
 SITE_CONFIG = ROOT / "config/site.json"
 
 
@@ -45,6 +46,14 @@ def build() -> None:
     config = json.loads(SITE_CONFIG.read_text(encoding="utf-8"))
     html = html.replace("{{SOCIAL_LINKS}}", social_links_html(config.get("social_links")))
     (DIST / "index.html").write_text(html, encoding="utf-8")
+    portal_html = PORTAL_LOGIN_TEMPLATE.read_text(encoding="utf-8")
+    portal_html = portal_html.replace("{{GA4_TAG}}", google_tag())
+    portal_html = portal_html.replace("{{YEAR}}", str(datetime.now().year))
+    portal_html = portal_html.replace("{{ASSET_VERSION}}", version)
+    portal_html = portal_html.replace("{{SITE_URL}}", site_url)
+    portal_dir = DIST / "portal/login"
+    portal_dir.mkdir(parents=True, exist_ok=True)
+    (portal_dir / "index.html").write_text(portal_html, encoding="utf-8")
     urls = build_blog(DIST, html, site_url, version)
     (DIST / "version.txt").write_text(version, encoding="utf-8")
     (DIST / "sitemap.xml").write_text(

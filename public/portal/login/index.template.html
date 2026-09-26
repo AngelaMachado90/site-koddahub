@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  {{GA4_TAG}}
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Entrar no Portal KoddaHub</title>
+  <meta name="description" content="Acesse o Portal KoddaHub para gerenciar seus serviços e chamados em um só lugar.">
+  <meta name="theme-color" content="#4c1d95">
+  <meta name="robots" content="noindex,follow">
+  <link rel="canonical" href="{{SITE_URL}}/portal/login/">
+  <link rel="icon" type="image/webp" href="/assets/images/logo/koddahub-logo-128.webp">
+  <link rel="stylesheet" href="/assets/vendor/bootstrap/bootstrap.min.css?v={{ASSET_VERSION}}">
+  <link rel="stylesheet" href="/assets/css/koddahub-tokens.css?v={{ASSET_VERSION}}">
+  <link rel="stylesheet" href="/assets/css/style.css?v={{ASSET_VERSION}}">
+  <link rel="stylesheet" href="/assets/css/portal.css?v={{ASSET_VERSION}}">
+</head>
+<body class="portal-body">
+  <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+  <header class="portal-topbar">
+    <div class="container-xl d-flex align-items-center justify-content-between gap-3">
+      <a class="portal-brand" href="/" aria-label="KoddaHub — início">
+        <img src="/assets/images/logo/koddahub-logo-128.webp" width="44" height="44" alt="">
+        <span>Portal KoddaHub</span>
+      </a>
+      <a class="portal-back" href="/">Voltar ao site</a>
+    </div>
+  </header>
+  <main class="portal-main" id="conteudo">
+    <div class="container-xl portal-shell d-flex align-items-center">
+      <section class="portal-card w-100" aria-labelledby="loginTitle">
+        <div class="row g-0">
+          <div class="col-lg-6 portal-form-panel">
+            <p class="portal-eyebrow">Portal KoddaHub</p>
+            <h1 id="loginTitle">Acesse sua conta</h1>
+            <p class="portal-lead">Gerencie seus serviços e chamados em um só lugar.</p>
+            <div class="d-grid gap-3" aria-label="Opções de acesso social">
+              <button class="btn portal-social" type="button" data-auth-provider="google"><span class="provider-mark provider-mark-google" aria-hidden="true">G</span>Continuar com Google</button>
+              <button class="btn portal-social" type="button" data-auth-provider="linkedin"><span class="provider-mark" aria-hidden="true"><svg class="icon"><use href="/assets/images/icons/icons.svg#linkedin"></use></svg></span>Continuar com LinkedIn</button>
+            </div>
+            <div class="portal-divider" aria-hidden="true"><span>ou</span></div>
+            <form class="portal-form" id="portalLoginForm">
+              <div class="mb-3">
+                <label class="form-label" for="email">E-mail</label>
+                <input class="form-control" id="email" name="email" type="email" autocomplete="email" inputmode="email" required aria-describedby="loginStatus">
+              </div>
+              <div class="mb-2">
+                <label class="form-label" for="password">Senha</label>
+                <div class="password-field">
+                  <input class="form-control" id="password" name="password" type="password" autocomplete="current-password" required aria-describedby="loginStatus">
+                  <button class="password-toggle" type="button" data-password-toggle aria-label="Mostrar senha" aria-pressed="false"><span>Mostrar</span></button>
+                </div>
+              </div>
+              <div class="d-flex justify-content-end mb-4"><a class="portal-helper" href="/portal/recuperar-senha/">Esqueci minha senha</a></div>
+              <button class="btn btn-brand portal-submit w-100" type="submit">Entrar</button>
+              <p class="portal-status" id="loginStatus" role="status" aria-live="polite"></p>
+            </form>
+            <p class="portal-signup">Ainda não tem conta? <a href="/portal/cadastro/">Criar conta</a></p>
+          </div>
+          <div class="col-lg-6">
+            <aside class="portal-story" aria-label="Sobre o Portal KoddaHub">
+              <div class="portal-story-content">
+                <p class="portal-story-label">Portal KoddaHub</p>
+                <h2>Tecnologia sem <span>complicação.</span></h2>
+                <p>Gerencie serviços e suporte em um só lugar, com clareza em cada etapa.</p>
+              </div>
+            </aside>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+  <footer class="portal-footer"><p>© {{YEAR}} KoddaHub</p></footer>
+  <script src="/assets/js/portal-login.js?v={{ASSET_VERSION}}"></script>
+</body>
+</html>

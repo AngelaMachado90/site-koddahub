@@ -76,6 +76,7 @@ Por padrão, `SITE_URL` é `https://koddahub.com.br`, `CHAT_WEBHOOK_URL` fica va
 
 VAL prepara o Markdown editorial → revisão e aprovação → `status: published` com `publish_date` → build → `/blog/` e `/blog/<slug>/`. A fonte é `docs/editorial/**/*.md`; `scripts/blog.py` seleciona os textos e gera os HTMLs. Os estados previstos no fluxo editorial são `draft`, `review`, `scheduled`, `published` e `archived`. O build inclui `published` e `scheduled` somente quando `publish_date` chega; o agendamento depende de execução diária do build e deploy do blog. O rascunho inaugural fica em `docs/editorial/rascunhos/`, com status `draft`; sua imagem de referência fica em `docs/editorial/assets/`. Nenhum dos dois entra no site público enquanto estiver em revisão.
 
+| `/portal/login/` | Interface inicial de acesso ao Portal KoddaHub; autenticação ainda não implementada. |
 ### VAL — Valor, Autoridade e Linguagem Koddahub
 
 VAL é a identidade editorial usada na preparação dos conteúdos do blog, não uma pessoa humana. Metadados, templates, limites do Markdown e regras de publicação estão em [Arquitetura do Blog](docs/blog.md).
