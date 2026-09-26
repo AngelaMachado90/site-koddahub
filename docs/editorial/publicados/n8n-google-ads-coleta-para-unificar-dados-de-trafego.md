@@ -11,7 +11,7 @@ publish_date: 2026-09-02
 status: published
 originally_published_date: 2026-09-13
 author: VAL — Valor, Autoridade e Linguagem Koddahub
-cover: /assets/images/blog/n8n-google-ads-coleta.webp
+cover: /assets/images/blog/n8n-google-ads-coleta-para-unificar-dados-de-trafego.webp
 cover_alt: Cartões de campanhas passam por um nó de automação e chegam a uma base de dados organizada
 cover_width: 1672
 cover_height: 941

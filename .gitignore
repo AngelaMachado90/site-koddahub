@@ -4,3 +4,6 @@ __pycache__/
 
 # Logs locais de execução/evidências
 /logs/
+
+# Fontes editoriais locais das capas do Blog
+/docs/editorial/assets/capas-originais/

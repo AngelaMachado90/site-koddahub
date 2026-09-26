@@ -1,0 +1,47 @@
+{
+  "name": "linkedin_cover_heygen_koddahub",
+  "format": "webp",
+  "aspect_ratio": "16:9",
+  "size": {
+    "width": 1672,
+    "height": 941
+  },
+  "brand_rules": {
+    "use_official_koddahub_logo": true,
+    "do_not_redraw_koddahub_logo": true,
+    "do_not_recolor_koddahub_logo": true,
+    "do_not_distort_koddahub_logo": true,
+    "primary_color": "#7C3AED",
+    "accent_color": "#FACC15",
+    "text_color": "#FFFFFF",
+    "background_dark": "#111827"
+  },
+  "references": {
+    "koddahub_logo": "USE O ARQUIVO OFICIAL DA LOGO DA KODDAHUB",
+    "heygen_logo": "USE REFERÊNCIA VISUAL DO LOGO HEYGEN"
+  },
+  "prompt": "Crie uma capa editorial horizontal 16:9 para artigo do LinkedIn da KoddaHub sobre HeyGen. A composição deve ser moderna, tecnológica, humana e limpa, com acabamento premium editorial. Fundo escuro institucional com atmosfera noturna, iluminação suave azul e roxa, profundidade cinematográfica e ambiente de escritório moderno. No lado esquerdo, reservar uma grande área de texto com excelente legibilidade. Exibir no topo esquerdo o nome HeyGen com seu símbolo visual. Abaixo, em destaque, renderizar o título em tipografia forte e grande: 'HeyGen: vale criar vídeos com avatar?'. A palavra 'HeyGen:' deve aparecer em roxo institucional vibrante e o restante do título em branco. Abaixo do título, inserir o subtítulo em corpo menor, em branco, com leitura clara: 'Até onde vai a qualidade e quando realmente faz sentido usar essa tecnologia.'. Na parte inferior esquerda, inserir a logo OFICIAL da KoddaHub com a assinatura 'TECNOLOGIA QUE APROXIMA', usando exatamente a marca oficial, sem redesenhar, sem alterar cores, sem distorcer e sem estilizar novamente. No lado direito, mostrar uma mulher negra, adulta, profissional, com cabelo cacheado preso, usando roupa escura, sentada de costas em três quartos diante de uma mesa de trabalho, observando telas. Ela deve transmitir concentração, análise e olhar crítico. Sobre a mesa, mostrar um notebook aberto com interface de checklist/roteiro, com as etapas: Ideia, Roteiro, Geração, Revisão, Publicação. À frente dela, mostrar um monitor principal com interface inspirada em edição/criação de vídeo com avatar de IA, com miniaturas laterais de avatares e um vídeo central exibindo uma mulher falando. A interface deve parecer inspirada em uma ferramenta como HeyGen, mas com apresentação limpa e visual editorial. Adicionar um balão de destaque translúcido roxo próximo ao monitor com o texto: 'Do roteiro ao vídeo, com IA.'. À direita superior, incluir uma frase curta institucional em branco: 'Mais ideias. Menos barreiras.'. Ao fundo, incluir um quadro discreto e desfocado com as palavras: 'COMUNICAÇÃO', 'TREINAMENTO', 'CONHECIMENTO', 'SEM FRONTEIRAS'. Na mesa, incluir uma caneca escura com a frase 'Ideias em vídeos'. A direção visual deve seguir o design system da KoddaHub: roxo conduz, amarelo apenas destaca, neutros organizam. A imagem deve ter pouco texto além dos elementos principais, leitura clara em miniatura e aparência de capa profissional de artigo para LinkedIn.",
+  "negative_prompt": [
+    "não redesenhar a logo da KoddaHub",
+    "não criar mascote ou símbolo alternativo para a KoddaHub",
+    "não usar hacker com capuz",
+    "não usar robô humanoide genérico",
+    "não deixar a composição poluída",
+    "não usar excesso de texto",
+    "não distorcer a tipografia",
+    "não gerar aparência infantil",
+    "não usar cores fora da paleta principal",
+    "não transformar a cena em algo futurista exagerado",
+    "não trocar a mulher negra por outro perfil",
+    "não cortar o título principal",
+    "não sobrepor texto em áreas de baixa legibilidade"
+  ],
+  "style": {
+    "visual_style": "editorial corporativo premium",
+    "lighting": "cinematográfica, suave, noturna, com azul e roxo",
+    "mood": "profissional, humano, tecnológico, confiável",
+    "render_quality": "alta definição",
+    "composition": "texto forte à esquerda, personagem e telas à direita",
+    "typography": "forte, limpa, moderna, legível em miniatura"
+  }
+}

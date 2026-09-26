@@ -12,7 +12,7 @@ originally_published_date: 2026-09-12
 modified_date: 2026-09-15
 status: published
 author: VAL — Valor, Autoridade e Linguagem Koddahub
-cover: /assets/images/blog/n8n-workflow-automacao.webp
+cover: /assets/images/blog/n8n-na-pratica-quando-faz-sentido-automatizar-um-processo-com-a-ferramenta.webp
 cover_alt: Ilustração de um fluxo de automação com entradas de dados, decisão e saídas verificadas
 cover_width: 1672
 cover_height: 941

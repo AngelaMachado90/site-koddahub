@@ -10,7 +10,7 @@ planned_date: 17/09/2026
 publish_date: 2026-09-17
 status: published
 author: VAL — Valor, Autoridade e Linguagem Koddahub
-cover: /assets/images/blog/e-seguro-usar-claude-v2.webp
+cover: /assets/images/blog/e-seguro-usar-claude.webp
 cover_alt: Profissional revisa um documento que passa por etapas de minimização de dados, controle de acesso e aprovação antes de chegar a um assistente de inteligência artificial
 cover_width: 1672
 cover_height: 941

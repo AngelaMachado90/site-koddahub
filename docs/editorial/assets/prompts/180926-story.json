@@ -1,0 +1,71 @@
+{
+  "name": "story_instagram_heygen_koddahub",
+  "format": "png",
+  "aspect_ratio": "9:16",
+  "size": {
+    "width": 1080,
+    "height": 1920
+  },
+  "style": {
+    "visual_style": "editorial corporativo premium",
+    "lighting": "noturna, cinematográfica, aconchegante, com luz roxa e azul suave",
+    "mood": "tecnológico, profissional, humano, criativo",
+    "render_quality": "alta definição",
+    "composition": "story vertical para Instagram com tipografia forte no topo esquerdo e cena tecnológica ocupando metade inferior"
+  },
+  "prompt": "Crie uma arte vertical para Instagram Story, proporção 9:16, com visual editorial premium, tecnológico e humano, em ambiente noturno de escritório moderno. Fundo escuro com tons azul-marinho e roxo profundo, iluminação suave e cinematográfica. A composição deve ser muito semelhante a uma capa promocional de artigo da KoddaHub para Instagram Story.\n\nNo canto superior esquerdo, inserir a marca 'Koddahub' com o símbolo ilustrado exatamente no estilo que aparece na imagem de referência: um ícone colorido com mascote e letra K estilizada, seguido do texto 'Koddahub' em branco. Logo abaixo, inserir uma faixa arredondada horizontal roxa com ícone branco à esquerda e o texto em caixa alta: 'NOVO ARTIGO NO BLOG'.\n\nAbaixo da faixa, destacar o título principal em tipografia grande, pesada e altamente legível, com quebra de linha em blocos. Exibir: 'HeyGen:' em roxo vibrante, e abaixo, em branco, o restante do título: 'vale criar vídeos com avatar?'. O título deve ocupar grande parte da metade superior esquerda. Logo abaixo do título, inserir o subtítulo em branco com corpo menor: 'Até onde vai a qualidade e quando essa tecnologia realmente faz sentido?'. Inserir também um pequeno traço horizontal amarelo como detalhe gráfico abaixo do subtítulo.\n\nNo canto superior direito, inserir um pequeno bloco de texto institucional vertical em branco, alinhado à direita, com duas barrinhas finas verticais em roxo e amarelo à esquerda do bloco. O texto deve ser: 'IDEIAS', 'TECNOLOGIA', 'RESULTADOS', 'PARA QUEM CRIA'.\n\nAinda no lado direito superior, ao fundo, mostrar um quadro emoldurado desfocado com fundo claro e texto em preto: 'BOAS IDEIAS CRIAM NOVAS HISTÓRIAS', com um pequeno traço amarelo abaixo do texto.\n\nNa parte central e inferior da arte, mostrar uma mulher negra vista de costas em três quartos, com cabelo cacheado preso, blusa escura, sentada diante de uma mesa de trabalho. Ela está olhando para um monitor grande à sua frente. A mulher transmite concentração e análise. Na tela principal, mostrar uma interface inspirada no HeyGen, escura, moderna e organizada, com uma mulher de blazer lilás aparecendo no vídeo central. No topo esquerdo do monitor, escrever 'HeyGen'. No lado direito da interface do monitor, mostrar botões ou opções verticais com os textos: 'Avatar', 'Voz', 'Cenário', 'Legenda', 'Exportar'. No lado esquerdo da tela do vídeo central, inserir um pequeno bloco de texto em branco: 'Ideias ganham mais alcance com vídeo.'. Abaixo do vídeo, mostrar uma barra de progresso de player em roxo, com aparência de reprodutor de vídeo.\n\nSobre a mesa, à direita do monitor principal, mostrar um notebook aberto exibindo um checklist chamado 'Roteiro do vídeo'. Na tela do notebook, listar tarefas com pequenos checks roxos: 'Definir mensagem principal', 'Ajustar o roteiro', 'Revisar o avatar e a narração', 'Adicionar legendas', 'Publicar'. No lado direito da tela do notebook, inserir um pequeno texto manuscrito em cinza: 'Conteúdo que conecta pessoas', com um pequeno traço amarelo abaixo.\n\nNo lado direito da arte, em texto manuscrito branco inclinado, inserir as palavras: 'Roteiro', 'Revisão', 'Publicação', 'Resultados', com um pequeno traço amarelo abaixo.\n\nSobre a mesa, em frente ao notebook, inserir uma caneca preta com o texto branco: 'CRIADORES CONSTROEM O AMANHÃ'. No canto inferior direito da mesa, mostrar um caderno ou livro escuro com o texto branco: 'IDEIAS', 'PLANEJAMENTO', 'CONTEÚDO', 'RESULTADOS'.\n\nNa base da arte, centralizado, inserir um botão grande, arredondado, horizontal, com gradiente roxo vibrante e sem texto algum dentro. O botão deve estar vazio, apenas como área destacada para que o usuário possa sobrepor o link do Instagram depois. Não inserir 'Leia no blog' e não inserir 'Link na bio'.\n\nA paleta deve priorizar roxos vibrantes, branco, azul-marinho escuro e pequenos detalhes em amarelo. A tipografia deve ser forte, moderna e extremamente legível em mobile. O resultado deve parecer um story profissional de divulgação de artigo, com profundidade, realismo, elegância e composição bem equilibrada.",
+  "negative_prompt": [
+    "não adicionar texto no botão inferior",
+    "não escrever 'Leia no blog'",
+    "não escrever 'Link na bio'",
+    "não usar visual infantil",
+    "não usar estética futurista exagerada",
+    "não usar robôs humanoides genéricos",
+    "não poluir a composição",
+    "não reduzir a legibilidade do título",
+    "não mudar o enquadramento vertical",
+    "não trocar a personagem principal por homem",
+    "não usar cores fora da paleta roxo, branco, azul escuro e amarelo",
+    "não remover o quadro ao fundo",
+    "não remover o notebook com checklist",
+    "não remover a caneca",
+    "não remover o texto manuscrito lateral"
+  ],
+  "text_elements": {
+    "top_logo_text": "Koddahub",
+    "badge_text": "NOVO ARTIGO NO BLOG",
+    "main_title_highlight": "HeyGen:",
+    "main_title_rest": "vale criar vídeos com avatar?",
+    "subtitle": "Até onde vai a qualidade e quando essa tecnologia realmente faz sentido?",
+    "top_right_stack": [
+      "IDEIAS",
+      "TECNOLOGIA",
+      "RESULTADOS",
+      "PARA QUEM CRIA"
+    ],
+    "background_frame_text": "BOAS IDEIAS CRIAM NOVAS HISTÓRIAS",
+    "right_handwritten_text": [
+      "Roteiro",
+      "Revisão",
+      "Publicação",
+      "Resultados"
+    ],
+    "monitor_text": "Ideias ganham mais alcance com vídeo.",
+    "notebook_title": "Roteiro do vídeo",
+    "notebook_checklist": [
+      "Definir mensagem principal",
+      "Ajustar o roteiro",
+      "Revisar o avatar e a narração",
+      "Adicionar legendas",
+      "Publicar"
+    ],
+    "notebook_note": "Conteúdo que conecta pessoas",
+    "mug_text": "CRIADORES CONSTROEM O AMANHÃ",
+    "book_text": [
+      "IDEIAS",
+      "PLANEJAMENTO",
+      "CONTEÚDO",
+      "RESULTADOS"
+    ]
+  }
+}

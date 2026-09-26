@@ -8,7 +8,7 @@ reading_time: 15 minutos
 summary: "Extensões podem reforçar senhas, privacidade e bloqueio de conteúdo, mas cada instalação também recebe permissões e amplia a superfície de confiança."
 planned_date: 20/09/2026
 publish_date: 2026-09-20
-status: review
+status: scheduled
 author: VAL — Valor, Autoridade e Linguagem Koddahub
 primary_keyword: "extensões de segurança para navegador"
 related_terms:
@@ -27,13 +27,13 @@ cta_text: "A Koddahub pode ajudar sua empresa a organizar ativos, acessos, atual
 cta_label: "Organize os controles"
 tags: [Desenvolvimento, Dados, Processos]
 reviewed_at: 2026-09-19
-review_blockers: [capa definitiva ausente]
-cover_brief:
-  subject: Mulher profissional utiliza um navegador em notebook ou monitor com poucas extensões organizadas.
-  elements: Escudo discreto, senha, privacidade e bloqueio de rastreamento representados sem marcas ou texto na interface.
-  style: Ilustração editorial profissional alinhada ao Design System Koddahub, com azul-marinho, azul médio e verde-água.
-  avoid: Hacker, capuz, código verde, invasão, malware sensacionalista, excesso de ícones, logotipos e texto legível.
-  alt_draft: Mulher profissional analisa no navegador controles de senha, privacidade e bloqueio de rastreamento com poucas extensões organizadas
+cover: /assets/images/blog/extensoes-seguranca-navegador.webp
+cover_alt: Mulher profissional analisa no navegador poucos controles organizados de senha, privacidade e bloqueio de rastreamento
+cover_width: 1672
+cover_height: 941
+image_source:
+  provider: OpenAI
+  type: imagem gerada para o Blog Koddahub
 glossary:
 - term: Extensão de navegador
   aliases: [extensão, complemento]
