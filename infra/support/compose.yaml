@@ -1,0 +1,94 @@
+name: koddahub-support
+
+services:
+  api:
+    build:
+      context: ../..
+      dockerfile: backend/Dockerfile
+    container_name: koddahub-support-api
+    restart: unless-stopped
+    env_file:
+      - /srv/koddahub/support/runtime/hml.env
+    environment:
+      SUPPORT_ENVIRONMENT: development
+      SUPPORT_DB_HOST: db
+      SUPPORT_DB_PORT: "5432"
+      SUPPORT_DB_NAME: koddahub_support
+      SUPPORT_DB_USER: koddahub_support_app
+      SUPPORT_DB_PASSWORD_FILE: /run/secrets/postgres_app_password
+      SUPPORT_CORS_ORIGINS: http://127.0.0.1:8000
+      SUPPORT_DEV_IDENTITY_ENABLED: "true"
+    secrets:
+      - postgres_app_password
+    ports:
+      - 127.0.0.1:8011:8000
+    networks:
+      - support_db
+      - support_api
+    depends_on:
+      db:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/health', timeout=3)"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 15s
+    read_only: true
+    tmpfs:
+      - /tmp
+    security_opt:
+      - no-new-privileges:true
+
+  db:
+    image: postgres@sha256:cf78e76683b9ca8c5733cbbdce6c9262b45b6767934dd0a95e671f9a0fc20685
+    container_name: koddahub-support-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD_FILE: /run/secrets/postgres_admin_password
+      TZ: America/Sao_Paulo
+    secrets:
+      - postgres_admin_password
+      - postgres_app_password
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./initdb:/docker-entrypoint-initdb.d:ro
+      - ./scripts:/opt/koddahub-support/scripts:ro
+      - /srv/koddahub/support/backups:/backups
+    networks:
+      - support_db
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - >-
+          test "$$(psql -U postgres -d postgres -Atqc
+          "SELECT 1 FROM pg_catalog.pg_database WHERE datname = 'koddahub_support'")"
+          = "1" && psql -U postgres -d koddahub_support -Atqc "SELECT 1" >/dev/null
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
+    shm_size: 128mb
+    security_opt:
+      - no-new-privileges:true
+
+networks:
+  support_db:
+    name: koddahub-support-db
+    driver: bridge
+    internal: true
+  support_api:
+    name: koddahub-support-api
+    driver: bridge
+
+volumes:
+  postgres_data:
+    name: koddahub-support-postgres-data
+
+secrets:
+  postgres_admin_password:
+    file: /srv/koddahub/support/secrets/postgres_admin_password
+  postgres_app_password:
+    file: /srv/koddahub/support/secrets/postgres_app_password
