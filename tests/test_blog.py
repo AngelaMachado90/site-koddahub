@@ -358,11 +358,71 @@ publish_date: 2026-01-01
 
     def test_social_links_render_only_confirmed_supported_urls(self):
         self.assertEqual(social_links_html([]), '')
-        rendered = social_links_html([{'network': 'linkedin', 'url': 'https://www.linkedin.com/company/koddahub'}])
+
+        rendered = social_links_html([
+            {
+                'network': 'instagram',
+                'url': 'https://www.instagram.com/koddahub/',
+            },
+            {
+                'network': 'linkedin',
+                'url': 'https://www.linkedin.com/company/koddahub/',
+            },
+            {
+                'network': 'email',
+                'url': 'mailto:contato@koddahub.com.br',
+            },
+        ])
+
+        self.assertIn('https://www.instagram.com/koddahub/', rendered)
+        self.assertIn('aria-label="Koddahub no Instagram"', rendered)
+        self.assertIn('icons.svg#instagram', rendered)
+
+        self.assertIn(
+            'https://www.linkedin.com/company/koddahub/',
+            rendered,
+        )
         self.assertIn('aria-label="Koddahub no LinkedIn"', rendered)
-        self.assertIn('target="_blank" rel="noopener noreferrer"', rendered)
+        self.assertIn('icons.svg#linkedin', rendered)
+
+        self.assertIn('mailto:contato@koddahub.com.br', rendered)
+        self.assertIn(
+            'aria-label="Enviar e-mail para a Koddahub"',
+            rendered,
+        )
+        self.assertIn('icons.svg#envelope-fill', rendered)
+
+        email_link = rendered.split(
+            'href="mailto:contato@koddahub.com.br"',
+            1,
+        )[1].split('</a>', 1)[0]
+
+        self.assertNotIn('target="_blank"', email_link)
+        self.assertNotIn('rel="noopener noreferrer"', email_link)
+
         with self.assertRaisesRegex(ValueError, 'URL oficial inválida'):
-            social_links_html([{'network': 'linkedin', 'url': 'https://example.com/koddahub'}])
+            social_links_html([
+                {
+                    'network': 'linkedin',
+                    'url': 'https://example.com/koddahub',
+                }
+            ])
+
+        with self.assertRaisesRegex(ValueError, 'Endereço de e-mail inválido'):
+            social_links_html([
+                {
+                    'network': 'email',
+                    'url': 'https://koddahub.com.br',
+                }
+            ])
+
+        with self.assertRaisesRegex(ValueError, 'Rede social não suportada'):
+            social_links_html([
+                {
+                    'network': 'javascript',
+                    'url': 'javascript:alert(1)',
+                }
+            ])
 
     def test_article_share_has_accessible_fallback_actions(self):
         rendered = article_share_html({'title': 'Artigo de exemplo'})

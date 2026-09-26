@@ -47,19 +47,64 @@ def e(value):
 
 def social_links_html(items):
     links = []
+
     for item in items or []:
         network = str(item.get("network", "")).lower()
         url = str(item.get("url", ""))
+
+        if network == "email":
+            parsed = urlparse(url)
+            address = parsed.path
+
+            if (
+                parsed.scheme != "mailto"
+                or not address
+                or "@" not in address
+                or parsed.params
+                or parsed.query
+                or parsed.fragment
+            ):
+                raise ValueError("Endereço de e-mail inválido")
+
+            links.append(
+                f'<a class="social-link" href="{e(url)}" '
+                'aria-label="Enviar e-mail para a Koddahub">'
+                '<svg class="icon" aria-hidden="true">'
+                '<use href="/assets/images/icons/icons.svg#envelope-fill"></use>'
+                '</svg></a>'
+            )
+            continue
+
         if network not in SOCIAL_NETWORKS:
             raise ValueError(f"Rede social não suportada: {network}")
+
         label, expected_host = SOCIAL_NETWORKS[network]
         parsed = urlparse(url)
-        if parsed.scheme != "https" or not (parsed.hostname == expected_host or parsed.hostname.endswith("." + expected_host)):
+
+        if parsed.scheme != "https" or not (
+            parsed.hostname == expected_host
+            or parsed.hostname.endswith("." + expected_host)
+        ):
             raise ValueError(f"URL oficial inválida para {label}")
-        links.append(f'<a class="social-link" href="{e(url)}" target="_blank" rel="noopener noreferrer" aria-label="Koddahub no {label}"><svg class="icon" aria-hidden="true"><use href="/assets/images/icons/icons.svg#{network}"></use></svg></a>')
+
+        links.append(
+            f'<a class="social-link" href="{e(url)}" '
+            'target="_blank" rel="noopener noreferrer" '
+            f'aria-label="Koddahub no {label}">'
+            '<svg class="icon" aria-hidden="true">'
+            f'<use href="/assets/images/icons/icons.svg#{network}"></use>'
+            '</svg></a>'
+        )
+
     if not links:
         return ""
-    return '<nav class="footer-social" aria-label="Redes sociais"><span>Siga a Koddahub</span><div>' + ''.join(links) + '</div></nav>'
+
+    return (
+        '<nav class="footer-social" aria-label="Redes sociais">'
+        '<span>Siga a Koddahub</span><div>'
+        + ''.join(links)
+        + '</div></nav>'
+    )
 
 
 def article_share_html(item):

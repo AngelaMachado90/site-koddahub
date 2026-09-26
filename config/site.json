@@ -1,3 +1,16 @@
 {
-  "social_links": []
+  "social_links": [
+    {
+      "network": "instagram",
+      "url": "https://www.instagram.com/koddahub/"
+    },
+    {
+      "network": "linkedin",
+      "url": "https://www.linkedin.com/company/koddahub/"
+    },
+    {
+      "network": "email",
+      "url": "mailto:contato@koddahub.com.br"
+    }
+  ]
 }
