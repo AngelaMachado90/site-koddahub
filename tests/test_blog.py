@@ -5,7 +5,7 @@ from datetime import date
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'scripts'))
-from blog import article_share_html, article_taxonomy_html, articles, build_blog, card_html, didactic_visual_html, glossary_context, glossary_html, markdown, normalized_term, page_context_html, related_articles, social_links_html, source_links
+from blog import article_share_html, article_taxonomy_html, articles, build_blog, card_html, didactic_visual_html, glossary_context, glossary_html, home_featured_articles_html, markdown, normalized_term, page_context_html, related_articles, social_links_html, source_links
 from publish_due import due_articles
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -277,6 +277,24 @@ Texto insuficiente.
             headings = ['O que é?', 'Exemplo simples', 'Por que importa?', 'Como funciona?', 'Exemplo real', 'O que fazer com isso?']
             positions = [rpa.index(f'<h2>{heading}</h2>') for heading in headings]
             self.assertEqual(positions, sorted(positions))
+
+    def test_home_uses_three_latest_published_articles(self):
+        latest = articles()[:3]
+        rendered = home_featured_articles_html(latest)
+
+        self.assertEqual(rendered.count('class="home-blog-card h-100"'), 3)
+        self.assertEqual(rendered.count('data-blog-featured-link'), 3)
+        for position, item in enumerate(latest, start=1):
+            self.assertIn(f'href="/blog/{item["slug"]}/"', rendered)
+            self.assertIn(f'data-article-position="{position}"', rendered)
+            self.assertIn(f'alt="{item["cover_alt"]}"', rendered)
+        self.assertLess(rendered.index(latest[0]['title']), rendered.index(latest[1]['title']))
+
+    def test_home_blog_tracking_reuses_global_ga4(self):
+        script = (ROOT/'public/assets/js/site.js').read_text(encoding='utf-8')
+        self.assertIn('"blog_featured_click"', script)
+        self.assertIn('"blog_view_all_click"', script)
+        self.assertIn('source: "home"', script)
 
     def test_published_article_and_seo(self):
         with tempfile.TemporaryDirectory() as temporary:

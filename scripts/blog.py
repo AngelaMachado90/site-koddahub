@@ -493,6 +493,23 @@ def card_html(item, featured=False, position=1):
     return f'''<div class="col-md-6 col-xl-4"><article class="card blog-card h-100" {taxonomy_attrs}><a class="blog-card-link d-flex flex-column h-100" href="{url}" aria-label="Ler artigo: {title}">{media}<div class="blog-card-body d-flex flex-column flex-grow-1">{taxonomy}<h3 class="blog-card-title">{title}</h3><p class="blog-card-summary">{summary}</p><div class="mt-auto">{meta}<span class="blog-read-link">Ler artigo <span aria-hidden="true">→</span></span></div></div></a></article></div>'''
 
 
+def home_featured_articles_html(entries=None, limit=3):
+    """Renderiza os artigos mais recentes da fonte editorial na home."""
+    selected = (entries if entries is not None else articles())[:limit]
+    cards = []
+
+    for position, item in enumerate(selected, start=1):
+        title = e(item["title"])
+        slug = e(item["slug"])
+        url = f"/blog/{slug}/"
+        cover = versioned_asset(item["cover"])
+        cards.append(
+            f'''<div class="col-md-6 col-xl-4"><article class="home-blog-card h-100"><a class="home-blog-card__link d-flex flex-column h-100" href="{url}" data-blog-featured-link data-article-slug="{slug}" data-article-title="{title}" data-article-position="{position}"><div class="home-blog-card__media"><img src="{e(cover)}" width="{e(item['cover_width'])}" height="{e(item['cover_height'])}" alt="{e(item['cover_alt'])}" loading="lazy" decoding="async"></div><div class="home-blog-card__body d-flex flex-column flex-grow-1"><span class="home-blog-card__category">{e(item['category'])}</span><h3>{title}</h3><p>{e(item['summary'])}</p><span class="home-blog-card__cta mt-auto">Ler artigo <span aria-hidden="true">→</span></span></div></a></article></div>'''
+        )
+
+    return ''.join(cards)
+
+
 def article_taxonomy_html(item):
     tags = ''.join(f'<span class="blog-tag">{e(tag)}</span>' for tag in item.get('tags') or [] if tag != item['category'])
     return f'<span class="blog-category">{e(item["category"])}</span>{tags}'

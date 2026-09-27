@@ -32,6 +32,29 @@
   animatedGroups.forEach((element) => revealObserver.observe(element));
 })();
 
+/* Descoberta editorial na home: usa o GA4 já carregado pelo build. */
+(function () {
+  "use strict";
+
+  document.addEventListener("click", (event) => {
+    const articleLink = event.target.closest("[data-blog-featured-link]");
+    const viewAllLink = event.target.closest("[data-blog-view-all]");
+    if (typeof window.gtag !== "function" || (!articleLink && !viewAllLink)) return;
+
+    if (articleLink) {
+      window.gtag("event", "blog_featured_click", {
+        article_slug: articleLink.dataset.articleSlug,
+        article_title: articleLink.dataset.articleTitle,
+        position: Number(articleLink.dataset.articlePosition),
+        source: "home"
+      });
+      return;
+    }
+
+    window.gtag("event", "blog_view_all_click", { source: "home" });
+  });
+})();
+
 /* Chat de atendimento: o endpoint e injetado pelo build conforme o ambiente. */
 (function () {
   "use strict";

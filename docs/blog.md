@@ -78,6 +78,12 @@ O card em destaque é sempre o artigo com a data de publicação mais recente;
 em caso de empate, o slug define uma ordem estável. Não há slug fixo de destaque.
 O título “Outras publicações” separa o destaque da grade e aparece apenas
 quando existe pelo menos mais um artigo.
+Na home institucional, a seção “Conteúdos KoddaHub” é gerada no build com os
+três artigos públicos mais recentes, usando a mesma ordenação, os mesmos
+metadados e as mesmas capas da fonte editorial. Não é necessário editar a home
+ao publicar um novo artigo. Cliques nos cards disparam `blog_featured_click`
+com slug, título, posição e `source: home`; o CTA da listagem dispara
+`blog_view_all_click`. A exibição do card não incrementa visualizações.
 O cabeçalho, rodapé e chatbot são derivados do template institucional durante
 o build. O CSS complementar está em `public/assets/css/blog.css`; Bootstrap
 5.3 continua a base do grid e dos componentes.
