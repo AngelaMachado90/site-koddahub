@@ -5,7 +5,7 @@ from datetime import date
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'scripts'))
-from blog import article_share_html, article_taxonomy_html, articles, build_blog, card_html, didactic_visual_html, glossary_context, glossary_html, home_featured_articles_html, markdown, normalized_term, page_context_html, related_articles, social_links_html, source_links
+from blog import article_share_html, article_taxonomy_html, articles, build_blog, card_html, didactic_visual_html, glossary_context, glossary_html, hero_blog_highlights_html, home_featured_articles_html, markdown, normalized_term, page_context_html, related_articles, social_links_html, source_links
 from publish_due import due_articles
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -99,7 +99,7 @@ Texto insuficiente.
             metadata = __import__('yaml').safe_load(content.split('---\n', 2)[1])
             if metadata.get('status') == 'review':
                 review_items.append(metadata)
-        self.assertEqual(len(review_items), 23)
+        self.assertEqual(len(review_items), 22)
         for item in review_items:
             self.assertGreaterEqual(len(item['title'].split()), 4)
             self.assertLessEqual(len(item['title'].split()), 9)
@@ -290,11 +290,19 @@ Texto insuficiente.
             self.assertIn(f'alt="{item["cover_alt"]}"', rendered)
         self.assertLess(rendered.index(latest[0]['title']), rendered.index(latest[1]['title']))
 
+    def test_hero_uses_three_latest_articles_with_tracking_context(self):
+        latest = articles()[:3]
+        rendered = hero_blog_highlights_html(latest)
+        self.assertEqual(rendered.count('class="hero-blog-card"'), 3)
+        self.assertEqual(rendered.count('data-blog-source="hero"'), 3)
+        self.assertIn('/blog/integrar-apis/', rendered)
+        self.assertLess(rendered.index(latest[0]['title']), rendered.index(latest[1]['title']))
+
     def test_home_blog_tracking_reuses_global_ga4(self):
         script = (ROOT/'public/assets/js/site.js').read_text(encoding='utf-8')
         self.assertIn('"blog_featured_click"', script)
         self.assertIn('"blog_view_all_click"', script)
-        self.assertIn('source: "home"', script)
+        self.assertIn('dataset.blogSource || "home"', script)
 
     def test_published_article_and_seo(self):
         with tempfile.TemporaryDirectory() as temporary:

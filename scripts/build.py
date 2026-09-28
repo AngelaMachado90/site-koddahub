@@ -9,7 +9,7 @@ from html import escape
 from pathlib import Path
 from urllib.parse import urlparse
 
-from blog import build_blog, google_tag, home_featured_articles_html, social_links_html
+from blog import build_blog, google_tag, hero_blog_highlights_html, home_featured_articles_html, social_links_html
 
 ROOT = Path(__file__).resolve().parents[1]
 PUBLIC = ROOT / "public"
@@ -52,6 +52,7 @@ def build() -> None:
     html = html.replace("{{SITE_URL}}", site_url)
     html = html.replace("{{CHAT_WEBHOOK_URL}}", escape(chat_webhook_url, quote=True))
     html = html.replace("{{HOME_FEATURED_ARTICLES}}", home_featured_articles_html())
+    html = html.replace("{{HERO_BLOG_HIGHLIGHTS}}", hero_blog_highlights_html())
     config = json.loads(SITE_CONFIG.read_text(encoding="utf-8"))
     html = html.replace("{{SOCIAL_LINKS}}", social_links_html(config.get("social_links")))
     (DIST / "index.html").write_text(html, encoding="utf-8")

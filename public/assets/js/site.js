@@ -46,12 +46,12 @@
         article_slug: articleLink.dataset.articleSlug,
         article_title: articleLink.dataset.articleTitle,
         position: Number(articleLink.dataset.articlePosition),
-        source: "home"
+        source: articleLink.dataset.blogSource || "home"
       });
       return;
     }
 
-    window.gtag("event", "blog_view_all_click", { source: "home" });
+    window.gtag("event", "blog_view_all_click", { source: viewAllLink.dataset.blogSource || "home" });
   });
 })();
 

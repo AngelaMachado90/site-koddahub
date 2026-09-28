@@ -510,6 +510,17 @@ def home_featured_articles_html(entries=None, limit=3):
     return ''.join(cards)
 
 
+def hero_blog_highlights_html(entries=None, limit=3):
+    """Renderiza destaques editoriais compactos dentro do hero da home."""
+    selected = (entries if entries is not None else articles())[:limit]
+    links = []
+    for position, item in enumerate(selected, start=1):
+        links.append(
+            f'''<a class="hero-blog-card" href="/blog/{e(item['slug'])}/" data-blog-featured-link data-blog-source="hero" data-article-slug="{e(item['slug'])}" data-article-title="{e(item['title'])}" data-article-position="{position}"><span class="hero-blog-card__meta">{e(item['category'])}<span aria-hidden="true"> · </span><time datetime="{e(item['publish_date'])}">{e(format_date_pt(item['publish_date']))}</time></span><strong>{e(item['title'])}</strong><span class="hero-blog-card__cta">Ler artigo <span aria-hidden="true">→</span></span></a>'''
+        )
+    return ''.join(links)
+
+
 def article_taxonomy_html(item):
     tags = ''.join(f'<span class="blog-tag">{e(tag)}</span>' for tag in item.get('tags') or [] if tag != item['category'])
     return f'<span class="blog-category">{e(item["category"])}</span>{tags}'
